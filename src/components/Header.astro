@@ -1,65 +1,176 @@
 ---
-import { Menu, X } from '@lucide/astro';
+import { ArrowUpRight } from '@lucide/astro';
+import NavIcon from './NavIcon.astro';
 import { site, nav } from '../config/site';
 
 const path = Astro.url.pathname;
-const isCurrent = (href: string) => !href.includes('#') && href !== '/' && path.startsWith(href);
+const initial = path.startsWith('/grc') ? 'grc' : path.startsWith('/projects') ? 'projects' : path.startsWith('/contact') ? 'contact' : 'home';
+
+// Phones get a bottom bar with five slots; the rest live under "More".
+const mobileKeys = ['home', 'about', 'projects', 'contact'];
+const mobileMain = nav.filter((n) => mobileKeys.includes(n.key));
+const moreItems = nav.filter((n) => !mobileKeys.includes(n.key));
+const moreKeys = moreItems.map((n) => n.key);
+const mobileInitial = moreKeys.includes(initial) ? 'more' : initial;
 ---
 
-<header class="sticky top-3 z-50 px-3 sm:px-4">
-  <div class="glass mx-auto flex h-14 max-w-[76rem] items-center justify-between gap-4 rounded-2xl pl-3 pr-2 sm:pl-4">
-    <a href="/" class="flex items-center gap-3 font-semibold tracking-tight" aria-label={`${site.name}, home`}>
-      <img src="/logo.png" alt="" width="459" height="330" class="h-9 w-auto" aria-hidden="true" />
-      <span class="hidden sm:inline">{site.name}</span>
+<header class="site-header" id="site-header">
+  <div class="wrap header-grid">
+    <!-- Logo, outside the navbar -->
+    <a href="/#top" class="logo-link" aria-label={`${site.name}, home`}>
+      <img src="/logo.png" alt="" width="459" height="330" />
     </a>
 
-    <nav aria-label="Main" data-nav class="hidden items-center gap-0.5 lg:flex">
-      {nav.map((item) => (
-        <a
-          href={item.href}
-          aria-current={isCurrent(item.href) ? 'page' : undefined}
-          class="rounded-lg px-3 py-2 text-[0.92rem] text-muted transition-colors hover:bg-white/5 hover:text-ink aria-[current]:bg-accent-soft aria-[current]:text-accent"
-        >
-          {item.label}
-        </a>
-      ))}
+    <!-- Desktop navbar -->
+    <nav class="navbar navbar-desktop" aria-label="Main" data-bar="desktop" data-initial={initial}>
+      <div class="navbar-bg" aria-hidden="true"></div>
+      <ul class="navbar-list">
+        {nav.map((item, i) => (
+          <li>
+            <a href={item.href} data-key={item.key} style={`--i:${i}`} class:list={['bar-item', item.key === initial && 'is-active']}>
+              <NavIcon name={item.key} class="bar-icon" />
+              <span class="bar-label">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="notch-fill" aria-hidden="true"></div>
+      <div class="bubble" aria-hidden="true">
+        {nav.map((item) => (
+          <span data-icon={item.key} class:list={['bubble-icon', item.key === initial && 'is-active']}><NavIcon name={item.key} /></span>
+        ))}
+      </div>
     </nav>
 
-    <div class="flex items-center gap-2">
-      <a href="/#contact" class="btn btn-primary hidden !px-4 !py-2 text-sm sm:inline-flex">Hire me</a>
-      <button id="menu-toggle" type="button" class="icon-btn !h-10 !w-10 lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-        <Menu class="h-5 w-5" id="icon-open" aria-hidden="true" />
-        <X class="hidden h-5 w-5" id="icon-close" aria-hidden="true" />
-      </button>
-    </div>
+    <!-- Hire me, outside the navbar -->
+    <a href="/#contact" class="cta-gradient group">
+      Hire me
+      <ArrowUpRight class="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+    </a>
+  </div>
+</header>
+
+<!-- Phone navbar: fixed to the bottom of the screen -->
+<div class="navbar-mobile-wrap no-print">
+  <div id="more-panel" class="more-panel glass">
+    {moreItems.map((item) => (
+      <a href={item.href} data-target={item.key} class:list={['more-link', item.key === initial && 'is-active']}>
+        <NavIcon name={item.key} class="h-5 w-5" />
+        {item.label}
+      </a>
+    ))}
   </div>
 
-  <nav id="mobile-menu" aria-label="Mobile" data-nav class="glass mx-auto mt-2 hidden max-w-[76rem] rounded-2xl lg:hidden">
-    <ul class="flex flex-col p-2">
-      {nav.map((item) => (
+  <nav class="navbar navbar-mobile" aria-label="Main" data-bar="mobile" data-initial={mobileInitial}>
+    <div class="navbar-bg" aria-hidden="true"></div>
+    <ul class="navbar-list">
+      {mobileMain.map((item, i) => (
         <li>
-          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined} class="block rounded-lg px-3 py-3 text-lg hover:bg-white/5 aria-[current]:text-accent">
-            {item.label}
+          <a href={item.href} data-key={item.key} style={`--i:${i}`} class:list={['bar-item', item.key === mobileInitial && 'is-active']}>
+            <NavIcon name={item.key} class="bar-icon" />
+            <span class="bar-label">{item.label}</span>
           </a>
         </li>
       ))}
+      <li>
+        <button type="button" id="more-toggle" data-key="more" style={`--i:${mobileMain.length}`} aria-expanded="false" aria-controls="more-panel" class:list={['bar-item', mobileInitial === 'more' && 'is-active']}>
+          <NavIcon name="more" class="bar-icon" />
+          <span class="bar-label">More</span>
+        </button>
+      </li>
     </ul>
+    <div class="notch-fill" aria-hidden="true"></div>
+    <div class="bubble" aria-hidden="true">
+      {[...mobileMain.map((n) => n.key), 'more'].map((key) => (
+        <span data-icon={key} class:list={['bubble-icon', key === mobileInitial && 'is-active']}><NavIcon name={key} /></span>
+      ))}
+    </div>
   </nav>
-</header>
+</div>
 
 <script>
-  const menuBtn = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const open = document.getElementById('icon-open');
-  const close = document.getElementById('icon-close');
-  const setMenu = (isOpen: boolean) => {
-    menu?.classList.toggle('hidden', !isOpen);
-    open?.classList.toggle('hidden', isOpen);
-    close?.classList.toggle('hidden', !isOpen);
-    menuBtn?.setAttribute('aria-expanded', String(isOpen));
-    menuBtn?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  const bars = Array.from(document.querySelectorAll<HTMLElement>('[data-bar]'));
+  const header = document.getElementById('site-header');
+  const moreKeys = ['leadership', 'education', 'events', 'grc'];
+  const mobileBar = bars.find((b) => b.dataset.bar === 'mobile');
+  const panel = document.getElementById('more-panel');
+  const moreBtn = document.getElementById('more-toggle');
+
+  let current = bars[0]?.dataset.initial ?? 'home';
+  let lock = 0; // while a click-triggered scroll runs, ignore the scroll observer
+
+  // Move the floating bubble (and the notch cut into the bar) under the active item
+  function place(bar: HTMLElement, key: string) {
+    const k = bar.dataset.bar === 'mobile' && moreKeys.includes(key) ? 'more' : key;
+    const items = Array.from(bar.querySelectorAll<HTMLElement>('[data-key]'));
+    items.forEach((it) => {
+      const on = it.dataset.key === k;
+      it.classList.toggle('is-active', on);
+      if (on) it.setAttribute('aria-current', 'true');
+      else it.removeAttribute('aria-current');
+    });
+    bar.querySelectorAll<HTMLElement>('[data-icon]').forEach((i) => i.classList.toggle('is-active', i.dataset.icon === k));
+    const target = items.find((it) => it.dataset.key === k);
+    if (target) {
+      const b = bar.getBoundingClientRect();
+      const t = target.getBoundingClientRect();
+      bar.style.setProperty('--cx', `${t.left - b.left + t.width / 2}px`);
+    }
+  }
+
+  function setActive(key: string) {
+    current = key;
+    bars.forEach((b) => place(b, key));
+    document.querySelectorAll<HTMLElement>('.more-link').forEach((l) => l.classList.toggle('is-active', l.dataset.target === key));
+  }
+
+  // First placement has no transition; then switch the animation on
+  bars.forEach((bar) => {
+    place(bar, current);
+    requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add('ready')));
+    new ResizeObserver(() => place(bar, panel?.classList.contains('open') && bar === mobileBar ? 'more' : current)).observe(bar);
+  });
+
+  // Highlight the section in view (home page only: other pages have no matching ids)
+  const sectionKey: Record<string, string> = { top: 'home', about: 'about', leadership: 'leadership', education: 'education', projects: 'projects', events: 'events', contact: 'contact' };
+  const sections = Object.keys(sectionKey).map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+  if (sections.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (performance.now() < lock) return;
+        entries.forEach((en) => { if (en.isIntersecting) setActive(sectionKey[en.target.id]); });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+  }
+
+  // Clicking an in-page link moves the bubble straight away
+  document.querySelectorAll<HTMLAnchorElement>('a[data-key], .more-link').forEach((a) => {
+    a.addEventListener('click', () => {
+      const key = a.dataset.key ?? a.dataset.target;
+      const href = a.getAttribute('href') ?? '';
+      if (key && href.startsWith('/#') && location.pathname === '/') {
+        lock = performance.now() + 900;
+        setActive(key);
+      }
+    });
+  });
+
+  // "More" menu on phones
+  const setMore = (open: boolean) => {
+    panel?.classList.toggle('open', open);
+    moreBtn?.setAttribute('aria-expanded', String(open));
+    if (mobileBar) place(mobileBar, open ? 'more' : current);
   };
-  menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
-  menu?.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setMenu(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  moreBtn?.addEventListener('click', (e) => { e.stopPropagation(); setMore(!panel?.classList.contains('open')); });
+  panel?.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setMore(false); });
+  document.addEventListener('click', (e) => { if (!(e.target as HTMLElement).closest('#more-panel')) setMore(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMore(false); });
+
+  // Give the logo a glass chip once the page scrolls under it
+  let ticking = false;
+  const onScroll = () => { header?.classList.toggle('is-scrolled', scrollY > 24); ticking = false; };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
 </script>

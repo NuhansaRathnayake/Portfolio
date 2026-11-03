@@ -1,0 +1,22 @@
+---
+import { House, User, Users, GraduationCap, FolderKanban, CalendarDays, ShieldCheck, Mail, LayoutGrid } from '@lucide/astro';
+
+interface Props { name: string; class?: string }
+
+const icons = {
+  home: House,
+  about: User,
+  leadership: Users,
+  education: GraduationCap,
+  projects: FolderKanban,
+  events: CalendarDays,
+  grc: ShieldCheck,
+  contact: Mail,
+  more: LayoutGrid,
+} as const;
+
+const { name, class: cls } = Astro.props;
+const Icon = icons[name as keyof typeof icons] ?? House;
+---
+
+<Icon class={cls} aria-hidden="true" />

@@ -135,22 +135,4 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   update();
-
-  // Highlight the nav link of the section in view (home page only)
-  const sections = ['about', 'leadership', 'education', 'projects', 'events', 'contact']
-    .map((id) => document.getElementById(id))
-    .filter((el): el is HTMLElement => !!el);
-  if (sections.length && 'IntersectionObserver' in window) {
-    const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav] a');
-    const sio = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (!en.isIntersecting) return;
-        links.forEach((a) => {
-          if (a.getAttribute('href') === `/#${en.target.id}`) a.setAttribute('aria-current', 'true');
-          else if (a.getAttribute('href')?.startsWith('/#')) a.removeAttribute('aria-current');
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    sections.forEach((s) => sio.observe(s));
-  }
 </script>
