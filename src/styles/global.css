@@ -5,41 +5,56 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* ---------- Design tokens ----------
-   Palette is built around a cool paper white and deep teal-ink.
-   Red / amber / green are reserved for risk status only, never decoration. */
+   Palette: teal, white, grey and black only.
+   Risk status is carried by words first, then by shade: black = High, grey = Medium, teal = Low. */
 :root {
-  --paper: #f5f8f7;
+  --paper: #f5f6f6;
   --surface: #ffffff;
-  --ink: #14232b;
-  --muted: #4f6168;
-  --line: #d3dddb;
-  --accent: #0a6c6c;
-  --accent-soft: #dff0ee;
+  --ink: #0b0d0e;
+  --muted: #4a5254;
+  --line: #dde1e2;
+  --accent: #0f766e;
+  --accent-soft: #ddf1ee;
   --on-accent: #ffffff;
-  --risk-high: #b23a28;
-  --risk-high-soft: #f8e1dc;
-  --risk-med: #8a5a00;
-  --risk-med-soft: #fbedc9;
-  --risk-low: #2b7048;
-  --risk-low-soft: #dcefe3;
+  --risk-high: #0b0d0e;
+  --risk-high-soft: #0b0d0e;
+  --risk-med: #3b4244;
+  --risk-med-soft: #e4e7e8;
+  --risk-low: #0b5f58;
+  --risk-low-soft: #d3eeea;
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --paper: #0c1a1f;
-  --surface: #12262c;
-  --ink: #e8f0ef;
-  --muted: #a0b4b6;
-  --line: #28414a;
-  --accent: #55c8c1;
-  --accent-soft: #143a3d;
-  --on-accent: #08191c;
-  --risk-high: #ff9b88;
-  --risk-high-soft: #3d1f1b;
-  --risk-med: #f2c261;
-  --risk-med-soft: #3a2d10;
-  --risk-low: #7fd3a1;
-  --risk-low-soft: #143324;
+  --paper: #0b0d0e;
+  --surface: #141819;
+  --ink: #f3f5f5;
+  --muted: #a3abad;
+  --line: #272d2f;
+  --accent: #2dd4bf;
+  --accent-soft: #0f2f2c;
+  --on-accent: #04100f;
+  --risk-high: #f3f5f5;
+  --risk-high-soft: #f3f5f5;
+  --risk-med: #c9cfd1;
+  --risk-med-soft: #272d2f;
+  --risk-low: #5eead4;
+  --risk-low-soft: #0f2f2c;
+  color-scheme: dark;
+}
+
+/* Black bands (hero, footer) look the same in light and dark mode. */
+.band-dark {
+  --paper: #0b0d0e;
+  --surface: #141819;
+  --ink: #f3f5f5;
+  --muted: #a3abad;
+  --line: #2a3033;
+  --accent: #2dd4bf;
+  --accent-soft: #0f2f2c;
+  --on-accent: #04100f;
+  background: var(--paper);
+  color: var(--ink);
   color-scheme: dark;
 }
 
@@ -165,8 +180,9 @@ main { flex: 1; }
   transition: background-color 0.15s, color 0.15s, border-color 0.15s;
   cursor: pointer;
 }
-.btn-primary { background: var(--ink); color: var(--paper); }
-.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.band-dark .btn-primary:hover { background: #ffffff; border-color: #ffffff; color: #0b0d0e; }
 .btn-ghost { background: transparent; color: var(--ink); }
 .btn-ghost:hover { background: var(--ink); color: var(--paper); }
 
@@ -188,8 +204,8 @@ main { flex: 1; }
   line-height: 1.5;
   white-space: nowrap;
 }
-.chip-high { background: var(--risk-high-soft); color: var(--risk-high); }
-.chip-med { background: var(--risk-med-soft); color: var(--risk-med); }
+.chip-high { background: var(--ink); color: var(--paper); }
+.chip-med { background: var(--risk-med-soft); color: var(--risk-med); box-shadow: inset 0 0 0 1px var(--line); }
 .chip-low { background: var(--risk-low-soft); color: var(--risk-low); }
 .chip-neutral { background: var(--accent-soft); color: var(--accent); }
 
@@ -201,6 +217,56 @@ main { flex: 1; }
 .data-table thead th { font-weight: 600; color: var(--muted); font-size: 0.875rem; white-space: nowrap; background: var(--paper); }
 .data-table tbody tr:last-child td, .data-table tbody tr:last-child th { border-bottom: 0; }
 .data-table tbody th { font-weight: 600; }
+
+/* ---------- Decorative + layout helpers ---------- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.eyebrow::before { content: ''; width: 1.75rem; height: 2px; background: currentColor; }
+
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60rem 28rem at 85% -10%, rgb(45 212 191 / 0.22), transparent 60%),
+    radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.07) 1px, transparent 0) 0 0 / 28px 28px;
+}
+.hero .accent-text { color: var(--accent); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.card:hover { border-color: var(--accent); box-shadow: 0 10px 30px -18px rgb(15 118 110 / 0.45); transform: translateY(-2px); }
+
+.stat-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+@media (min-width: 40rem) { .stat-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.stat-strip > div { padding: 1.1rem 1.25rem; border-left: 1px solid var(--line); border-top: 1px solid var(--line); margin: -1px 0 0 -1px; }
+.stat-num { font-size: 2rem; line-height: 1; font-weight: 640; letter-spacing: -0.03em; color: var(--accent); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.9375rem;
+}
+.tag::before { content: ''; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); }
 
 /* ---------- Markdown body (case studies, GRC write-ups) ---------- */
 .md > * + * { margin-top: 1.1rem; }

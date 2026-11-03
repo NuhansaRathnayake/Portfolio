@@ -9,10 +9,10 @@ const isCurrent = (href: string) => {
 };
 ---
 
-<header class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-line bg-surface/85 backdrop-blur">
   <div class="wrap flex h-16 items-center justify-between gap-6">
     <a href="/" class="flex items-center gap-3 font-semibold tracking-tight" aria-label={`${site.name}, home`}>
-      <span class="grid h-9 w-9 place-items-center rounded-lg bg-ink text-sm text-paper" aria-hidden="true">{site.initials}</span>
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-accent text-sm font-bold text-on-accent" aria-hidden="true">{site.initials}</span>
       <span class="hidden sm:inline">{site.name}</span>
     </a>
 

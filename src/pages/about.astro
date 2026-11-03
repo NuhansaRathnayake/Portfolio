@@ -23,7 +23,7 @@ import { approach, experience, leadership, awards } from '../data/profile';
       {site.photo ? (
         <img src={site.photo} alt={`Portrait of ${site.name}`} width="320" height="320" class="mb-5 aspect-square w-full rounded-lg object-cover" />
       ) : (
-        <div class="mb-5 grid aspect-[4/3] w-full place-items-center rounded-lg bg-ink text-5xl font-semibold tracking-tight text-paper" aria-hidden="true">{site.initials}</div>
+        <div class="mb-5 grid aspect-[4/3] w-full place-items-center rounded-lg bg-accent text-5xl font-semibold tracking-tight text-on-accent" aria-hidden="true">{site.initials}</div>
       )}
       <dl class="space-y-3 text-[0.9375rem]">
         <div><dt class="muted">Studying</dt><dd class="font-medium">{site.degree}</dd></div>
@@ -40,7 +40,7 @@ import { approach, experience, leadership, awards } from '../data/profile';
       <p class="lede mt-3">Four habits that run through every case study.</p>
       <dl class="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
         {approach.map((a) => (
-          <div class="border-t-2 border-ink pt-4">
+          <div class="border-t-2 border-accent pt-4">
             <dt class="h3">{a.title}</dt>
             <dd class="muted prose-body mt-2">{a.body}</dd>
           </div>
