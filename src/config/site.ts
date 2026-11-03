@@ -37,12 +37,14 @@ export const site = {
   roles: ['Aspiring IT Project Manager', 'GRC Enthusiast', 'Risk and Compliance Learner', 'Agile and Scrum Student'],
 };
 
+// `key` links each item to its icon and to the section it highlights while you scroll.
 export const nav = [
-  { label: 'About', href: '/#about' },
-  { label: 'Leadership', href: '/#leadership' },
-  { label: 'Education', href: '/#education' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Events', href: '/#events' },
-  { label: 'GRC', href: '/grc/' },
-  { label: 'Contact', href: '/#contact' },
+  { key: 'home', label: 'Home', href: '/#top' },
+  { key: 'about', label: 'About', href: '/#about' },
+  { key: 'leadership', label: 'Leadership', href: '/#leadership' },
+  { key: 'education', label: 'Education', href: '/#education' },
+  { key: 'projects', label: 'Projects', href: '/#projects' },
+  { key: 'events', label: 'Events', href: '/#events' },
+  { key: 'grc', label: 'GRC', href: '/grc/' },
+  { key: 'contact', label: 'Contact', href: '/#contact' },
 ];
