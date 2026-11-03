@@ -90,7 +90,6 @@ const mobileInitial = moreKeys.includes(initial) ? 'more' : initial;
 
 <script>
   const bars = Array.from(document.querySelectorAll<HTMLElement>('[data-bar]'));
-  const header = document.getElementById('site-header');
   const moreKeys = ['leadership', 'education', 'events', 'grc'];
   const mobileBar = bars.find((b) => b.dataset.bar === 'mobile');
   const panel = document.getElementById('more-panel');
@@ -168,9 +167,19 @@ const mobileInitial = moreKeys.includes(initial) ? 'more' : initial;
   document.addEventListener('click', (e) => { if (!(e.target as HTMLElement).closest('#more-panel')) setMore(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMore(false); });
 
-  // Give the logo a glass chip once the page scrolls under it
+  // Phone bar: slides away while scrolling down, comes back on scroll up
+  const wrap = document.querySelector<HTMLElement>('.navbar-mobile-wrap');
+  let lastY = scrollY;
   let ticking = false;
-  const onScroll = () => { header?.classList.toggle('is-scrolled', scrollY > 24); ticking = false; };
+  const onScroll = () => {
+    const y = scrollY;
+    const open = panel?.classList.contains('open');
+    if (!open) {
+      if (y < 80 || y < lastY - 6) wrap?.classList.remove('is-hidden');
+      else if (y > lastY + 6) wrap?.classList.add('is-hidden');
+    }
+    lastY = y;
+    ticking = false;
+  };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  onScroll();
 </script>
