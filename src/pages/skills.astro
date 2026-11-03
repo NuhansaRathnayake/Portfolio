@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { skillGroups, softSkills, certifications, coursework } from '../data/profile';
+
+const chip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
+---
+
+<Base title="Skills and certifications" description="Project management, tools, GRC and security basics, soft skills with evidence, and certifications.">
+  <PageHeader title="Skills and certifications" lede="Grouped lists, not percentage bars. Where a skill has evidence, it links to the case study that shows it." />
+
+  <section class="wrap pb-16" aria-labelledby="skills-h">
+    <h2 id="skills-h" class="sr-only">Skills</h2>
+    <div class="divide-y divide-line border-y border-line">
+      {skillGroups.map((g) => (
+        <div class="grid gap-3 py-6 md:grid-cols-[14rem_1fr] md:gap-10">
+          <h3 class="h3">{g.group}</h3>
+          <ul class="flex flex-wrap gap-2">
+            {g.items.map((i) => <li class="rounded-md border border-line bg-surface px-3 py-1.5 text-[0.9375rem]">{i}</li>)}
+          </ul>
+        </div>
+      ))}
+      <div class="grid gap-3 py-6 md:grid-cols-[14rem_1fr] md:gap-10">
+        <h3 class="h3">Soft skills, with evidence</h3>
+        <ul class="space-y-4">
+          {softSkills.map((s) => (
+            <li class="prose-body"><span class="font-semibold">{s.skill}.</span> {s.evidence} <a href={s.href} class="link" aria-label={`${s.skill}: see the case study`}>See the case study</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="section" aria-labelledby="certs-h">
+    <div class="wrap">
+      <h2 id="certs-h" class="h2">Certifications</h2>
+      <p class="lede mt-3">Each one is labelled with where it stands, so nothing is overstated.</p>
+      <ul class="mt-8 divide-y divide-line border-y border-line">
+        {certifications.map((c) => (
+          <li class="flex flex-wrap items-center justify-between gap-3 py-4">
+            <div><p class="font-semibold">{c.name}</p><p class="muted text-[0.9375rem]">{c.issuer}</p></div>
+            <span class={`chip ${chip[c.status]}`}>{c.status}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h3 class="h3 mt-12">Relevant coursework</h3>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {coursework.map((c) => <li class="rounded-md border border-line bg-surface px-3 py-1.5 text-[0.9375rem]">{c}</li>)}
+      </ul>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,37 @@
+// Personal content that is not a case study. Edit freely; pages hide any section whose list is empty.
+
+export const skillGroups = [
+  { group: 'Project management', items: ['Agile and Scrum', 'Waterfall', 'Risk management', 'Stakeholder management', 'Scheduling and WBS'] },
+  { group: 'Tools', items: ['Jira', 'Trello', 'Microsoft Project', 'Excel', 'Notion', 'Confluence', 'Miro'] },
+  { group: 'GRC and security basics', items: ['ISO/IEC 27001', 'NIST CSF 2.0', 'Risk assessment methods', 'Basic audit concepts'] },
+];
+
+// Soft skills are backed by something you can point to in the case studies.
+export const softSkills = [
+  { skill: 'Communication', evidence: 'Wrote the communication plan and stakeholder register for the rollout in Case study 1.', href: '/projects/student-records-rollout/' },
+  { skill: 'Negotiation', evidence: 'Set milestone-based payment terms with the vendor to manage delivery risk.', href: '/projects/student-records-rollout/' },
+  { skill: 'Time management', evidence: 'Built a 20-week schedule with a two-week buffer before go-live.', href: '/projects/student-records-rollout/' },
+  { skill: 'Leadership', evidence: 'Prioritised a gap-closing roadmap so a 12-person studio could act on it without a security team.', href: '/projects/studio-security-gap-analysis/' },
+];
+
+export type CertStatus = 'Completed' | 'In progress' | 'Planned';
+export const certifications: { name: string; issuer: string; status: CertStatus }[] = [
+  { name: 'Google Project Management Certificate', issuer: 'Google / Coursera', status: 'Planned' },
+  { name: 'Certified Associate in Project Management (CAPM)', issuer: 'PMI', status: 'Planned' },
+  { name: 'ISO/IEC 27001 Foundation', issuer: 'Accredited training provider', status: 'Planned' },
+  { name: 'Certified in Cybersecurity (CC)', issuer: 'ISC2', status: 'Planned' },
+];
+
+export const coursework = ['Project management', 'Information security', 'Systems analysis and design', 'Database systems', 'Software engineering'];
+
+// Leave an array empty to hide its section. Frame each entry around responsibility, teamwork and results.
+export const experience: { role: string; org: string; period: string; points: string[] }[] = [];
+export const leadership: { role: string; org: string; period: string; points: string[] }[] = [];
+export const awards: { title: string; detail: string }[] = [];
+
+export const approach = [
+  { title: 'Name the risks early', body: 'A risk register goes in the first week and gets reviewed at every status meeting. A risk written down can be owned; one left unspoken usually gets found by someone else.' },
+  { title: 'Make scope changes visible', body: 'Every change request records what it costs in time, money and risk before anyone agrees to it. Nothing is added quietly.' },
+  { title: 'Report status in plain words', body: 'Status reports say what is on track, what is not, why, and what decision is needed. A red or amber rating always comes with a reason.' },
+  { title: 'Close with lessons learned', body: 'Every project ends with a short review of what worked and what to change, written down so the next team can use it.' },
+];

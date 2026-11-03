@@ -1,0 +1,78 @@
+---
+import { Menu, X, Sun, Moon } from '@lucide/astro';
+import { site, nav } from '../config/site';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => {
+  if (href.includes('#')) return false;
+  return path === href || path.startsWith(href);
+};
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
+  <div class="wrap flex h-16 items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-3 font-semibold tracking-tight" aria-label={`${site.name}, home`}>
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-ink text-sm text-paper" aria-hidden="true">{site.initials}</span>
+      <span class="hidden sm:inline">{site.name}</span>
+    </a>
+
+    <nav aria-label="Main" class="hidden items-center gap-1 lg:flex">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isCurrent(item.href) ? 'page' : undefined}
+          class="rounded-md px-3 py-2 text-[0.95rem] text-muted transition-colors hover:text-ink aria-[current=page]:font-semibold aria-[current=page]:text-ink"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button id="theme-toggle" type="button" class="grid h-10 w-10 place-items-center rounded-lg border border-line text-ink hover:bg-accent-soft" aria-label="Switch colour theme">
+        <Sun class="hidden h-5 w-5 [[data-theme=dark]_&]:block" aria-hidden="true" />
+        <Moon class="block h-5 w-5 [[data-theme=dark]_&]:hidden" aria-hidden="true" />
+      </button>
+      <button id="menu-toggle" type="button" class="grid h-10 w-10 place-items-center rounded-lg border border-line text-ink hover:bg-accent-soft lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <Menu class="h-5 w-5" id="icon-open" aria-hidden="true" />
+        <X class="hidden h-5 w-5" id="icon-close" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" aria-label="Mobile" class="hidden border-t border-line bg-paper lg:hidden">
+    <ul class="wrap flex flex-col py-3">
+      {nav.map((item) => (
+        <li>
+          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined} class="block rounded-md px-1 py-3 text-lg aria-[current=page]:font-semibold">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const themeBtn = document.getElementById('theme-toggle');
+  themeBtn?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+
+  const menuBtn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const open = document.getElementById('icon-open');
+  const close = document.getElementById('icon-close');
+  const setMenu = (isOpen: boolean) => {
+    menu?.classList.toggle('hidden', !isOpen);
+    open?.classList.toggle('hidden', isOpen);
+    close?.classList.toggle('hidden', !isOpen);
+    menuBtn?.setAttribute('aria-expanded', String(isOpen));
+    menuBtn?.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  };
+  menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  menu?.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+</script>

@@ -1,0 +1,72 @@
+---
+title: Student-records system rollout
+summary: A complete plan for replacing a college's ageing student-records system in 20 weeks, with the schedule, accountability and risks all worked out before a single task starts.
+kind: Self-initiated
+role: Project manager (planning exercise)
+method: "Hybrid: Waterfall phases, Agile training cycles"
+duration: 20-week plan
+team: Solo, with five defined roles
+outcome: 12 work packages, 6 scored risks, 5 governance checkpoints
+tags: [Planning, Risk, Stakeholders]
+order: 1
+---
+
+import Gantt from '../../components/Gantt.astro';
+import Wbs from '../../components/Wbs.astro';
+import RaciMatrix from '../../components/RaciMatrix.astro';
+import RiskRegister from '../../components/RiskRegister.astro';
+import { rolloutRisks } from '../../data/artifacts';
+
+## Context
+
+This is a self-initiated exercise: I planned the rollout of a new student-records system for a fictional college with about 4,000 students and 300 staff. No real organisation is involved and nothing was delivered. I chose it because system rollouts combine the things a project coordinator handles every day: deadlines tied to an academic calendar, many stakeholders, personal data and a hard go-live date.
+
+## My role
+
+Project manager for the whole plan. I defined five roles (sponsor, project manager, technical lead, change lead and data owner) and wrote every document myself.
+
+## Problem and objectives
+
+The fictional college's records were spread across spreadsheets and an old database. Staff re-entered the same data in several places. Success meant:
+
+- Go-live before term starts, with no lost or corrupted student records.
+- Every member of academic staff trained before go-live.
+- Access to student data limited to people who need it.
+
+## Approach
+
+I used a hybrid method. The phases (initiate, plan, execute, close) follow Waterfall because the go-live date is fixed and the vendor works to milestones. Training runs in short Agile cycles so feedback from each department changes the next session. Monitoring and control runs across the whole project rather than as a single phase.
+
+<Gantt />
+
+## Deliverables
+
+Each document answers one question a sponsor would ask.
+
+**What exactly are we delivering?** The work breakdown structure splits the project into 12 work packages across four phases.
+
+<Wbs />
+
+**Who decides what?** The RACI matrix gives every activity exactly one accountable role.
+
+<RaciMatrix />
+
+**What could go wrong?** The risk register scores six risks by likelihood and impact, then assigns a treatment and an owner to each.
+
+<RiskRegister risks={rolloutRisks} caption="Risk register: student-records system rollout (fictional)" />
+
+I also wrote a project charter, a stakeholder register and a communication plan. These are not shown here, because they contain placeholder names and I'd rather show fewer documents that stand on their own.
+
+## Challenges and how I handled them
+
+- **Scope creep (R-03).** Departments would naturally ask for custom reports. I added a change control step so every request is recorded with its cost in time and risk, then either agreed or moved to a phase 2 backlog.
+- **Data protection (R-04).** Student records are personal data. I made the data owner accountable for access role design and added a security review as checkpoint 2, before any real data is loaded.
+- **A fixed end date.** Because term start cannot move, I kept a two-week buffer before go-live and tied the vendor's payments to milestones.
+
+## Outcome and lessons
+
+The result is a plan that a sponsor could approve: 20 weeks, 12 work packages, 6 scored risks (2 high, 3 medium, 1 low) and 5 governance checkpoints.
+
+- Allowing exactly one accountable role per activity forced the data owner question early, rather than at go-live.
+- Putting risk responses into the schedule as checkpoints turned the risk register from a document into something the team does.
+- Next time I would involve a real stakeholder from the start to test the estimates, which a solo exercise cannot do.

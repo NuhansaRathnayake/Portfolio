@@ -1,0 +1,48 @@
+---
+import { score, rating, type Risk } from '../data/artifacts';
+
+interface Props {
+  risks: Risk[];
+  caption: string;
+  compact?: boolean;
+}
+const { risks, caption, compact = false } = Astro.props;
+const chipClass = { High: 'chip-high', Medium: 'chip-med', Low: 'chip-low' } as const;
+---
+
+<div class="table-scroll">
+  <table class="data-table">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Risk</th>
+        <th scope="col" title="Likelihood, 1 to 5">L</th>
+        <th scope="col" title="Impact, 1 to 5">I</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Treatment</th>
+        {!compact && <th scope="col">Response</th>}
+        {!compact && <th scope="col">Owner</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {risks.map((r) => {
+        const s = score(r);
+        const level = rating(s);
+        return (
+          <tr>
+            <th scope="row" class="mono whitespace-nowrap">{r.id}</th>
+            <td class="min-w-[16rem]">{r.risk}</td>
+            <td class="mono">{r.likelihood}</td>
+            <td class="mono">{r.impact}</td>
+            <td><span class={`chip ${chipClass[level]}`}>{level} ({s})</span></td>
+            <td>{r.treatment}</td>
+            {!compact && <td class="min-w-[16rem]">{r.response}</td>}
+            {!compact && <td class="whitespace-nowrap">{r.owner}</td>}
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>
+<p class="muted mt-3 text-sm">L = likelihood, I = impact, each scored 1 to 5. Rating = L × I: 15 and above is High, 8 to 14 is Medium, below 8 is Low.</p>

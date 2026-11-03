@@ -1,0 +1,27 @@
+---
+import { raciRoles, raciRows } from '../data/artifacts';
+const tone = (v: string) => (v.includes('A') ? 'bg-ink text-paper' : v === 'R' ? 'bg-accent text-on-accent' : v === 'C' ? 'bg-accent-soft text-accent' : 'text-muted');
+---
+
+<div class="table-scroll">
+  <table class="data-table">
+    <caption>RACI matrix: student-records system rollout</caption>
+    <thead>
+      <tr>
+        <th scope="col">Activity</th>
+        {raciRoles.map((r) => <th scope="col" class="text-center">{r}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {raciRows.map((row) => (
+        <tr>
+          <th scope="row" class="min-w-[14rem]">{row.activity}</th>
+          {row.raci.map((v) => (
+            <td class="text-center"><span class={`inline-block min-w-9 rounded-md px-2 py-0.5 font-semibold ${tone(v)}`}>{v}</span></td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="muted mt-3 text-sm">R = responsible, A = accountable, C = consulted, I = informed. Each activity has exactly one accountable role.</p>

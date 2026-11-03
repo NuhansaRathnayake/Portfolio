@@ -1,0 +1,36 @@
+---
+import { mappings } from '../data/artifacts';
+const chip = { 'In place': 'chip-low', Partial: 'chip-med', Gap: 'chip-high' } as const;
+const counts = {
+  'In place': mappings.filter((m) => m.status === 'In place').length,
+  Partial: mappings.filter((m) => m.status === 'Partial').length,
+  Gap: mappings.filter((m) => m.status === 'Gap').length,
+};
+---
+
+<div class="table-scroll">
+  <table class="data-table">
+    <caption>Gap analysis: ISO/IEC 27001:2022 Annex A controls mapped to NIST CSF 2.0 (fictional 12-person design studio)</caption>
+    <thead>
+      <tr>
+        <th scope="col">ISO 27001 control</th>
+        <th scope="col">NIST CSF 2.0 outcome</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {mappings.map((m) => (
+        <tr>
+          <th scope="row" class="min-w-[14rem]"><span class="mono muted mr-2">{m.iso}</span>{m.isoName}</th>
+          <td class="min-w-[14rem]"><span class="mono muted mr-2">{m.csf}</span>{m.csfName}</td>
+          <td><span class={`chip ${chip[m.status]}`}>{m.status}</span></td>
+          <td class="min-w-[14rem]">{m.action}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="muted mt-3 text-sm">
+  Result: {counts['In place']} in place, {counts.Partial} partial, {counts.Gap} gaps. Illustrative sample of seven controls, not a full Annex A assessment.
+</p>

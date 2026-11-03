@@ -1,0 +1,17 @@
+---
+import { wbs } from '../data/artifacts';
+---
+
+<div class="grid gap-x-10 gap-y-6 rounded-xl border border-line bg-surface p-6 sm:grid-cols-2">
+  {wbs.map((phase) => (
+    <section aria-labelledby={`wbs-${phase.code}`}>
+      <h3 id={`wbs-${phase.code}`} class="h3 flex gap-3"><span class="mono muted">{phase.code}</span>{phase.name}</h3>
+      <ul class="mt-3 space-y-1.5 border-l-2 border-line pl-4 text-[0.9375rem]">
+        {phase.children?.map((c) => (
+          <li class="flex gap-3"><span class="mono muted w-8 shrink-0">{c.code}</span><span>{c.name}</span></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+<p class="muted mt-3 text-sm">Work breakdown structure, numbered with the standard WBS dictionary convention (phase, then work package).</p>

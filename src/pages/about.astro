@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site } from '../config/site';
+import { approach, experience, leadership, awards } from '../data/profile';
+---
+
+<Base title="About" description={`About ${site.name}: ${site.degree}, aiming for IT project management with a focus on governance, risk and compliance.`}>
+  <PageHeader title="About me" lede="I like the part of IT that is about people, deadlines and decisions. Project management is where those meet, and GRC is how the decisions stay safe." />
+
+  <section class="wrap grid gap-12 pb-16 lg:grid-cols-[1fr_20rem]">
+    <div class="md">
+      <p>
+        I'm {site.name}, studying for a {site.degree} at {site.university} ({site.graduation.toLowerCase()}). My goal is a career in IT project management, and over the past year my focus has grown towards governance, risk and compliance (GRC).
+      </p>
+      <p>
+        My portfolio is built from self-initiated projects: a system rollout plan, a security gap analysis and an Agile sprint plan. Each one produces the documents a real project needs, and each one comes with an honest account of what I would do differently.
+      </p>
+      <p>I'm looking for an {site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1)}.</p>
+    </div>
+
+    <aside aria-label="At a glance" class="h-fit rounded-xl border border-line bg-surface p-6">
+      {site.photo ? (
+        <img src={site.photo} alt={`Portrait of ${site.name}`} width="320" height="320" class="mb-5 aspect-square w-full rounded-lg object-cover" />
+      ) : (
+        <div class="mb-5 grid aspect-[4/3] w-full place-items-center rounded-lg bg-ink text-5xl font-semibold tracking-tight text-paper" aria-hidden="true">{site.initials}</div>
+      )}
+      <dl class="space-y-3 text-[0.9375rem]">
+        <div><dt class="muted">Studying</dt><dd class="font-medium">{site.degree}</dd></div>
+        <div><dt class="muted">Expected graduation</dt><dd class="font-medium">{site.graduation.replace('Expected ', '')}</dd></div>
+        <div><dt class="muted">Based in</dt><dd class="font-medium">{site.location}</dd></div>
+        <div><dt class="muted">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="section" aria-labelledby="approach-h">
+    <div class="wrap">
+      <h2 id="approach-h" class="h2">How I manage projects</h2>
+      <p class="lede mt-3">Four habits that run through every case study.</p>
+      <dl class="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
+        {approach.map((a) => (
+          <div class="border-t-2 border-ink pt-4">
+            <dt class="h3">{a.title}</dt>
+            <dd class="muted prose-body mt-2">{a.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="edu-h">
+    <div class="wrap">
+      <h2 id="edu-h" class="h2">Education</h2>
+      <div class="mt-8 max-w-2xl">
+        <p class="h3">{site.degree}</p>
+        <p class="muted">{site.university} · {site.graduation}</p>
+        <p class="mt-3">
+          Relevant modules are listed with my <a href="/skills/#certifications" class="link">certifications and coursework</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {experience.length > 0 && (
+    <section class="section" aria-labelledby="exp-h">
+      <div class="wrap">
+        <h2 id="exp-h" class="h2">Experience</h2>
+        <div class="mt-8 space-y-8">
+          {experience.map((e) => (
+            <div class="max-w-2xl"><p class="h3">{e.role}, {e.org}</p><p class="muted">{e.period}</p>
+              <ul class="mt-3 list-disc space-y-1 pl-5">{e.points.map((p) => <li>{p}</li>)}</ul></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {leadership.length > 0 && (
+    <section class="section" aria-labelledby="lead-h">
+      <div class="wrap">
+        <h2 id="lead-h" class="h2">Leadership and activities</h2>
+        <div class="mt-8 space-y-8">
+          {leadership.map((e) => (
+            <div class="max-w-2xl"><p class="h3">{e.role}, {e.org}</p><p class="muted">{e.period}</p>
+              <ul class="mt-3 list-disc space-y-1 pl-5">{e.points.map((p) => <li>{p}</li>)}</ul></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {awards.length > 0 && (
+    <section class="section" aria-labelledby="awards-h">
+      <div class="wrap">
+        <h2 id="awards-h" class="h2">Competitions and awards</h2>
+        <ul class="mt-8 space-y-4">{awards.map((a) => <li><span class="font-semibold">{a.title}</span> <span class="muted">{a.detail}</span></li>)}</ul>
+      </div>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,10 @@
+---
+interface Props { title: string; lede?: string }
+const { title, lede } = Astro.props;
+---
+
+<div class="wrap pb-10 pt-14 sm:pt-20">
+  <h1 class="h1 max-w-[22ch]">{title}</h1>
+  {lede && <p class="lede mt-5">{lede}</p>}
+  <slot />
+</div>

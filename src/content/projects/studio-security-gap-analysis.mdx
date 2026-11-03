@@ -1,0 +1,65 @@
+---
+title: Security gap analysis for a design studio
+summary: A lightweight ISO 27001 and NIST CSF gap analysis for a fictional 12-person design studio, turned into a plain-language roadmap the owner could act on without a security team.
+kind: Self-initiated
+role: GRC analyst (assessment exercise)
+method: Risk-based assessment, control mapping
+duration: 4-week assessment
+team: Solo
+outcome: 7 controls mapped, 4 gaps found, 90-day roadmap
+tags: [GRC, ISO 27001, NIST CSF, Risk]
+order: 2
+---
+
+import RiskRegister from '../../components/RiskRegister.astro';
+import FrameworkMap from '../../components/FrameworkMap.astro';
+import { studioRisks } from '../../data/artifacts';
+
+## Context
+
+This is a self-initiated exercise for a fictional design studio with 12 people, no in-house IT staff and clients who send confidential brand assets. I wanted to practise the part of GRC that is hard: making frameworks useful to a small business that has never heard of them.
+
+## My role
+
+GRC analyst. I scoped the assessment, identified and scored the risks, mapped controls to two frameworks and wrote the roadmap.
+
+## Problem and objectives
+
+The studio's owner knew that client trust mattered but could not say where the biggest exposure was. The objectives were to:
+
+- Identify the most likely and most damaging information risks.
+- Show which controls were already in place and which were missing.
+- Produce a short list of actions that fit a small team's time and budget.
+
+## Approach
+
+I started with risk rather than with the framework. Listing the risks first kept the work grounded in what could actually hurt the studio, then I used ISO/IEC 27001:2022 Annex A as the control catalogue and NIST CSF 2.0 as the common language for the outcomes. I mapped a sample of seven controls rather than all 93, so the result stays readable.
+
+## Deliverables
+
+**Risk assessment.** Four risks, each scored on likelihood and impact, with a treatment and an owner.
+
+<RiskRegister risks={studioRisks} caption="Risk register: design studio (fictional)" />
+
+**Control mapping and gap analysis.** Each ISO 27001 control is paired with the closest NIST CSF 2.0 outcome and rated as in place, partial or a gap.
+
+<FrameworkMap />
+
+**90-day roadmap.**
+
+1. **Days 1 to 30:** turn on multi-factor authentication, move client files into the managed workspace and write a one-page information security policy.
+2. **Days 31 to 60:** automate backups, test a restore, and introduce a joiner, mover and leaver checklist.
+3. **Days 61 to 90:** run a 30-minute awareness session and draft a one-page incident response plan.
+
+## Challenges and how I handled them
+
+- **Too many controls for a small team.** I ranked actions by risk rating first and effort second, so the first 30 days address the three high risks.
+- **Jargon.** The roadmap names things the owner recognises (client files, email accounts, backups) and keeps control numbers in the mapping table only.
+
+## Outcome and lessons
+
+The result is a 7-control mapping with 1 control in place, 2 partial and 4 gaps, plus a roadmap in three 30-day stages.
+
+- Framework mapping is most valuable as a translation exercise: the same action can satisfy a control in both frameworks.
+- A gap analysis only helps if it ends in an owner and a date, so every action in the roadmap has both.
+- Next time I would validate the risk scores with the people who do the work, because likelihood is a judgement and a second opinion improves it.

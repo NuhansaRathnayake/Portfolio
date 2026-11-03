@@ -1,0 +1,244 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ---------- Design tokens ----------
+   Palette is built around a cool paper white and deep teal-ink.
+   Red / amber / green are reserved for risk status only, never decoration. */
+:root {
+  --paper: #f5f8f7;
+  --surface: #ffffff;
+  --ink: #14232b;
+  --muted: #4f6168;
+  --line: #d3dddb;
+  --accent: #0a6c6c;
+  --accent-soft: #dff0ee;
+  --on-accent: #ffffff;
+  --risk-high: #b23a28;
+  --risk-high-soft: #f8e1dc;
+  --risk-med: #8a5a00;
+  --risk-med-soft: #fbedc9;
+  --risk-low: #2b7048;
+  --risk-low-soft: #dcefe3;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: #0c1a1f;
+  --surface: #12262c;
+  --ink: #e8f0ef;
+  --muted: #a0b4b6;
+  --line: #28414a;
+  --accent: #55c8c1;
+  --accent-soft: #143a3d;
+  --on-accent: #08191c;
+  --risk-high: #ff9b88;
+  --risk-high-soft: #3d1f1b;
+  --risk-med: #f2c261;
+  --risk-med-soft: #3a2d10;
+  --risk-low: #7fd3a1;
+  --risk-low-soft: #143324;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-risk-high: var(--risk-high);
+  --color-risk-high-soft: var(--risk-high-soft);
+  --color-risk-med: var(--risk-med);
+  --color-risk-med-soft: var(--risk-med-soft);
+  --color-risk-low: var(--risk-low);
+  --color-risk-low-soft: var(--risk-low-soft);
+}
+
+/* ---------- Base ---------- */
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: 'ss01', 'cv11';
+}
+main { flex: 1; }
+
+:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+::selection { background: var(--accent); color: var(--on-accent); }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ---------- Type scale ---------- */
+.display {
+  font-size: clamp(2.5rem, 1.2rem + 5.2vw, 4.75rem);
+  line-height: 1.02;
+  font-weight: 640;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.h1 {
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.h2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.h3 {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+.lede {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+.prose-body { max-width: 68ch; text-wrap: pretty; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 0.875em; letter-spacing: -0.01em; }
+
+/* ---------- Layout ---------- */
+.wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+.section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.section + .section { border-top: 1px solid var(--line); }
+
+/* ---------- Controls ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.15rem;
+  border-radius: 8px;
+  font-weight: 560;
+  font-size: 0.975rem;
+  line-height: 1.2;
+  border: 1.5px solid var(--ink);
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+.link:hover { text-decoration-thickness: 2.5px; }
+
+/* Status chips (risk rating). Text always accompanies the colour. */
+.chip {
+  display: inline-block;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.chip-high { background: var(--risk-high-soft); color: var(--risk-high); }
+.chip-med { background: var(--risk-med-soft); color: var(--risk-med); }
+.chip-low { background: var(--risk-low-soft); color: var(--risk-low); }
+.chip-neutral { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- Data tables (artifacts) ---------- */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.45; }
+.data-table caption { text-align: left; padding: 0.9rem 1rem; font-weight: 600; border-bottom: 1px solid var(--line); }
+.data-table th, .data-table td { padding: 0.7rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.data-table thead th { font-weight: 600; color: var(--muted); font-size: 0.875rem; white-space: nowrap; background: var(--paper); }
+.data-table tbody tr:last-child td, .data-table tbody tr:last-child th { border-bottom: 0; }
+.data-table tbody th { font-weight: 600; }
+
+/* ---------- Markdown body (case studies, GRC write-ups) ---------- */
+.md > * + * { margin-top: 1.1rem; }
+.md > h2 {
+  margin-top: 3.25rem;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.md > h2:first-child { margin-top: 0; }
+.md > h2 + * { margin-top: 0.9rem; }
+.md > h3 { margin-top: 2rem; font-size: 1.1875rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; }
+.md p, .md li { max-width: 68ch; text-wrap: pretty; }
+.md ul { list-style: disc; padding-left: 1.3rem; }
+.md ol { list-style: decimal; padding-left: 1.3rem; }
+.md li + li { margin-top: 0.4rem; }
+.md li::marker { color: var(--accent); }
+.md a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+.md strong { font-weight: 600; }
+.md blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; color: var(--muted); }
+.md code { font-family: var(--font-mono); font-size: 0.875em; background: var(--accent-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+.md table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.md th, .md td { border-bottom: 1px solid var(--line); padding: 0.6rem 0.8rem; text-align: left; vertical-align: top; }
+.md th { color: var(--muted); font-weight: 600; }
+
+/* ---------- Hero schedule: the one animated moment ---------- */
+@keyframes bar-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes mark-in { from { opacity: 0; transform: translateY(6px) rotate(45deg) scale(0.6); } to { opacity: 1; transform: translateY(0) rotate(45deg) scale(1); } }
+.gantt-bar { transform-origin: left center; animation: bar-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i) * 110ms + 250ms); }
+.gantt-mark { animation: mark-in 0.45s ease-out both; animation-delay: calc(var(--i) * 110ms + 900ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  header, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}

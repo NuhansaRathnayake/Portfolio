@@ -1,0 +1,63 @@
+---
+title: Campus events app, Scrum plan
+summary: A product backlog, sprint plan and definition of done for a small app that lets students find and register for campus events, including the data protection questions that come with collecting sign-ups.
+kind: Self-initiated
+role: Scrum master and product owner (planning exercise)
+method: Agile / Scrum
+duration: 3 two-week sprints (planned)
+team: Solo, with a 4-person development team assumed
+outcome: 9 user stories, 36 story points, 3 sprint goals
+tags: [Agile, Scrum, Backlog]
+order: 3
+---
+
+## Context
+
+A self-initiated exercise: plan a small app where students browse campus events and register for them. I wanted to show Agile planning at the level a project coordinator works, which is goals, scope and visibility rather than code. The team of four developers is assumed, and nothing was built.
+
+## My role
+
+Both product owner (deciding what matters) and Scrum master (keeping the process clear). In a real team these are two people, so I kept their decisions in separate documents.
+
+## Problem and objectives
+
+Event sign-ups are scattered across posters and chat groups, so organisers cannot see who is coming. The objectives were:
+
+- Attendees can find and register for an event in under a minute.
+- Organisers can create an event and see who registered.
+- Student data is collected only where it is needed.
+
+## Approach
+
+I chose Scrum because the requirements are likely to change once real organisers see the first version. Three two-week sprints, each ending in something a student could try. Stories were sized in points with a planned velocity of 13 points per sprint, with Sprint 3 deliberately lighter to leave room for fixes.
+
+## Deliverables
+
+The sprint backlog below holds the nine stories for the first release.
+
+| Sprint | Sprint goal | User story | Points |
+| --- | --- | --- | --- |
+| 1 | Students can see events | As an attendee, I can browse upcoming events | 5 |
+| 1 | | As an organiser, I can create an event | 5 |
+| 1 | | As an attendee, I can sign in with my university email | 3 |
+| 2 | Students can register | As an attendee, I can register for an event | 5 |
+| 2 | | As an organiser, I can see the registration list | 3 |
+| 2 | | As an attendee, I get a reminder the day before | 5 |
+| 3 | Organisers stay in control | As an organiser, I can export attendance | 3 |
+| 3 | | As an attendee, I can cancel my registration | 5 |
+| 3 | | As an admin, I can remove inappropriate events | 2 |
+
+I also wrote a definition of done (tested, reviewed, accessible and documented) and a Kanban view of the backlog.
+
+## Challenges and how I handled them
+
+- **Personal data.** Registrations store student emails. I added a privacy check to the definition of done and limited the organiser view to names and registration status. It is the kind of requirement that the Sri Lanka Personal Data Protection Act, No. 9 of 2022, expects teams to think about early.
+- **Estimating without history.** With no past velocity, I treated the first sprint's result as the data point for re-planning Sprints 2 and 3, rather than defending the original numbers.
+
+## Outcome and lessons
+
+The result is nine stories and 36 points over three sprints, each with a goal a non-technical stakeholder can understand.
+
+- Writing a sprint goal before choosing stories made it easier to say no to stories that did not serve the goal.
+- A definition of done is a lightweight control: it puts quality and privacy checks into the workflow instead of at the end.
+- Next time I would test the story sizes with real developers, because estimates are a team conversation, not one person's number.

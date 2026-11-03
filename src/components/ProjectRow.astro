@@ -1,0 +1,29 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const d = project.data;
+---
+
+<article class="group relative grid gap-6 border-t border-line py-8 first:border-t-0 md:grid-cols-[1.5fr_1fr] md:gap-12">
+  <div>
+    <p class="mb-3"><span class="chip chip-neutral">{d.kind}</span></p>
+    <h3 class="h2">
+      <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:content-[''] group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">{d.title}</a>
+    </h3>
+    <p class="muted prose-body mt-3">{d.summary}</p>
+    <p class="mt-5 inline-flex items-center gap-1.5 font-medium text-accent">
+      Read the case study
+      <ArrowUpRight class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+    </p>
+  </div>
+  <dl class="grid grid-cols-[auto_1fr] content-start gap-x-5 gap-y-2 text-[0.9375rem]">
+    <dt class="muted">Role</dt><dd>{d.role}</dd>
+    <dt class="muted">Method</dt><dd>{d.method}</dd>
+    <dt class="muted">Duration</dt><dd>{d.duration}</dd>
+    <dt class="muted">Team</dt><dd>{d.team}</dd>
+    <dt class="muted">Outcome</dt><dd class="font-medium">{d.outcome}</dd>
+  </dl>
+</article>

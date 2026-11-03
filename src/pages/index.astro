@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import { Download, Mail } from '@lucide/astro';
+import Base from '../layouts/Base.astro';
+import Gantt from '../components/Gantt.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import RiskRegister from '../components/RiskRegister.astro';
+import { rolloutRisks } from '../data/artifacts';
+import { site } from '../config/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base>
+  <section class="wrap pb-16 pt-14 sm:pt-20 lg:pb-24">
+    <h1 class="display max-w-[18ch]">I plan IT projects so the risks are named before they become problems.</h1>
+    <p class="lede mt-7">
+      I'm studying for a {site.degree} and aiming for IT project management, with a growing focus on governance, risk and compliance (GRC).
+      I build the schedule and the risk register side by side, and I document decisions so others can follow them.
+    </p>
+    <p class="mt-4 max-w-[62ch] font-medium">Looking for: {site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1)}.</p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/projects/" class="btn btn-primary">See the case studies</a>
+      {site.cvUrl ? (
+        <a href={site.cvUrl} class="btn btn-ghost" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
+      ) : (
+        <a href="/contact/" class="btn btn-ghost"><Mail class="h-4 w-4" aria-hidden="true" />Get in touch</a>
+      )}
+    </div>
+
+    <div class="mt-14 lg:mt-20">
+      <Gantt />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="work-title">
+    <div class="wrap">
+      <h2 id="work-title" class="h2">Case studies</h2>
+      <p class="lede mt-3">Each one covers the context, my role, the approach, the documents I produced and what I would change.</p>
+      <div class="mt-10">
+        {projects.map((p) => <ProjectRow project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="grc-title">
+    <div class="wrap">
+      <div class="mb-8 max-w-2xl">
+        <h2 id="grc-title" class="h2">Risks scored, owned and treated</h2>
+        <p class="lede mt-3">A sample from my risk register for a student-records rollout. The full register, a control mapping and policy samples are in the GRC section.</p>
+      </div>
+      <RiskRegister risks={rolloutRisks.slice(0, 3)} caption="Top risks: student-records system rollout (fictional)" compact />
+      <p class="mt-6"><a href="/grc/" class="link font-medium">Explore the GRC work</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <h2 class="h2">Hiring for a project coordination or risk role?</h2>
+        <p class="lede mt-3">I'm happy to walk through any case study and explain the decisions behind it.</p>
+      </div>
+      <a href="/contact/" class="btn btn-primary shrink-0">Contact me</a>
+    </div>
+  </section>
+</Base>
