@@ -11,16 +11,16 @@ export const site = {
   url: 'https://nuhansa.me', // EDIT once your domain is connected
 
   // EDIT: degree and graduation details
-  degree: 'BSc (Hons) in Information Technology',
-  university: 'Your university',
+  degree: 'BSc. Information Technology',
+  university: 'Rajarata University of Sri Lanka',
   graduation: 'Expected 2027',
 
   lookingFor: 'Internship or graduate role in IT project coordination, PMO, or risk and compliance',
   location: 'Sri Lanka',
 
-  email: 'you@example.com', // EDIT
+  email: 'nuhansarathnayake08@gmail.com', // EDIT
   github: 'https://github.com/NuhansaRathnayake',
-  linkedin: 'https://www.linkedin.com/in/your-handle', // EDIT
+  linkedin: 'https://www.linkedin.com/in/nuhansa-rathnayake', // EDIT
   cvUrl: null as string | null, // EDIT: e.g. '/Nuhansa-Rathnayake-CV.pdf' after adding the file to /public
   photo: null as string | null, // EDIT: e.g. '/me.jpg' after adding the file to /public
 };
