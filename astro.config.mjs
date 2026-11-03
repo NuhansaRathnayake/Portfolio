@@ -7,6 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://portfolio-mu-six-0m6cibw0k0.vercel.app',
   integrations: [mdx(), sitemap()],
+  // Old pages now live as sections on the home page
+  redirects: { '/about': '/#about', '/skills': '/#education' },
   vite: {
     plugins: [tailwindcss()],
   },

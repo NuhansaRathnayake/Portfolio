@@ -1,11 +1,11 @@
 ---
-import { ArrowUpRight } from '@lucide/astro';
-import { site, nav } from '../config/site';
+import { nav, site } from '../config/site';
+import SocialLinks from './SocialLinks.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="band-dark border-t border-line">
-  <div class="wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
+<footer class="mt-8 border-t border-line">
+  <div class="wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_auto]">
     <div>
       <p class="h3"><span class="text-accent">/</span> {site.name}</p>
       <p class="muted mt-2 max-w-sm text-[0.95rem]">
@@ -13,21 +13,13 @@ const year = new Date().getFullYear();
       </p>
     </div>
     <nav aria-label="Footer">
-      <ul class="space-y-2 text-[0.95rem]">
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-[0.95rem]">
         {nav.map((item) => (
-          <li><a href={item.href} class="muted hover:text-ink hover:underline">{item.label}</a></li>
+          <li><a href={item.href} class="muted hover:text-accent">{item.label}</a></li>
         ))}
       </ul>
     </nav>
-    <ul class="space-y-2 text-[0.95rem]">
-      <li><a href={`mailto:${site.email}`} class="muted hover:text-ink hover:underline">{site.email}</a></li>
-      <li>
-        <a href={site.linkedin} rel="noopener" class="muted inline-flex items-center gap-1 hover:text-ink hover:underline">LinkedIn <ArrowUpRight class="h-4 w-4" aria-hidden="true" /></a>
-      </li>
-      <li>
-        <a href={site.github} rel="noopener" class="muted inline-flex items-center gap-1 hover:text-ink hover:underline">GitHub <ArrowUpRight class="h-4 w-4" aria-hidden="true" /></a>
-      </li>
-    </ul>
+    <SocialLinks />
   </div>
   <div class="border-t border-line">
     <p class="wrap muted py-4 text-sm">© {year} {site.name}. Built with Astro and Tailwind CSS.</p>

@@ -1,0 +1,32 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { project: CollectionEntry<'projects'>; index?: number }
+const { project, index = 0 } = Astro.props;
+const d = project.data;
+---
+
+<article class="card spot group flex h-full flex-col p-6 sm:p-7" data-reveal style={`--d:${index * 110}ms`}>
+  <div class="flex items-center justify-between gap-3">
+    <span class="chip chip-neutral">{d.kind}</span>
+    <span class="mono muted text-xs">{String(index + 1).padStart(2, '0')}</span>
+  </div>
+  <h3 class="h3 mt-5 text-[1.35rem] leading-snug">
+    <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:z-10 after:content-['']">{d.title}</a>
+  </h3>
+  <p class="muted mt-3 text-[0.975rem]">{d.summary}</p>
+  {d.tags.length > 0 && (
+    <ul class="mt-5 flex flex-wrap gap-2">
+      {d.tags.map((t) => <li class="chip chip-neutral !font-medium">{t}</li>)}
+    </ul>
+  )}
+  <dl class="mt-auto grid gap-y-2 pt-6 text-[0.9375rem]">
+    <div><dt class="muted text-sm">Role</dt><dd>{d.role}</dd></div>
+    <div><dt class="muted text-sm">Outcome</dt><dd class="font-medium">{d.outcome}</dd></div>
+  </dl>
+  <p class="mt-5 inline-flex items-center gap-1.5 font-medium text-accent">
+    Read the case study
+    <ArrowUpRight class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+  </p>
+</article>

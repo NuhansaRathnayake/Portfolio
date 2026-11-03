@@ -2,14 +2,14 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
-import ProjectRow from '../../components/ProjectRow.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base title="Projects" description="Project case studies with the documents behind them: charter, WBS, schedule, RACI and risk register.">
   <PageHeader title="Projects" lede="Case studies written the way a project is run: context, role, objectives, approach, deliverables, challenges and lessons." />
-  <section class="wrap pb-20">
-    {projects.map((p) => <ProjectRow project={p} />)}
+  <section class="wrap grid gap-6 pb-20 lg:grid-cols-3">
+    {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
   </section>
 </Base>

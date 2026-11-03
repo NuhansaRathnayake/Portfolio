@@ -26,7 +26,8 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#070909" />
+    <meta name="color-scheme" content="dark" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -37,17 +38,13 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
     <meta property="og:image:alt" content={`${site.name}: IT project management and GRC portfolio`} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Set the theme before first paint to avoid a flash -->
-    <script is:inline>
-      try {
-        var t = localStorage.getItem('theme');
-        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        document.documentElement.dataset.theme = t;
-      } catch (e) {}
-    </script>
+    <!-- Scroll animations only hide content when JavaScript is running -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     {plausible && <script defer data-domain={plausible} src="https://plausible.io/js/script.js" />}
   </head>
   <body>
+    <div class="aurora" aria-hidden="true"><div class="aurora-grid"></div></div>
+    <div id="progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main">
@@ -56,3 +53,103 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
     <Footer />
   </body>
 </html>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll reveal and timeline draw
+  const targets = document.querySelectorAll<HTMLElement>('[data-reveal], [data-draw]');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+
+  // Count-up numbers
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  const run = (el: HTMLElement) => {
+    const end = Number(el.dataset.count);
+    if (reduce) { el.textContent = String(end); return; }
+    const t0 = performance.now();
+    const dur = 1400;
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / dur, 1);
+      el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if ('IntersectionObserver' in window) {
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { run(en.target as HTMLElement); cio.unobserve(en.target); } });
+    }, { threshold: 0.6 });
+    counters.forEach((el) => cio.observe(el));
+  } else counters.forEach((el) => (el.textContent = el.dataset.count ?? ''));
+
+  // Typed role line
+  const typed = document.getElementById('typed');
+  if (typed && !reduce) {
+    const roles: string[] = JSON.parse(typed.dataset.roles ?? '[]');
+    let r = 0, i = 0, deleting = false;
+    const step = () => {
+      const word = roles[r];
+      typed.textContent = word.slice(0, i);
+      let delay = deleting ? 38 : 75;
+      if (!deleting && i === word.length) { deleting = true; delay = 1700; }
+      else if (deleting && i === 0) { deleting = false; r = (r + 1) % roles.length; delay = 350; }
+      i += deleting ? -1 : 1;
+      setTimeout(step, delay);
+    };
+    typed.textContent = '';
+    setTimeout(step, 600);
+  }
+
+  // Cursor spotlight on cards
+  document.querySelectorAll<HTMLElement>('.spot').forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const b = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - b.left}px`);
+      card.style.setProperty('--my', `${e.clientY - b.top}px`);
+    });
+  });
+
+  // Scroll progress bar
+  const bar = document.getElementById('progress');
+  let ticking = false;
+  const update = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.transform = `scaleX(${h > 0 ? Math.min(scrollY / h, 1) : 0})`;
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+
+  // Highlight the nav link of the section in view (home page only)
+  const sections = ['about', 'leadership', 'education', 'projects', 'events', 'contact']
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => !!el);
+  if (sections.length && 'IntersectionObserver' in window) {
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav] a');
+    const sio = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((a) => {
+          if (a.getAttribute('href') === `/#${en.target.id}`) a.setAttribute('aria-current', 'true');
+          else if (a.getAttribute('href')?.startsWith('/#')) a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach((s) => sio.observe(s));
+  }
+</script>

@@ -1,30 +1,32 @@
-# Content checklist before publishing
+# Content checklist before sharing the portfolio
 
-The site is complete and builds, but some content is placeholder or drafted on your behalf.
-Replace or confirm each item below.
+The site builds and every section is in place. Some content is a template for you to fill in.
 
-## Placeholders to replace (`src/config/site.ts`)
+## Files to add (put them in the `public/` folder)
 
-- [ ] `university`: currently "Your university"
-- [ ] `degree` and `graduation`: confirm they match your programme
-- [ ] `email`: currently `you@example.com`
-- [ ] `linkedin`: currently a placeholder URL
-- [ ] `cvUrl`: add your CV PDF to `public/` and set the path (the CV button stays hidden until you do)
-- [ ] `photo`: add a professional photo to `public/` and set the path (a monogram shows until then)
-- [ ] `url` and `site` in `astro.config.mjs`: set to your real domain
+- [ ] **Photo:** `public/me.jpg` (also accepted: `me.jpeg`, `me.png`, `me.webp`). Portrait, about 4:5, at least 640 x 800 px. Until you add it, a "NR" monogram shows.
+- [ ] **CV:** `public/Nuhansa-Rathnayake-CV.pdf`. Until you add it, the "Download CV" button shows greyed out.
 
-## Content written as drafts
+Both are detected automatically at build time. No code change is needed.
 
-- [ ] **Case studies** (`src/content/projects/`): all three are labelled "Self-initiated" and use fictional organisations. Keep them if they are your own work, but read the "Challenges" and "Lessons" sections and make sure they match your real experience. Add your real university or team projects as new files, and set `order` so the strongest comes first.
-- [ ] **Certifications** (`src/data/profile.ts`): all four are marked "Planned". Change the status to "In progress" or "Completed" where true, and remove any you are not pursuing.
-- [ ] **Tools and skills** (`src/data/profile.ts`): keep only what you can discuss in an interview.
-- [ ] **Coursework**: replace with your actual modules.
-- [ ] **Experience, leadership, awards**: empty lists hide those sections. Fill in internships, society roles and competitions.
-- [ ] **Soft skills evidence**: update each line so it points to your real examples.
+## Sample entries to replace (`src/data/profile.ts`)
+
+Entries marked `sample: true` show a "Sample" tag on the site. Replace the text with your real details, then delete the `sample: true` line.
+
+- [ ] **Leadership** (`leadership`): society or club roles, group project lead
+- [ ] **Events** (`events`): hackathons, workshops, events you organised
+- [ ] **Certifications** (`certifications`): change "Planned" to "In progress" or "Completed" where true, and remove any you are not pursuing
+- [ ] **Skills and tools** (`skillGroups`): keep only what you can discuss in an interview
+- [ ] **Coursework** (`coursework`): replace with your actual modules
+
+## Case studies (`src/content/projects/`)
+
+- [ ] All three are labelled "Self-initiated" and use fictional organisations. Keep them if they are your own work, and read the "Challenges" and "Lessons" sections to make sure they match your experience.
+- [ ] Add your real university or team projects as new files and set `order` so the strongest comes first.
 
 ## Contact form
 
-- [ ] Create a free access key at web3forms.com and set `PUBLIC_WEB3FORMS_KEY` in Vercel. Without it, the form opens the visitor's email app instead.
+- [ ] Create a free access key at web3forms.com and set `PUBLIC_WEB3FORMS_KEY` in Vercel (Project Settings > Environment Variables), then redeploy. Without it, the form opens the visitor's email app instead.
 
 ## Quality checks
 
