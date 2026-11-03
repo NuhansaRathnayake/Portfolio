@@ -1,5 +1,14 @@
 // Single place for personal details. Edit the values below; every page reads from here.
-// Items marked EDIT are placeholders. See CONTENT_TODO.md for the full checklist.
+// See CONTENT_TODO.md for the full checklist.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Drop files into /public and they are picked up automatically at build time:
+//   Photo: me.jpg (or me.jpeg / me.png / me.webp)
+//   CV:    Nuhansa-Rathnayake-CV.pdf
+const inPublic = (file: string) => existsSync(join(process.cwd(), 'public', file));
+const photoFile = ['me.jpg', 'me.jpeg', 'me.png', 'me.webp'].find(inPublic);
+const cvFile = 'Nuhansa-Rathnayake-CV.pdf';
 
 export const site = {
   name: 'Nuhansa Rathnayake',
@@ -10,7 +19,6 @@ export const site = {
     'Graduate IT project coordinator with a growing focus on governance, risk and compliance. Case studies, project artifacts and GRC samples.',
   url: 'https://portfolio-mu-six-0m6cibw0k0.vercel.app', // EDIT once your domain is connected
 
-  // EDIT: degree and graduation details
   degree: 'BSc. Information Technology',
   university: 'Rajarata University of Sri Lanka',
   graduation: 'Expected 2027',
@@ -18,18 +26,23 @@ export const site = {
   lookingFor: 'Internship or graduate role in IT project coordination, PMO, or risk and compliance',
   location: 'Sri Lanka',
 
-  email: 'nuhansarathnayake08@gmail.com', // EDIT
+  email: 'nuhansarathnayake08@gmail.com',
   github: 'https://github.com/NuhansaRathnayake',
-  linkedin: 'https://www.linkedin.com/in/nuhansa-rathnayake', // EDIT
-  cvUrl: null as string | null, // EDIT: e.g. '/Nuhansa-Rathnayake-CV.pdf' after adding the file to /public
-  photo: null as string | null, // EDIT: e.g. '/me.jpg' after adding the file to /public
+  linkedin: 'https://www.linkedin.com/in/nuhansa-rathnayake',
+
+  cvUrl: inPublic(cvFile) ? `/${cvFile}` : (null as string | null),
+  photo: photoFile ? `/${photoFile}` : (null as string | null),
+
+  // Rotating lines under the name on the landing page
+  roles: ['Aspiring IT Project Manager', 'GRC Enthusiast', 'Risk and Compliance Learner', 'Agile and Scrum Student'],
 };
 
 export const nav = [
-  { label: 'About', href: '/about/' },
-  { label: 'Projects', href: '/projects/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Leadership', href: '/#leadership' },
+  { label: 'Education', href: '/#education' },
+  { label: 'Projects', href: '/#projects' },
+  { label: 'Events', href: '/#events' },
   { label: 'GRC', href: '/grc/' },
-  { label: 'Skills', href: '/skills/' },
-  { label: 'Certifications', href: '/skills/#certifications' },
-  { label: 'Contact', href: '/contact/' },
+  { label: 'Contact', href: '/#contact' },
 ];

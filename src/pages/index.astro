@@ -1,82 +1,280 @@
 ---
 import { getCollection } from 'astro:content';
-import { Download, Mail } from '@lucide/astro';
+import { Download, ArrowRight, GraduationCap, MapPin, Calendar, Users, ShieldCheck, ArrowUpRight } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
-import Gantt from '../components/Gantt.astro';
-import ProjectRow from '../components/ProjectRow.astro';
-import RiskRegister from '../components/RiskRegister.astro';
-import { rolloutRisks } from '../data/artifacts';
+import SocialLinks from '../components/SocialLinks.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactSection from '../components/ContactSection.astro';
 import { site } from '../config/site';
+import { skillGroups, softSkills, approach, education, coursework, certifications, leadership, events } from '../data/profile';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
+const marquee = skillGroups.flatMap((g) => g.items);
+const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
+const looking = site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1);
 ---
 
 <Base>
-  <section class="band-dark hero pb-16 pt-14 sm:pt-20 lg:pb-24">
-    <div class="wrap">
-      <p class="eyebrow">IT Project Management · GRC</p>
-      <h1 class="display mt-5 max-w-[18ch]">I plan IT projects so the <span class="accent-text">risks are named</span> before they become problems.</h1>
-      <p class="lede mt-7">
-        I'm studying for a {site.degree} and aiming for IT project management, with a growing focus on governance, risk and compliance (GRC).
-        I build the schedule and the risk register side by side, and I document decisions so others can follow them.
-      </p>
-      <p class="mt-4 max-w-[62ch] font-medium">Looking for: {site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1)}.</p>
-
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="/projects/" class="btn btn-primary">See the case studies</a>
-        {site.cvUrl ? (
-          <a href={site.cvUrl} class="btn btn-ghost" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
-        ) : (
-          <a href="/contact/" class="btn btn-ghost"><Mail class="h-4 w-4" aria-hidden="true" />Get in touch</a>
-        )}
-      </div>
-
-      <div class="mt-14 lg:mt-20">
-        <Gantt />
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap -mt-px pt-10" aria-label="At a glance">
-    <div class="stat-strip">
-      <div><p class="stat-num">{projects.length}</p><p class="muted mt-2 text-sm">Case studies with full artifacts</p></div>
-      <div><p class="stat-num">{grcCount}</p><p class="muted mt-2 text-sm">GRC write-ups and policy samples</p></div>
-      <div><p class="stat-num">2</p><p class="muted mt-2 text-sm">Frameworks mapped: ISO 27001, NIST CSF</p></div>
-      <div><p class="stat-num">3</p><p class="muted mt-2 text-sm">Regulations summarised: GDPR, PCI DSS, PDPA</p></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="work-title">
-    <div class="wrap">
-      <p class="eyebrow">Selected work</p>
-      <h2 id="work-title" class="h2 mt-3">Case studies</h2>
-      <p class="lede mt-3">Each one covers the context, my role, the approach, the documents I produced and what I would change.</p>
-      <div class="mt-10">
-        {projects.map((p) => <ProjectRow project={p} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="grc-title">
-    <div class="wrap">
-      <div class="mb-8 max-w-2xl">
-        <p class="eyebrow">Governance, risk, compliance</p>
-        <h2 id="grc-title" class="h2 mt-3">Risks scored, owned and treated</h2>
-        <p class="lede mt-3">A sample from my risk register for a student-records rollout. The full register, a control mapping and policy samples are in the GRC section.</p>
-      </div>
-      <RiskRegister risks={rolloutRisks.slice(0, 3)} caption="Top risks: student-records system rollout (fictional)" compact />
-      <p class="mt-6"><a href="/grc/" class="link font-medium">Explore the GRC work</a></p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+  <!-- ============ LANDING ============ -->
+  <section id="top" class="relative">
+    <div class="wrap grid items-center gap-14 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-24">
       <div>
-        <h2 class="h2">Hiring for a project coordination or risk role?</h2>
-        <p class="lede mt-3">I'm happy to walk through any case study and explain the decisions behind it.</p>
+        <p class="eyebrow" data-reveal>Hello, I'm</p>
+        <h1 class="display mt-4" data-reveal style="--d:80ms"><span class="shimmer">{site.name}</span></h1>
+        <p class="mt-5 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium" data-reveal style="--d:160ms">
+          <span class="mono text-accent">&gt;</span>
+          <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
+        </p>
+        <p class="lede mt-6" data-reveal style="--d:240ms">
+          I plan IT projects so the risks are named before they become problems. I'm studying for a {site.degree} at {site.university}, with a growing focus on governance, risk and compliance (GRC).
+        </p>
+        <p class="mt-4 max-w-[62ch] text-[0.975rem]" data-reveal style="--d:300ms">
+          <span class="text-accent">Looking for:</span> <span class="muted">{looking}.</span>
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:380ms">
+          {site.cvUrl ? (
+            <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
+          ) : (
+            <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
+          )}
+          <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+        </div>
+        <div class="mt-7" data-reveal style="--d:460ms"><SocialLinks /></div>
       </div>
-      <a href="/contact/" class="btn btn-primary shrink-0">Contact me</a>
+
+      <div class="relative" data-reveal="scale" style="--d:200ms">
+        <div class="photo-frame">
+          <div class="photo-inner">
+            {site.photo ? (
+              <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
+            ) : (
+              <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
+            )}
+          </div>
+        </div>
+        <span class="float-chip glass -left-2 top-[12%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk registers</span>
+        <span class="float-chip glass -right-2 top-[42%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>ISO 27001</span>
+        <span class="float-chip glass bottom-[8%] left-2 hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
+      </div>
+    </div>
+
+    <div class="marquee pb-4" aria-label="Skills and tools">
+      <div class="marquee-track">
+        {[0, 1].map((n) => (
+          <ul class="flex" aria-hidden={n === 1 ? 'true' : undefined}>
+            {marquee.map((m) => <li class="marquee-item tag">{m}</li>)}
+          </ul>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex justify-center py-8" aria-hidden="true"><div class="scroll-cue"></div></div>
+  </section>
+
+  <!-- ============ ABOUT + SKILLS ============ -->
+  <section id="about" class="section" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">01 · About me</p>
+        <h2 id="about-h" class="h2 mt-3">I like the part of IT that is about people, deadlines and decisions.</h2>
+      </div>
+
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="space-y-5" data-reveal>
+          <p class="prose-body">
+            I'm {site.name}, studying for a {site.degree} at {site.university} ({site.graduation.toLowerCase()}). My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
+          </p>
+          <p class="prose-body muted">
+            My portfolio is built from self-initiated projects: a system rollout plan, a security gap analysis and an Agile sprint plan. Each one produces the documents a real project needs, with an honest account of what I would do differently.
+          </p>
+          <dl class="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
+            <div><dt class="sr-only">Case studies</dt><dd><p class="stat-num" data-count={projects.length}>0</p><p class="muted mt-2 text-sm">Case studies</p></dd></div>
+            <div><dt class="sr-only">GRC samples</dt><dd><p class="stat-num" data-count={grcCount}>0</p><p class="muted mt-2 text-sm">GRC write-ups</p></dd></div>
+            <div><dt class="sr-only">Frameworks</dt><dd><p class="stat-num" data-count="2">0</p><p class="muted mt-2 text-sm">Frameworks mapped</p></dd></div>
+            <div><dt class="sr-only">Regulations</dt><dd><p class="stat-num" data-count="3">0</p><p class="muted mt-2 text-sm">Regulations summarised</p></dd></div>
+          </dl>
+        </div>
+
+        <aside aria-label="At a glance" class="card spot h-fit p-6" data-reveal style="--d:150ms">
+          <dl class="space-y-4 text-[0.9375rem]">
+            <div class="flex gap-3"><GraduationCap class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Studying</dt><dd class="font-medium">{site.degree}</dd></div></div>
+            <div class="flex gap-3"><Calendar class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Graduation</dt><dd class="font-medium">{site.graduation.replace('Expected ', '')}</dd></div></div>
+            <div class="flex gap-3"><MapPin class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Based in</dt><dd class="font-medium">{site.location}</dd></div></div>
+            <div class="flex gap-3"><ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div></div>
+          </dl>
+        </aside>
+      </div>
+
+      <h3 class="h3 mt-20" data-reveal>Skills</h3>
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        {skillGroups.map((g, i) => (
+          <div class="card spot p-6" data-reveal style={`--d:${i * 110}ms`}>
+            <h4 class="font-semibold">{g.group}</h4>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {g.items.map((item) => <li class="tag">{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <h3 class="h3 mt-16" data-reveal>Soft skills, with evidence</h3>
+      <ul class="mt-6 grid gap-5 sm:grid-cols-2">
+        {softSkills.map((s, i) => (
+          <li class="card spot p-6" data-reveal style={`--d:${i * 90}ms`}>
+            <p class="font-semibold text-accent">{s.skill}</p>
+            <p class="muted mt-2 text-[0.975rem]">{s.evidence}</p>
+            <a href={s.href} class="link mt-3 inline-block text-[0.9375rem]" aria-label={`${s.skill}: see the case study`}>See the case study</a>
+          </li>
+        ))}
+      </ul>
+
+      <h3 class="h3 mt-16" data-reveal>How I manage projects</h3>
+      <ol class="mt-6 grid gap-5 md:grid-cols-2">
+        {approach.map((a, i) => (
+          <li class="card spot p-6" data-reveal style={`--d:${i * 90}ms`}>
+            <span class="mono text-accent">{String(i + 1).padStart(2, '0')}</span>
+            <p class="h3 mt-2">{a.title}</p>
+            <p class="muted mt-2 text-[0.975rem]">{a.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ LEADERSHIP ============ -->
+  {leadership.length > 0 && (
+    <section id="leadership" class="section" aria-labelledby="lead-h">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">02 · Leadership experience</p>
+          <h2 id="lead-h" class="h2 mt-3">Roles where I was responsible for a team and a result.</h2>
+        </div>
+        <ol class="timeline mt-12 max-w-3xl space-y-8" data-draw>
+          {leadership.map((l, i) => (
+            <li class="timeline-item card spot p-6" data-reveal style={`--d:${i * 140}ms`}>
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="h3">{l.role}</h3>
+                <span class="mono muted text-xs">{l.period}</span>
+              </div>
+              <p class="mt-1 flex flex-wrap items-center gap-2 text-accent">{l.org}{l.sample && <span class="chip chip-med">Sample</span>}</p>
+              <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
+                {l.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <!-- ============ EDUCATION + CERTIFICATIONS ============ -->
+  <section id="education" class="section" aria-labelledby="edu-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">03 · Education and certifications</p>
+        <h2 id="edu-h" class="h2 mt-3">What I'm studying and what I'm working towards.</h2>
+      </div>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+        <div>
+          <h3 class="h3" data-reveal>Education</h3>
+          <ol class="timeline mt-6 space-y-6" data-draw>
+            {education.map((e) => (
+              <li class="timeline-item card spot p-6" data-reveal>
+                <p class="mono muted text-xs">{e.period}</p>
+                <p class="h3 mt-1">{e.degree}</p>
+                <p class="mt-1 text-accent">{e.school}</p>
+                <p class="muted mt-3 text-[0.975rem]">{e.note}</p>
+              </li>
+            ))}
+          </ol>
+          <h4 class="mt-10 font-semibold" data-reveal>Relevant coursework</h4>
+          <ul class="mt-4 flex flex-wrap gap-2" data-reveal>
+            {coursework.map((c) => <li class="tag">{c}</li>)}
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="h3" data-reveal>Certifications</h3>
+          <p class="muted mt-2 text-[0.95rem]" data-reveal>Each one is labelled with where it stands, so nothing is overstated.</p>
+          <ul class="mt-6 space-y-4">
+            {certifications.map((c, i) => (
+              <li class="card spot flex flex-wrap items-center justify-between gap-3 p-5" data-reveal style={`--d:${i * 90}ms`}>
+                <div><p class="font-semibold">{c.name}</p><p class="muted text-[0.9375rem]">{c.issuer}</p></div>
+                <span class={`chip ${certChip[c.status]}`}>{c.status}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section" aria-labelledby="proj-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">04 · Projects</p>
+        <h2 id="proj-h" class="h2 mt-3">Case studies with the documents behind them.</h2>
+        <p class="lede mt-4">Each one covers the context, my role, the approach, the artifacts I produced and what I would change.</p>
+      </div>
+      <div class="mt-12 grid gap-6 lg:grid-cols-3">
+        {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+
+      <a href="/grc/" class="card spot group mt-6 grid gap-4 p-7 sm:grid-cols-[1fr_auto] sm:items-center" data-reveal>
+        <div>
+          <p class="eyebrow">Governance, risk and compliance</p>
+          <p class="h3 mt-3 text-[1.35rem]">Risk registers, control mapping, policies and compliance summaries</p>
+          <p class="muted mt-2 max-w-2xl text-[0.975rem]">A full GRC section with a scored risk register, an ISO 27001 to NIST CSF gap analysis, policy samples and short summaries of GDPR, PCI DSS and Sri Lanka's PDPA.</p>
+        </div>
+        <span class="btn btn-ghost group-hover:border-accent group-hover:text-accent">Explore GRC<ArrowUpRight class="h-4 w-4" aria-hidden="true" /></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  {events.length > 0 && (
+    <section id="events" class="section" aria-labelledby="events-h">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">05 · Events</p>
+          <h2 id="events-h" class="h2 mt-3">Hackathons, workshops and events I've been part of.</h2>
+        </div>
+        <ul class="mt-12 grid gap-6 md:grid-cols-3">
+          {events.map((ev, i) => {
+            const [mon, yr] = ev.date.split(' ');
+            return (
+              <li class="card spot flex h-full flex-col p-6" data-reveal style={`--d:${i * 110}ms`}>
+                <div class="flex items-start justify-between gap-3">
+                  <div class="rounded-xl border border-line-strong bg-white/[0.03] px-3 py-2 text-center" style="border-color: var(--line-strong)">
+                    <p class="mono text-xs uppercase text-accent">{mon}</p>
+                    <p class="text-xl font-semibold leading-none">{yr}</p>
+                  </div>
+                  <span class="chip chip-neutral">{ev.type}</span>
+                </div>
+                <h3 class="h3 mt-5">{ev.title}</h3>
+                <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-accent"><Users class="h-4 w-4" aria-hidden="true" />{ev.role}{ev.sample && <span class="chip chip-med">Sample</span>}</p>
+                <p class="muted mt-3 text-[0.975rem]">{ev.detail}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="section-head mb-12" data-reveal>
+        <p class="eyebrow">06 · Contact</p>
+        <h2 id="contact-h" class="h2 mt-3">Hiring for a project coordination or risk role? Let's talk.</h2>
+        <p class="lede mt-4">Tell me about the role or the team. I reply within two working days.</p>
+      </div>
+      <ContactSection />
     </div>
   </section>
 </Base>
