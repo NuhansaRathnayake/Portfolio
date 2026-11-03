@@ -7,11 +7,11 @@ const { project } = Astro.props;
 const d = project.data;
 ---
 
-<article class="group relative grid gap-6 border-t border-line py-8 first:border-t-0 md:grid-cols-[1.5fr_1fr] md:gap-12">
+<article class="card group relative mb-5 grid gap-6 p-6 sm:p-8 md:grid-cols-[1.5fr_1fr] md:gap-12">
   <div>
     <p class="mb-3"><span class="chip chip-neutral">{d.kind}</span></p>
     <h3 class="h2">
-      <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:content-[''] group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">{d.title}</a>
+      <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:content-[''] group-hover:text-accent">{d.title}</a>
     </h3>
     <p class="muted prose-body mt-3">{d.summary}</p>
     <p class="mt-5 inline-flex items-center gap-1.5 font-medium text-accent">

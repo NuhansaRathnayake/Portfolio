@@ -16,7 +16,7 @@ const chip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-
         <div class="grid gap-3 py-6 md:grid-cols-[14rem_1fr] md:gap-10">
           <h3 class="h3">{g.group}</h3>
           <ul class="flex flex-wrap gap-2">
-            {g.items.map((i) => <li class="rounded-md border border-line bg-surface px-3 py-1.5 text-[0.9375rem]">{i}</li>)}
+            {g.items.map((i) => <li class="tag">{i}</li>)}
           </ul>
         </div>
       ))}
@@ -46,7 +46,7 @@ const chip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-
 
       <h3 class="h3 mt-12">Relevant coursework</h3>
       <ul class="mt-4 flex flex-wrap gap-2">
-        {coursework.map((c) => <li class="rounded-md border border-line bg-surface px-3 py-1.5 text-[0.9375rem]">{c}</li>)}
+        {coursework.map((c) => <li class="tag">{c}</li>)}
       </ul>
     </div>
   </section>
