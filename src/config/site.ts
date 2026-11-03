@@ -8,7 +8,7 @@ export const site = {
   title: 'Nuhansa Rathnayake | IT Project Management & GRC',
   description:
     'Graduate IT project coordinator with a growing focus on governance, risk and compliance. Case studies, project artifacts and GRC samples.',
-  url: 'https://nuhansa.me', // EDIT once your domain is connected
+  url: 'https://portfolio-mu-six-0m6cibw0k0.vercel.app', // EDIT once your domain is connected
 
   // EDIT: degree and graduation details
   degree: 'BSc. Information Technology',
