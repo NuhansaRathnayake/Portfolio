@@ -4,7 +4,7 @@ The site builds and every section is in place. Some content is a template for yo
 
 ## Files to add (put them in the `public/` folder)
 
-- [ ] **Photo:** `public/me.jpg` (also accepted: `me.jpeg`, `me.png`, `me.webp`). Portrait, about 4:5, at least 640 x 800 px. Until you add it, a "NR" monogram shows.
+- [x] **Photo:** added as `public/me.jpg`. To change it, replace that file (a portrait, about 4:5, at least 640 x 800 px).
 - [ ] **CV:** `public/Nuhansa-Rathnayake-CV.pdf`. Until you add it, the "Download CV" button shows greyed out.
 
 Both are detected automatically at build time. No code change is needed.
