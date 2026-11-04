@@ -10,6 +10,9 @@ import { skillGroups, softSkills, approach, education, coursework, certification
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
+const [first, ...rest] = site.name.split(' ');
+const last = rest.join(' ');
+const lifecycle = ['Plan', 'Execute', 'Monitor', 'Close'];
 const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
 ---
 
@@ -17,66 +20,70 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
   <!-- ============ LANDING ============ -->
   <section id="top" class="landing" aria-label="Introduction">
     <span class="hero-ghost" aria-hidden="true">NR</span>
+    <span class="diamond" style="left:5%;top:30%;--s:14px;--t:9s" aria-hidden="true"></span>
+    <span class="diamond" style="left:47%;top:16%;--s:10px;--t:11s" aria-hidden="true"></span>
+    <span class="diamond" style="left:40%;top:74%;--s:12px;--t:13s" aria-hidden="true"></span>
+    <span class="diamond" style="left:93%;top:22%;--s:9px;--t:10s" aria-hidden="true"></span>
 
     <div class="landing-main">
       <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <p class="status-pill" data-reveal><span class="status-dot" aria-hidden="true"></span>Open to internship and graduate roles</p>
+          <p class="eyebrow" data-reveal>IT Project Management · GRC</p>
 
-          <h1 class="hero-title mt-7" data-reveal style="--d:80ms">
-            <span class="shimmer block">{site.name.split(' ')[0]}</span>
-            <span class="outline-text block">{site.name.split(' ').slice(1).join(' ')}</span>
+          <h1 class="hero-title mt-6" aria-label={site.name}>
+            <span class="name-line name-first" aria-hidden="true">{[...first].map((ch, i) => <span class="char" style={`--i:${i}`}>{ch}</span>)}</span>
+            <span class="name-line name-last" aria-hidden="true">{[...last].map((ch, i) => <span class="char" style={`--i:${i};--base:350ms`}>{ch}</span>)}<span class="char name-dot" style={`--i:${last.length};--base:350ms`}>.</span></span>
           </h1>
 
-          <p class="mt-6 text-[clamp(1.2rem,1rem+1vw,1.7rem)] font-medium" data-reveal style="--d:160ms">
+          <p class="mt-6 text-[clamp(1.2rem,1rem+1vw,1.7rem)] font-medium" data-reveal style="--d:700ms">
             <span class="mono text-accent">&gt;</span>
             <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
           </p>
 
-          <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:260ms">
+          <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:850ms">
             {site.cvUrl ? (
-              <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
+              <a href={site.cvUrl} class="btn btn-primary btn-shine" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
             ) : (
-              <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
+              <span class="btn btn-primary btn-shine" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
             )}
             <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
           </div>
 
-          <div class="mt-9" data-reveal style="--d:340ms"><SocialLinks large /></div>
+          <div class="mt-9" data-reveal style="--d:980ms"><SocialLinks large /></div>
+
+          <div class="ts" data-reveal style="--d:1100ms" aria-hidden="true">
+            <p class="ts-head">Delivery lifecycle</p>
+            <div class="ts-track">
+              <span class="ts-fill"></span>
+              {lifecycle.map((step, i) => (
+                <span class="ts-item" style={`--p:${(i / (lifecycle.length - 1)) * 100}%;--an:ts-n${i}`}>
+                  <span class="ts-node"></span>
+                  <span class="ts-label">{step}</span>
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div class="relative mx-auto w-full max-w-[min(22rem,76vw)]" data-reveal="scale" style="--d:200ms">
-          <div class="photo-stack">
-            <span class="photo-glow" aria-hidden="true"></span>
-            <span class="photo-back photo-back-1" aria-hidden="true"></span>
-            <span class="photo-back photo-back-2" aria-hidden="true"></span>
+        <div class="relative mx-auto w-full max-w-[min(23rem,78vw)]" data-reveal="scale" style="--d:300ms">
+          <span class="orbit orbit-1" aria-hidden="true"></span>
+          <span class="orbit orbit-2" aria-hidden="true"></span>
 
+          <div class="photo-simple">
+            <span class="photo-glow" aria-hidden="true"></span>
             <div class="photo-card">
               {site.photo ? (
                 <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
               ) : (
                 <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
               )}
-              <span class="photo-tag"><MapPin class="h-4 w-4 text-accent" aria-hidden="true" />{site.location}</span>
             </div>
-
-            <span class="photo-corner tl" aria-hidden="true"></span>
-            <span class="photo-corner tr" aria-hidden="true"></span>
-            <span class="photo-corner bl" aria-hidden="true"></span>
-            <span class="photo-corner br" aria-hidden="true"></span>
+            <span class="photo-ring" aria-hidden="true"></span>
           </div>
 
           <span class="float-chip glass -left-3 top-[8%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
           <span class="float-chip glass -right-4 top-[58%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
           <span class="float-chip glass -left-5 top-[36%] hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
-
-          <div class="badge" aria-hidden="true">
-            <svg class="badge-ring" viewBox="0 0 120 120">
-              <defs><path id="badge-path" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
-              <text><textPath href="#badge-path" textLength="286" lengthAdjust="spacing">Risk management • Project coordination • </textPath></text>
-            </svg>
-            <span class="badge-core"><ShieldCheck /></span>
-          </div>
         </div>
       </div>
     </div>

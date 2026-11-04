@@ -8,10 +8,7 @@ const d = project.data;
 ---
 
 <article class="card spot group flex h-full flex-col p-6 sm:p-7" data-reveal style={`--d:${index * 110}ms`}>
-  <div class="flex items-center justify-between gap-3">
-    <span class="chip chip-neutral">{d.kind}</span>
-    <span class="mono muted text-xs">{String(index + 1).padStart(2, '0')}</span>
-  </div>
+  <div><span class="chip chip-neutral">{d.kind}</span></div>
   <h3 class="h3 mt-5 text-[1.35rem] leading-snug">
     <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:z-10 after:content-['']">{d.title}</a>
   </h3>
