@@ -305,7 +305,6 @@ main { flex: 1; }
 .name-last { font-weight: 760; color: var(--ink); }
 .char { display: inline-block; transition: color 0.25s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); animation: char-in 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; animation-delay: calc(var(--i) * 45ms + var(--base, 0ms) + 150ms); }
 .name-last .char:hover { color: var(--accent); transform: translateY(-0.05em); }
-.name-dot { color: var(--accent); text-shadow: 0 0 26px rgb(45 212 191 / 0.7); }
 @keyframes char-in { from { opacity: 0; transform: translateY(105%) rotate(5deg); filter: blur(6px); } }
 
 /* Photo: one clean frame with a light that travels around its edge */
@@ -323,29 +322,15 @@ main { flex: 1; }
   animation: ang 7s linear infinite;
 }
 
-/* Delivery lifecycle: a line fills across and lights each milestone in turn */
-@property --on { syntax: '<number>'; inherits: true; initial-value: 0; }
-.ts { margin-top: 2.75rem; max-width: 27rem; }
-.ts-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.4rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-.ts-head::after { content: ''; flex: 1; height: 1px; background: var(--line-strong); }
-.ts-track { position: relative; height: 2px; margin: 0 7px 2.4rem; border-radius: 2px; background: rgb(255 255 255 / 0.1); }
-.ts-fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: linear-gradient(90deg, #14b8a6, #7df3e1); box-shadow: 0 0 12px rgb(45 212 191 / 0.8); animation: ts-fill 9s linear 1.2s infinite; }
-.ts-item { position: absolute; top: 0; left: var(--p); animation: 9s linear 1.2s infinite; animation-name: var(--an); }
-.ts-node {
-  position: absolute; top: -7px; left: -7px; width: 14px; height: 14px; border-radius: 3px; rotate: 45deg;
-  scale: calc(1 + var(--on) * 0.3);
-  border: 2px solid color-mix(in srgb, var(--accent) calc(var(--on) * 100%), rgb(255 255 255 / 0.28));
-  background: color-mix(in srgb, var(--accent) calc(var(--on) * 100%), var(--paper));
-  box-shadow: 0 0 calc(var(--on) * 16px) rgb(45 212 191 / 0.85);
-}
-.ts-label { position: absolute; top: 14px; left: 0; transform: translateX(-50%); font-size: 0.78rem; white-space: nowrap; color: color-mix(in srgb, var(--ink) calc(var(--on) * 100%), var(--muted)); }
-.ts-item:first-child .ts-label { transform: translateX(-7px); }
-.ts-item:last-child .ts-label { transform: translateX(calc(-100% + 7px)); }
-@keyframes ts-fill { 0% { width: 0; opacity: 1; } 70% { width: 100%; } 92% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
-@keyframes ts-n0 { 0% { --on: 0; } 1% { --on: 1; } 92% { --on: 1; } 98%, 100% { --on: 0; } }
-@keyframes ts-n1 { 0%, 22% { --on: 0; } 24% { --on: 1; } 92% { --on: 1; } 98%, 100% { --on: 0; } }
-@keyframes ts-n2 { 0%, 45% { --on: 0; } 47% { --on: 1; } 92% { --on: 1; } 98%, 100% { --on: 0; } }
-@keyframes ts-n3 { 0%, 68% { --on: 0; } 70.5% { --on: 1; } 92% { --on: 1; } 98%, 100% { --on: 0; } }
+/* Rotating role text + dotted backdrop around the portrait */
+.role-ring { position: absolute; left: -2.6rem; bottom: -2.2rem; width: 8.5rem; height: 8.5rem; border-radius: 50%; display: grid; place-items: center; background: rgb(7 12 12 / 0.92); border: 1px solid var(--line-strong); box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.9); z-index: 3; }
+.role-ring > svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 22s linear infinite; }
+.role-ring text { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.14em; fill: var(--accent); }
+.role-ring-core { font-family: var(--font-mono); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; display: grid; place-items: center; width: 3.1rem; height: 3.1rem; border-radius: 50%; color: var(--accent); background: rgb(45 212 191 / 0.1); border: 1px solid rgb(45 212 191 / 0.35); }
+.dots { position: absolute; right: -2rem; top: -2rem; width: 55%; height: 45%; z-index: -1; pointer-events: none; background-image: radial-gradient(rgb(45 212 191 / 0.55) 1.3px, transparent 1.6px); background-size: 16px 16px; -webkit-mask: linear-gradient(225deg, #000, transparent 85%); mask: linear-gradient(225deg, #000, transparent 85%); animation: dots-in 1.4s ease 0.6s backwards; }
+@keyframes dots-in { from { opacity: 0; transform: translate(14px, -14px); } }
+#hero-art .photo-simple { transition: transform 0.25s ease-out; transform: perspective(900px) rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)); }
+@media (max-width: 640px) { .role-ring { left: -0.6rem; width: 6.6rem; height: 6.6rem; bottom: -1.6rem; } .role-ring text { font-size: 10.5px; } }
 
 .btn-shine { position: relative; overflow: hidden; }
 .btn-shine::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.4) 50%, transparent 70%); transform: translateX(-130%); animation: shine 5s ease-in-out 2.4s infinite; pointer-events: none; }
@@ -373,6 +358,23 @@ main { flex: 1; }
 
 
 .icon-btn-lg { width: 3.5rem; height: 3.5rem; border-radius: 16px; }
+/* Hover like the navbar: a teal bubble pops up and carries the icon with it */
+.icon-btn-lg { position: relative; overflow: visible; }
+.icon-btn-lg::before {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 3.6rem; height: 3.6rem; margin: -1.8rem 0 0 -1.8rem; border-radius: 50%; pointer-events: none;
+  background: linear-gradient(150deg, #7df3e1, #14b8a6); box-shadow: 0 12px 28px -6px rgb(45 212 191 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.5);
+  opacity: 0; transform: translateY(0) scale(0.5); transition: opacity 0.2s, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.icon-btn-lg > svg, .icon-btn-lg > :first-child { position: relative; z-index: 1; transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s; }
+.icon-btn-lg:hover, .icon-btn-lg:focus-visible { transform: none; background: rgb(45 212 191 / 0.06); border-color: rgb(45 212 191 / 0.55); color: #03100e; }
+.icon-btn-lg:hover::before, .icon-btn-lg:focus-visible::before { opacity: 1; transform: translateY(-1.15rem) scale(1); }
+.icon-btn-lg:hover > svg, .icon-btn-lg:focus-visible > svg { transform: translateY(-1.15rem); }
+
+.focus-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line); max-width: 36rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.focus-row i { width: 6px; height: 6px; rotate: 45deg; background: var(--accent); box-shadow: 0 0 10px rgb(45 212 191 / 0.8); }
+.focus-row span { transition: color 0.2s; }
+.focus-row span:hover { color: var(--ink); }
+
 
 /* Floating scroll-down button at the bottom of the landing screen */
 .scroll-fab {

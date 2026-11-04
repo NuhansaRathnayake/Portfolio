@@ -12,7 +12,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 const grcCount = (await getCollection('grc')).length;
 const [first, ...rest] = site.name.split(' ');
 const last = rest.join(' ');
-const lifecycle = ['Plan', 'Execute', 'Monitor', 'Close'];
 const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
 ---
 
@@ -28,11 +27,11 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     <div class="landing-main">
       <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <p class="eyebrow" data-reveal>IT Project Management · GRC</p>
+          <p class="eyebrow" data-reveal>Hello, I’m</p>
 
           <h1 class="hero-title mt-6" aria-label={site.name}>
             <span class="name-line name-first" aria-hidden="true">{[...first].map((ch, i) => <span class="char" style={`--i:${i}`}>{ch}</span>)}</span>
-            <span class="name-line name-last" aria-hidden="true">{[...last].map((ch, i) => <span class="char" style={`--i:${i};--base:350ms`}>{ch}</span>)}<span class="char name-dot" style={`--i:${last.length};--base:350ms`}>.</span></span>
+            <span class="name-line name-last" aria-hidden="true">{[...last].map((ch, i) => <span class="char" style={`--i:${i};--base:350ms`}>{ch}</span>)}</span>
           </h1>
 
           <p class="mt-6 text-[clamp(1.2rem,1rem+1vw,1.7rem)] font-medium" data-reveal style="--d:700ms">
@@ -51,21 +50,14 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 
           <div class="mt-9" data-reveal style="--d:980ms"><SocialLinks large /></div>
 
-          <div class="ts" data-reveal style="--d:1100ms" aria-hidden="true">
-            <p class="ts-head">Delivery lifecycle</p>
-            <div class="ts-track">
-              <span class="ts-fill"></span>
-              {lifecycle.map((step, i) => (
-                <span class="ts-item" style={`--p:${(i / (lifecycle.length - 1)) * 100}%;--an:ts-n${i}`}>
-                  <span class="ts-node"></span>
-                  <span class="ts-label">{step}</span>
-                </span>
-              ))}
-            </div>
+          <div class="focus-row" data-reveal style="--d:1100ms">
+            <span>Project management</span><i></i><span>Risk &amp; compliance</span><i></i><span>Agile delivery</span>
           </div>
+
         </div>
 
-        <div class="relative mx-auto w-full max-w-[min(23rem,78vw)]" data-reveal="scale" style="--d:300ms">
+        <div class="relative mx-auto w-full max-w-[min(27rem,80vw)]" id="hero-art" data-reveal="scale" style="--d:300ms">
+          <span class="dots" aria-hidden="true"></span>
           <span class="orbit orbit-1" aria-hidden="true"></span>
           <span class="orbit orbit-2" aria-hidden="true"></span>
 
@@ -79,6 +71,13 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
               )}
             </div>
             <span class="photo-ring" aria-hidden="true"></span>
+          </div>
+
+
+          <div class="role-ring" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id="rr" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+              <text><textPath href="#rr" startOffset="0">IT PROJECT MANAGEMENT • GRC • RISK • COMPLIANCE •</textPath></text></svg>
+            <span class="role-ring-core">NR</span>
           </div>
 
           <span class="float-chip glass -left-3 top-[8%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
@@ -296,3 +295,20 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 </Base>
+
+<script>
+  // Gentle tilt of the portrait that follows the pointer (desktop only)
+  const art = document.getElementById('hero-art');
+  const frame = art?.querySelector<HTMLElement>('.photo-simple');
+  if (art && frame && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    const land = document.getElementById('top');
+    land?.addEventListener('pointermove', (e) => {
+      const r = art.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      frame.style.setProperty('--ry', `${(x * 9).toFixed(2)}deg`);
+      frame.style.setProperty('--rx', `${(-y * 7).toFixed(2)}deg`);
+    });
+    land?.addEventListener('pointerleave', () => { frame.style.setProperty('--ry', '0deg'); frame.style.setProperty('--rx', '0deg'); });
+  }
+</script>
