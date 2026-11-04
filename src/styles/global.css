@@ -290,24 +290,102 @@ main { flex: 1; }
 .spot:hover::after { opacity: 1; }
 
 /* ---------- Hero ---------- */
-.photo-frame {
-  position: relative; border-radius: 30px; padding: 3px; overflow: hidden; isolation: isolate;
-  aspect-ratio: 4 / 5; max-width: 25rem; margin-inline: auto;
+.photo-stack { position: relative; aspect-ratio: 4 / 5; width: 100%; }
+.photo-glow {
+  position: absolute; inset: -14%; z-index: -2; pointer-events: none; filter: blur(34px);
+  background: radial-gradient(circle at 50% 45%, rgb(45 212 191 / 0.3), transparent 62%);
+  animation: breathe 6s ease-in-out infinite;
 }
-.photo-frame::before {
-  content: ''; position: absolute; inset: -60%; z-index: -2;
-  background: conic-gradient(from 0deg, transparent 0 55%, #2dd4bf 78%, #f2f5f5 88%, transparent 100%);
-  animation: spin 7s linear infinite;
+@keyframes breathe { 0%, 100% { opacity: 0.7; transform: scale(0.96); } 50% { opacity: 1; transform: scale(1.04); } }
+
+/* Two cards fan out behind the photo; they sway gently and spread apart on hover */
+.photo-back { position: absolute; inset: 0; z-index: -1; border-radius: 2rem; transition: rotate 0.7s cubic-bezier(0.34, 1.4, 0.5, 1); }
+.photo-back-1 {
+  rotate: 7deg; translate: 1.1rem 0.5rem;
+  background: linear-gradient(150deg, rgb(45 212 191 / 0.5), rgb(15 118 110 / 0.12));
+  border: 1px solid rgb(45 212 191 / 0.55);
+  animation: sway-a 7s ease-in-out infinite alternate;
 }
-.photo-frame::after { content: ''; position: absolute; inset: 3px; border-radius: 27px; background: var(--surface); z-index: -1; }
-.photo-inner {
-  position: relative; width: 100%; height: 100%; border-radius: 27px; overflow: hidden;
-  display: grid; place-items: center;
-  background: radial-gradient(circle at 30% 20%, rgb(45 212 191 / 0.25), transparent 55%), var(--surface);
+.photo-back-2 {
+  rotate: -5deg; translate: -0.9rem 0.4rem;
+  border: 1.5px dashed rgb(255 255 255 / 0.22);
+  animation: sway-b 8s ease-in-out infinite alternate;
 }
-.photo-inner img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.photo-stack:hover .photo-back-1 { rotate: 11deg; }
+.photo-stack:hover .photo-back-2 { rotate: -9deg; }
+@keyframes sway-a { to { translate: 1.5rem -0.3rem; } }
+@keyframes sway-b { to { translate: -1.3rem -0.2rem; } }
+
+.photo-card {
+  position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 2rem;
+  display: grid; place-items: center; background: var(--surface); border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow: 0 34px 60px -26px rgb(0 0 0 / 0.95), 0 0 0 6px rgb(255 255 255 / 0.03);
+}
+.photo-card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.photo-stack:hover .photo-card img { transform: scale(1.05); }
+.photo-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgb(7 9 9 / 0.6), transparent 40%); }
+.photo-tag {
+  position: absolute; left: 0.9rem; bottom: 0.9rem; z-index: 1; display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.4rem 0.8rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 560;
+  background: rgb(11 14 15 / 0.78); border: 1px solid rgb(255 255 255 / 0.12); backdrop-filter: blur(10px);
+}
+
+/* Viewfinder corners */
+.photo-corner { position: absolute; width: 1.5rem; height: 1.5rem; border: 2px solid var(--accent); pointer-events: none; animation: corner 3.2s ease-in-out infinite; }
+.photo-corner.tl { top: -0.8rem; left: -0.8rem; border-right: 0; border-bottom: 0; border-top-left-radius: 0.7rem; }
+.photo-corner.tr { top: -0.8rem; right: -0.8rem; border-left: 0; border-bottom: 0; border-top-right-radius: 0.7rem; animation-delay: 0.4s; }
+.photo-corner.bl { bottom: -0.8rem; left: -0.8rem; border-right: 0; border-top: 0; border-bottom-left-radius: 0.7rem; animation-delay: 0.8s; }
+.photo-corner.br { bottom: -0.8rem; right: -0.8rem; border-left: 0; border-top: 0; border-bottom-right-radius: 0.7rem; animation-delay: 1.2s; }
+@keyframes corner { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
 .monogram { font-size: clamp(5rem, 14vw, 8rem); font-weight: 700; letter-spacing: -0.06em; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Landing ---------- */
+.landing { position: relative; display: flex; flex-direction: column; padding-bottom: 5.5rem; overflow: clip; }
+@media (min-width: 1024px) { .landing { min-height: calc(100svh - 7rem); } }
+.landing-main { flex: 1; display: grid; align-items: center; padding-block: 1rem 1.5rem; }
+
+.hero-title { font-size: clamp(3rem, 1rem + 6.4vw, 6rem); line-height: 0.96; font-weight: 650; letter-spacing: -0.045em; }
+.outline-text { color: transparent; -webkit-text-stroke: 1.5px var(--accent); transition: color 0.4s; }
+.hero-title:hover .outline-text { color: rgb(45 212 191 / 0.14); }
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.4rem 0.95rem 0.4rem 0.8rem; border-radius: 999px;
+  border: 1px solid rgb(45 212 191 / 0.3); background: rgb(45 212 191 / 0.07); font-size: 0.875rem; color: var(--ink);
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2.2s ease-out infinite; }
+
+.hero-ghost {
+  position: absolute; right: -1.5rem; top: 50%; transform: translateY(-50%); z-index: -1; pointer-events: none; user-select: none;
+  font-size: clamp(16rem, 34vw, 32rem); line-height: 0.8; font-weight: 800; letter-spacing: -0.08em;
+  color: transparent; -webkit-text-stroke: 1px rgb(255 255 255 / 0.07);
+}
+
+.badge {
+  position: absolute; left: -1.25rem; bottom: 2rem; width: 7.5rem; height: 7.5rem; display: grid; place-items: center;
+  border-radius: 50%; background: rgb(11 14 15 / 0.94); border: 1px solid var(--line-strong);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.9);
+}
+.badge-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 18s linear infinite; }
+.badge-ring text { fill: #c9cfd1; font-family: var(--font-mono); font-size: 8.4px; text-transform: uppercase; }
+.badge-core { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 50%; color: #03100e; background: linear-gradient(150deg, #7df3e1, #14b8a6); }
+.badge-core svg { width: 1.4rem; height: 1.4rem; }
+@media (max-width: 639.98px) { .badge { width: 6rem; height: 6rem; left: -0.5rem; bottom: 1rem; } .badge-core { width: 2.3rem; height: 2.3rem; } }
+
+.icon-btn-lg { width: 3.5rem; height: 3.5rem; border-radius: 16px; }
+
+/* Floating scroll-down button at the bottom of the landing screen */
+.scroll-fab {
+  position: absolute; left: 50%; bottom: 1.25rem; z-index: 2; margin-left: -1.6rem; width: 3.2rem; height: 3.2rem;
+  display: grid; place-items: center; border-radius: 50%; color: var(--accent);
+  background: rgb(45 212 191 / 0.1); border: 1.5px solid rgb(45 212 191 / 0.55); backdrop-filter: blur(8px);
+  animation: fab-float 2.4s ease-in-out infinite;
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+.scroll-fab svg { width: 1.4rem; height: 1.4rem; }
+.scroll-fab::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 1.5px solid rgb(45 212 191 / 0.45); animation: ring 2.4s ease-out infinite; }
+.scroll-fab:hover { background: var(--accent); color: var(--on-accent); box-shadow: 0 12px 30px -6px rgb(45 212 191 / 0.6); }
+@keyframes fab-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 .float-chip {
   position: absolute; display: inline-flex; align-items: center; gap: 0.5rem;
@@ -316,13 +394,6 @@ main { flex: 1; }
 }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-.scroll-down { display: inline-flex; flex-direction: column; align-items: center; gap: 0.7rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; transition: color 0.25s; }
-.scroll-down:hover { color: var(--accent); }
-.scroll-down-ring { position: relative; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; border: 1.5px solid var(--line-strong); transition: border-color 0.25s, background-color 0.25s; }
-.scroll-down:hover .scroll-down-ring { border-color: var(--accent); background: rgb(45 212 191 / 0.08); }
-.scroll-down-ring::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px solid rgb(45 212 191 / 0.45); animation: ring 2.4s ease-out infinite; }
-.scroll-down-ring svg { width: 1.25rem; height: 1.25rem; color: var(--accent); animation: bob 1.6s ease-in-out infinite; }
-@keyframes bob { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(4px); } }
 
 .marquee {
   overflow: hidden;

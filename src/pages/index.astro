@@ -10,72 +10,78 @@ import { skillGroups, softSkills, approach, education, coursework, certification
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
-const marquee = skillGroups.flatMap((g) => g.items);
 const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
-const looking = site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1);
 ---
 
 <Base>
   <!-- ============ LANDING ============ -->
-  <section id="top" class="relative">
-    <div class="wrap grid items-center gap-14 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-24">
-      <div>
-        <p class="eyebrow" data-reveal>Hello, I'm</p>
-        <h1 class="display mt-4" data-reveal style="--d:80ms"><span class="shimmer">{site.name}</span></h1>
-        <p class="mt-5 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium" data-reveal style="--d:160ms">
-          <span class="mono text-accent">&gt;</span>
-          <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
-        </p>
-        <p class="lede mt-6" data-reveal style="--d:240ms">
-          I plan IT projects so the risks are named before they become problems. I'm studying for a {site.degree} at {site.university}, with a growing focus on governance, risk and compliance (GRC).
-        </p>
-        <p class="mt-4 max-w-[62ch] text-[0.975rem]" data-reveal style="--d:300ms">
-          <span class="text-accent">Looking for:</span> <span class="muted">{looking}.</span>
-        </p>
+  <section id="top" class="landing" aria-label="Introduction">
+    <span class="hero-ghost" aria-hidden="true">NR</span>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:380ms">
-          {site.cvUrl ? (
-            <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
-          ) : (
-            <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
-          )}
-          <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
-        </div>
-        <div class="mt-7" data-reveal style="--d:460ms"><SocialLinks /></div>
-      </div>
+    <div class="landing-main">
+      <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p class="status-pill" data-reveal><span class="status-dot" aria-hidden="true"></span>Open to internship and graduate roles</p>
 
-      <div class="relative" data-reveal="scale" style="--d:200ms">
-        <div class="photo-frame">
-          <div class="photo-inner">
-            {site.photo ? (
-              <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
+          <h1 class="hero-title mt-7" data-reveal style="--d:80ms">
+            <span class="shimmer block">{site.name.split(' ')[0]}</span>
+            <span class="outline-text block">{site.name.split(' ').slice(1).join(' ')}</span>
+          </h1>
+
+          <p class="mt-6 text-[clamp(1.2rem,1rem+1vw,1.7rem)] font-medium" data-reveal style="--d:160ms">
+            <span class="mono text-accent">&gt;</span>
+            <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
+          </p>
+
+          <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:260ms">
+            {site.cvUrl ? (
+              <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
             ) : (
-              <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
+              <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
             )}
+            <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+          </div>
+
+          <div class="mt-9" data-reveal style="--d:340ms"><SocialLinks large /></div>
+        </div>
+
+        <div class="relative mx-auto w-full max-w-[min(22rem,76vw)]" data-reveal="scale" style="--d:200ms">
+          <div class="photo-stack">
+            <span class="photo-glow" aria-hidden="true"></span>
+            <span class="photo-back photo-back-1" aria-hidden="true"></span>
+            <span class="photo-back photo-back-2" aria-hidden="true"></span>
+
+            <div class="photo-card">
+              {site.photo ? (
+                <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
+              ) : (
+                <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
+              )}
+              <span class="photo-tag"><MapPin class="h-4 w-4 text-accent" aria-hidden="true" />{site.location}</span>
+            </div>
+
+            <span class="photo-corner tl" aria-hidden="true"></span>
+            <span class="photo-corner tr" aria-hidden="true"></span>
+            <span class="photo-corner bl" aria-hidden="true"></span>
+            <span class="photo-corner br" aria-hidden="true"></span>
+          </div>
+
+          <span class="float-chip glass -left-3 top-[8%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
+          <span class="float-chip glass -right-4 top-[58%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
+          <span class="float-chip glass -left-5 top-[36%] hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
+
+          <div class="badge" aria-hidden="true">
+            <svg class="badge-ring" viewBox="0 0 120 120">
+              <defs><path id="badge-path" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
+              <text><textPath href="#badge-path" textLength="286" lengthAdjust="spacing">Risk management • Project coordination • </textPath></text>
+            </svg>
+            <span class="badge-core"><ShieldCheck /></span>
           </div>
         </div>
-        <span class="float-chip glass -left-2 top-[12%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
-        <span class="float-chip glass -right-2 top-[42%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
-        <span class="float-chip glass bottom-[8%] left-2 hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
       </div>
     </div>
 
-    <div class="marquee pb-4" aria-label="Skills and tools">
-      <div class="marquee-track">
-        {[0, 1].map((n) => (
-          <ul class="flex" aria-hidden={n === 1 ? 'true' : undefined}>
-            {marquee.map((m) => <li class="marquee-item tag">{m}</li>)}
-          </ul>
-        ))}
-      </div>
-    </div>
-
-    <div class="flex justify-center py-10">
-      <a href="/#about" class="scroll-down" aria-label="Scroll down to About me">
-        <span class="scroll-down-ring"><ArrowDown aria-hidden="true" /></span>
-        Scroll down
-      </a>
-    </div>
+    <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
   <!-- ============ ABOUT + SKILLS ============ -->
