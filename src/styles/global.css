@@ -2,8 +2,6 @@
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
 @import '@fontsource/special-elite';
-@import '@fontsource/instrument-serif';
-@import '@fontsource/instrument-serif/400-italic.css';
 
 /* ---------- Design tokens ----------
    Dark only. Palette: teal, white, grey and black.
@@ -305,7 +303,7 @@ main { flex: 1; }
 /* Name: light first name, heavy surname, letters rise in one by one */
 .hero-title { font-size: clamp(3.1rem, 1rem + 6.8vw, 6.4rem); line-height: 0.98; letter-spacing: -0.045em; }
 .name-line { display: block; overflow: hidden; padding: 0.08em 0 0.14em; margin: -0.08em 0 -0.14em; }
-.name-first { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-style: italic; letter-spacing: -0.02em; font-size: 1.12em; line-height: 0.9; }
+.name-first { font-weight: 700; letter-spacing: -0.045em; }
 .name-last { font-weight: 760; }
 .char {
   display: inline-block; color: transparent; padding-right: 0.01em;
