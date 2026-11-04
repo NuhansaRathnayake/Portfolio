@@ -620,3 +620,9 @@ main { flex: 1; }
   body, html { background: #fff; color: #000; }
 }
 }
+
+/* Minimal landing: quiet photo frame, no tilt */
+@layer components {
+  #hero-art .photo-simple { transform: none; }
+  .photo-card { border: 1px solid var(--line-strong); box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.9); }
+}
