@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
+@import '@fontsource/special-elite';
 
 /* ---------- Design tokens ----------
    Dark only. Palette: teal, white, grey and black.
@@ -182,6 +183,7 @@ main { flex: 1; }
 }
 @keyframes shimmer { from { background-position: 120% 0; } to { background-position: -100% 0; } }
 
+#typed { font-family: 'Special Elite', 'Courier New', monospace; letter-spacing: 0.01em; font-weight: 400; }
 .caret {
   display: inline-block; width: 2px; height: 1.1em; margin-left: 3px;
   background: var(--accent); vertical-align: -0.18em;
@@ -301,10 +303,19 @@ main { flex: 1; }
 /* Name: light first name, heavy surname, letters rise in one by one */
 .hero-title { font-size: clamp(3.1rem, 1rem + 6.8vw, 6.4rem); line-height: 0.98; letter-spacing: -0.045em; }
 .name-line { display: block; overflow: hidden; padding: 0.08em 0 0.14em; margin: -0.08em 0 -0.14em; }
-.name-first { font-weight: 300; color: #d3dada; }
-.name-last { font-weight: 760; color: var(--ink); }
-.char { display: inline-block; transition: color 0.25s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); animation: char-in 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; animation-delay: calc(var(--i) * 45ms + var(--base, 0ms) + 150ms); }
-.name-last .char:hover { color: var(--accent); transform: translateY(-0.05em); }
+.name-first { font-weight: 700; letter-spacing: -0.045em; }
+.name-last { font-weight: 760; }
+.char {
+  display: inline-block; color: transparent; padding-right: 0.01em;
+  background: linear-gradient(100deg, #f2f5f5 0%, #c9f4ee 25%, #8be8da 45%, #c9f4ee 65%, #f2f5f5 85%, #f2f5f5 100%); background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: char-in 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) backwards, flow 7s linear infinite;
+  animation-delay: calc(var(--i) * 45ms + var(--base, 0ms) + 150ms), calc(var(--i) * -380ms);
+}
+@keyframes flow { from { background-position: 0% 0; } to { background-position: -300% 0; } }
+
+.name-last .char:hover { transform: translateY(-0.05em); }
 @keyframes char-in { from { opacity: 0; transform: translateY(105%) rotate(5deg); filter: blur(6px); } }
 
 /* Photo: one clean frame with a light that travels around its edge */
@@ -483,6 +494,8 @@ main { flex: 1; }
 .site-header { position: relative; z-index: 60; padding-top: 2.4rem; padding-bottom: 0.6rem; pointer-events: none; }
 .header-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; pointer-events: none; }
 .header-grid > * { pointer-events: auto; }
+.header-grid > .cta-gradient { grid-column: 3; justify-self: end; }
+@media (max-width: 1023.98px) { .header-grid > .cta-gradient { grid-column: 2; } }
 @media (max-width: 1023.98px) {
   .site-header { position: relative; padding-top: 1rem; }
   .header-grid { grid-template-columns: 1fr auto; }
@@ -500,7 +513,7 @@ main { flex: 1; }
 .navbar { position: relative; --nr: 0px; }
 .navbar.ready { --nr: 2rem; transition: --cx 0.6s cubic-bezier(0.34, 1.4, 0.5, 1), --nr 0.5s ease; }
 .navbar-desktop { display: none; justify-self: center; height: 4rem; animation: nav-drop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both; }
-@media (min-width: 1024px) { .navbar-desktop { display: block; } }
+@media (min-width: 1024px) { .navbar-desktop { display: block; position: fixed; top: 2.4rem; left: 50%; translate: -50% 0; z-index: 70; box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.9); } }
 
 .navbar-bg {
   position: absolute; inset: 0; border-radius: 22px;
