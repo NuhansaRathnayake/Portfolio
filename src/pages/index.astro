@@ -10,72 +10,84 @@ import { skillGroups, softSkills, approach, education, coursework, certification
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
-const marquee = skillGroups.flatMap((g) => g.items);
+const [first, ...rest] = site.name.split(' ');
+const last = rest.join(' ');
 const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
-const looking = site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(1);
 ---
 
 <Base>
   <!-- ============ LANDING ============ -->
-  <section id="top" class="relative">
-    <div class="wrap grid items-center gap-14 pb-16 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-24">
-      <div>
-        <p class="eyebrow" data-reveal>Hello, I'm</p>
-        <h1 class="display mt-4" data-reveal style="--d:80ms"><span class="shimmer">{site.name}</span></h1>
-        <p class="mt-5 text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-medium" data-reveal style="--d:160ms">
-          <span class="mono text-accent">&gt;</span>
-          <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
-        </p>
-        <p class="lede mt-6" data-reveal style="--d:240ms">
-          I plan IT projects so the risks are named before they become problems. I'm studying for a {site.degree} at {site.university}, with a growing focus on governance, risk and compliance (GRC).
-        </p>
-        <p class="mt-4 max-w-[62ch] text-[0.975rem]" data-reveal style="--d:300ms">
-          <span class="text-accent">Looking for:</span> <span class="muted">{looking}.</span>
-        </p>
+  <section id="top" class="landing" aria-label="Introduction">
+    <span class="hero-ghost" aria-hidden="true">NR</span>
+    <span class="diamond" style="left:5%;top:30%;--s:14px;--t:9s" aria-hidden="true"></span>
+    <span class="diamond" style="left:47%;top:16%;--s:10px;--t:11s" aria-hidden="true"></span>
+    <span class="diamond" style="left:40%;top:74%;--s:12px;--t:13s" aria-hidden="true"></span>
+    <span class="diamond" style="left:93%;top:22%;--s:9px;--t:10s" aria-hidden="true"></span>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:380ms">
-          {site.cvUrl ? (
-            <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
-          ) : (
-            <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
-          )}
-          <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
-        </div>
-        <div class="mt-7" data-reveal style="--d:460ms"><SocialLinks /></div>
-      </div>
+    <div class="landing-main">
+      <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+        <div>
+          <p class="eyebrow" data-reveal>Hello, I’m</p>
 
-      <div class="relative" data-reveal="scale" style="--d:200ms">
-        <div class="photo-frame">
-          <div class="photo-inner">
-            {site.photo ? (
-              <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
+          <h1 class="hero-title mt-6" aria-label={site.name}>
+            <span class="name-line name-first" aria-hidden="true">{[...first].map((ch, i) => <span class="char" style={`--i:${i}`}>{ch}</span>)}</span>
+            <span class="name-line name-last" aria-hidden="true">{[...last].map((ch, i) => <span class="char" style={`--i:${i};--base:350ms`}>{ch}</span>)}</span>
+          </h1>
+
+          <p class="mt-6 text-[clamp(1.2rem,1rem+1vw,1.7rem)] font-medium" data-reveal style="--d:700ms">
+            <span class="mono text-accent">&gt;</span>
+            <span id="typed" data-roles={JSON.stringify(site.roles)}>{site.roles[0]}</span><span class="caret" aria-hidden="true"></span>
+          </p>
+
+          <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:850ms">
+            {site.cvUrl ? (
+              <a href={site.cvUrl} class="btn btn-primary btn-shine" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
             ) : (
-              <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
+              <span class="btn btn-primary btn-shine" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
             )}
+            <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
           </div>
+
+          <div class="mt-9" data-reveal style="--d:980ms"><SocialLinks large /></div>
+
+          <div class="focus-row" data-reveal style="--d:1100ms">
+            <span>Project management</span><i></i><span>Risk &amp; compliance</span><i></i><span>Agile delivery</span>
+          </div>
+
         </div>
-        <span class="float-chip glass -left-2 top-[12%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
-        <span class="float-chip glass -right-2 top-[42%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
-        <span class="float-chip glass bottom-[8%] left-2 hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
+
+        <div class="relative mx-auto w-full max-w-[min(27rem,80vw)]" id="hero-art" data-reveal="scale" style="--d:300ms">
+          <span class="dots" aria-hidden="true"></span>
+          <span class="orbit orbit-1" aria-hidden="true"></span>
+          <span class="orbit orbit-2" aria-hidden="true"></span>
+
+          <div class="photo-simple">
+            <span class="photo-glow" aria-hidden="true"></span>
+            <div class="photo-card">
+              {site.photo ? (
+                <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
+              ) : (
+                <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
+              )}
+            </div>
+            <span class="photo-ring" aria-hidden="true"></span>
+          </div>
+
+
+          <div class="role-ring" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id="rr" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+              <text><textPath href="#rr" startOffset="0">IT PROJECT MANAGEMENT • GRC • RISK • COMPLIANCE •</textPath></text></svg>
+            <span class="role-ring-core">NR</span>
+          </div>
+
+          <span class="float-chip glass -left-3 top-[8%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
+          <span class="float-chip glass -right-4 top-[58%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
+          <span class="float-chip glass -left-5 top-[36%] hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
+        </div>
       </div>
     </div>
 
-    <div class="marquee pb-4" aria-label="Skills and tools">
-      <div class="marquee-track">
-        {[0, 1].map((n) => (
-          <ul class="flex" aria-hidden={n === 1 ? 'true' : undefined}>
-            {marquee.map((m) => <li class="marquee-item tag">{m}</li>)}
-          </ul>
-        ))}
-      </div>
-    </div>
-
-    <div class="flex justify-center py-10">
-      <a href="/#about" class="scroll-down" aria-label="Scroll down to About me">
-        <span class="scroll-down-ring"><ArrowDown aria-hidden="true" /></span>
-        Scroll down
-      </a>
-    </div>
+    <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
   <!-- ============ ABOUT + SKILLS ============ -->
@@ -283,3 +295,20 @@ const looking = site.lookingFor.charAt(0).toLowerCase() + site.lookingFor.slice(
     </div>
   </section>
 </Base>
+
+<script>
+  // Gentle tilt of the portrait that follows the pointer (desktop only)
+  const art = document.getElementById('hero-art');
+  const frame = art?.querySelector<HTMLElement>('.photo-simple');
+  if (art && frame && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    const land = document.getElementById('top');
+    land?.addEventListener('pointermove', (e) => {
+      const r = art.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      frame.style.setProperty('--ry', `${(x * 9).toFixed(2)}deg`);
+      frame.style.setProperty('--rx', `${(-y * 7).toFixed(2)}deg`);
+    });
+    land?.addEventListener('pointerleave', () => { frame.style.setProperty('--ry', '0deg'); frame.style.setProperty('--rx', '0deg'); });
+  }
+</script>
