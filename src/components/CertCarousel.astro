@@ -1,0 +1,67 @@
+---
+import { Award, ArrowUpRight, ChevronUp, ChevronDown } from '@lucide/astro';
+
+interface Cert { name: string; issuer: string; url?: string; logo?: string; date?: string }
+interface Props { certs: Cert[] }
+const { certs } = Astro.props;
+---
+
+<div class="certs" data-certs role="region" aria-roledescription="carousel" aria-label="Certifications" tabindex="0">
+  <div class="certs-stage">
+    {certs.map((c, i) => (
+      <article class="cert-card" data-i={i} aria-roledescription="slide" aria-label={`${i + 1} of ${certs.length}`}>
+        <span class="cert-corner tl" aria-hidden="true"></span><span class="cert-corner tr" aria-hidden="true"></span>
+        <span class="cert-corner bl" aria-hidden="true"></span><span class="cert-corner br" aria-hidden="true"></span>
+        <span class="cert-shine" aria-hidden="true"></span>
+        <span class="cert-count mono" aria-hidden="true">{String(i + 1).padStart(2, '0')} / {String(certs.length).padStart(2, '0')}</span>
+        <span class="cert-ring" aria-hidden="true">
+          <span class="cert-logo">
+            {c.logo ? <img src={`/skills/${c.logo}.svg`} alt="" width="40" height="40" /> : <Award class="h-8 w-8" aria-hidden="true" />}
+          </span>
+        </span>
+        <h4 class="cert-name">{c.name}</h4>
+        <p class="cert-issuer">{c.issuer}</p>
+        {c.date && <><span class="cert-rule" aria-hidden="true"></span><p class="cert-date">{c.date}</p></>}
+        {c.url ? (
+          <a class="cert-btn" href={c.url} target="_blank" rel="noopener">View Credentials<ArrowUpRight class="h-4 w-4" aria-hidden="true" /></a>
+        ) : (
+          <span class="cert-btn" role="link" aria-disabled="true" title="Credential link coming soon">View Credentials<ArrowUpRight class="h-4 w-4" aria-hidden="true" /></span>
+        )}
+      </article>
+    ))}
+  </div>
+  <div class="certs-ctrl">
+    <button type="button" data-dir="-1" aria-label="Previous certification"><ChevronUp class="h-5 w-5" aria-hidden="true" /></button>
+    <div class="certs-dots" aria-hidden="true">{certs.map((_, i) => <i data-dot={i}></i>)}</div>
+    <button type="button" data-dir="1" aria-label="Next certification"><ChevronDown class="h-5 w-5" aria-hidden="true" /></button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-certs]').forEach((root) => {
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.cert-card'));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
+    const n = cards.length;
+    let cur = 0;
+    let timer = 0;
+    const render = () => {
+      cards.forEach((c, i) => {
+        const d = (i - cur + n) % n;
+        c.dataset.pos = d === 0 ? '0' : d === n - 1 && n > 2 ? 'out' : d > 2 ? 'far' : String(d);
+        c.style.zIndex = String(10 - d);
+        c.toggleAttribute('inert', d !== 0);
+        c.setAttribute('aria-hidden', String(d !== 0));
+      });
+      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+    };
+    const go = (dir: number) => { cur = (cur + dir + n) % n; render(); };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    const start = () => { stop(); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = window.setInterval(() => go(1), 4500); };
+    root.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((b) => b.addEventListener('click', () => { go(Number(b.dataset.dir)); start(); }));
+    root.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); go(e.key === 'ArrowDown' ? 1 : -1); start(); } });
+    ['pointerenter', 'focusin'].forEach((ev) => root.addEventListener(ev, stop));
+    ['pointerleave', 'focusout'].forEach((ev) => root.addEventListener(ev, start));
+    render();
+    start();
+  });
+</script>

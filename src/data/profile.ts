@@ -23,23 +23,26 @@ export const approach = [
   { title: 'Close with lessons learned', body: 'Every project ends with a short review of what worked and what to change, written down so the next team can use it.' },
 ];
 
-export const education: { degree: string; school: string; period: string; note: string }[] = [
+export const education: { degree: string; school: string; period: string; tag: string; note?: string }[] = [
   {
     degree: 'BSc. Information Technology',
     school: 'Rajarata University of Sri Lanka',
-    period: 'Currently studying',
+    period: '2022 - Present',
+    tag: 'University',
     note: 'Focus on project management, information security and systems analysis.',
   },
+  { degree: 'G.C.E. Advanced Level', school: 'Pushpadana Girls\u2019 College, Kandy', period: '2021', tag: 'Advanced Level' },
+  { degree: 'G.C.E. Ordinary Level', school: 'Viharamahadevi Girls\u2019 College, Kandy', period: '2018', tag: 'Ordinary Level' },
 ];
 
 export const coursework = ['Project management', 'Information security', 'Systems analysis and design', 'Database systems', 'Software engineering'];
 
-export type CertStatus = 'Completed' | 'In progress' | 'Planned';
-export const certifications: { name: string; issuer: string; status: CertStatus }[] = [
-  { name: 'Google Project Management Certificate', issuer: 'Google / Coursera', status: 'Planned' },
-  { name: 'Certified Associate in Project Management (CAPM)', issuer: 'PMI', status: 'Planned' },
-  { name: 'ISO/IEC 27001 Foundation', issuer: 'Accredited training provider', status: 'Planned' },
-  { name: 'Certified in Cybersecurity (CC)', issuer: 'ISC2', status: 'Planned' },
+// Certifications from the CV. Paste each credential link into `url`; the button stays inactive until a link is set.
+export const certifications: { name: string; issuer: string; url?: string; logo?: string; date?: string }[] = [
+  { name: 'Cybersecurity Foundations: GRC', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', url: '' },
+  { name: 'Foundations of Project Management', issuer: 'Google | Coursera', logo: 'issuer-google', url: '' },
+  { name: 'Leveraging AI for Governance, Risk & Compliance', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', url: '' },
+  { name: 'GRC - Complete Practitioner Course', issuer: 'Red Team Leaders', url: '' },
 ];
 
 // Frame each entry around responsibility, teamwork and results.
