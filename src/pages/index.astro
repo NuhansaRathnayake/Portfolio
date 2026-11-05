@@ -4,6 +4,7 @@ import { Download, ArrowRight, ArrowDown, GraduationCap, MapPin, Calendar, Users
 import Base from '../layouts/Base.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SkillCarousel from '../components/SkillCarousel.astro';
+import SectionDivider from '../components/SectionDivider.astro';
 import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactSection from '../components/ContactSection.astro';
@@ -79,6 +80,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
+<SectionDivider n="01" label="About me" from="Home" />
   <!-- ============ ABOUT + SKILLS ============ -->
   <section id="about" class="section" aria-labelledby="about-h">
     <div class="wrap">
@@ -89,12 +91,8 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 
       <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <div data-reveal>
-          <p class="about-lead">I am a BSc in Information Technology undergraduate at <span class="hl">Rajarata University of Sri Lanka</span>, building a career in IT project management with a focus on <span class="hl">Governance, Risk, and Compliance (GRC)</span>.</p>
-          <div class="divider" aria-hidden="true"><span>My belief</span></div>
-          <p class="prose-body">I believe technology projects succeed when they are planned with clarity, governed with discipline, and protected by risk thinking from day one.</p>
-          <div class="divider" aria-hidden="true"><span>How I work</span></div>
-          <p class="prose-body">I turn complex requirements into structured plans and clear accountability, using Agile and Waterfall where each fits best, with risk and compliance built into delivery from the start.</p>
-          <dl class="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
+          <p class="about-lead">I am a BSc in Information Technology undergraduate at <span class="hl">Rajarata University of Sri Lanka</span>, building a career in IT project management with a focus on <span class="hl">Governance, Risk, and Compliance (GRC)</span>. I believe technology projects succeed when they are planned with clarity, governed with discipline, and protected by risk thinking from day one. I turn complex requirements into structured plans and clear accountability, using Agile and Waterfall where each fits best, with risk and compliance built into delivery from the start.</p>
+          <dl class="mt-8 grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
             <div><dt class="sr-only">Case studies</dt><dd><p class="stat-num" data-count={projects.length}>0</p><p class="muted mt-2 text-sm">Case studies</p></dd></div>
             <div><dt class="sr-only">GRC samples</dt><dd><p class="stat-num" data-count={grcCount}>0</p><p class="muted mt-2 text-sm">GRC write-ups</p></dd></div>
             <div><dt class="sr-only">Frameworks</dt><dd><p class="stat-num" data-count="2">0</p><p class="muted mt-2 text-sm">Frameworks mapped</p></dd></div>
@@ -115,7 +113,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
       <div class="mt-8" data-reveal><SkillCarousel skills={technicalSkills} label="technical skills" /></div>
 
       <div class="divider divider-lg mt-16" data-reveal><span>Non-technical skills</span></div>
-      <div class="mt-8" data-reveal><SkillCarousel skills={nonTechnicalSkills} label="non-technical skills" /></div>
+      <div class="mt-8" data-reveal><SkillCarousel skills={nonTechnicalSkills} label="non-technical skills" reverse /></div>
 
       <div class="divider divider-lg mt-16" data-reveal><span>How I manage projects</span></div>
       <ol class="mt-6 grid gap-5 md:grid-cols-2">
@@ -130,6 +128,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="02" label="Leadership" from="About me" />
   <!-- ============ LEADERSHIP ============ -->
   {leadership.length > 0 && (
     <section id="leadership" class="section" aria-labelledby="lead-h">
@@ -156,6 +155,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </section>
   )}
 
+<SectionDivider n="03" label="Education" from="Leadership" />
   <!-- ============ EDUCATION + CERTIFICATIONS ============ -->
   <section id="education" class="section" aria-labelledby="edu-h">
     <div class="wrap">
@@ -199,6 +199,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="04" label="Projects" from="Education" />
   <!-- ============ PROJECTS ============ -->
   <section id="projects" class="section" aria-labelledby="proj-h">
     <div class="wrap">
@@ -222,6 +223,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="05" label="Events" from="Projects" />
   <!-- ============ EVENTS ============ -->
   {events.length > 0 && (
     <section id="events" class="section" aria-labelledby="events-h">
@@ -253,6 +255,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </section>
   )}
 
+<SectionDivider n="06" label="Contact" from="Events" />
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="section" aria-labelledby="contact-h">
     <div class="wrap">

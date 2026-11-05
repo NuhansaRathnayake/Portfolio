@@ -1,32 +1,39 @@
 // Skills taken from the CV, plus MySQL, C, Android, Postman and PyCharm.
-// `icon` is a Lucide icon name; the carousel maps it to a component.
-export interface Skill { label: string; icon: string }
+// Technical skills use the official brand glyphs from the `simple-icons` package;
+// where no official glyph exists (SQL, Microsoft Office) a Lucide icon stands in.
+import {
+  siHtml5, siCss, siJavascript, siPython, siOpenjdk, siC, siCplusplus, siPhp, siMysql, siBootstrap, siDotnet,
+  siQt, siAndroid, siAndroidstudio, siGit, siGithub, siPostman, siPycharm, siTrello, siNotion,
+} from 'simple-icons';
+
+export interface Skill { label: string; brand?: { path: string; hex: string }; icon?: string }
 
 export const technicalSkills: Skill[] = [
-  { label: 'HTML', icon: 'Globe' },
-  { label: 'CSS', icon: 'Palette' },
-  { label: 'JavaScript', icon: 'Braces' },
-  { label: 'Python', icon: 'FileCode' },
-  { label: 'Java', icon: 'Coffee' },
-  { label: 'C', icon: 'Hash' },
-  { label: 'C++', icon: 'Cpu' },
-  { label: 'PHP', icon: 'Server' },
+  { label: 'HTML', brand: siHtml5 },
+  { label: 'CSS', brand: siCss },
+  { label: 'JavaScript', brand: siJavascript },
+  { label: 'Python', brand: siPython },
+  { label: 'Java', brand: siOpenjdk },
+  { label: 'C', brand: siC },
+  { label: 'C++', brand: siCplusplus },
+  { label: 'PHP', brand: siPhp },
   { label: 'SQL', icon: 'Database' },
-  { label: 'MySQL', icon: 'Database' },
-  { label: 'Bootstrap', icon: 'Layers' },
-  { label: '.NET', icon: 'Boxes' },
-  { label: 'Qt', icon: 'Puzzle' },
-  { label: 'Android', icon: 'Smartphone' },
-  { label: 'Android Studio', icon: 'Smartphone' },
-  { label: 'Git', icon: 'GitBranch' },
-  { label: 'GitHub', icon: 'GitFork' },
-  { label: 'Postman', icon: 'Send' },
-  { label: 'PyCharm', icon: 'Terminal' },
-  { label: 'Trello', icon: 'FolderKanban' },
-  { label: 'Notion', icon: 'NotebookPen' },
+  { label: 'MySQL', brand: siMysql },
+  { label: 'Bootstrap', brand: siBootstrap },
+  { label: '.NET', brand: siDotnet },
+  { label: 'Qt', brand: siQt },
+  { label: 'Android', brand: siAndroid },
+  { label: 'Android Studio', brand: siAndroidstudio },
+  { label: 'Git', brand: siGit },
+  { label: 'GitHub', brand: siGithub },
+  { label: 'Postman', brand: siPostman },
+  { label: 'PyCharm', brand: siPycharm },
+  { label: 'Trello', brand: siTrello },
+  { label: 'Notion', brand: siNotion },
   { label: 'Microsoft Office', icon: 'Briefcase' },
 ];
 
+// Lucide icon names for the non-technical skills
 export const nonTechnicalSkills: Skill[] = [
   { label: 'Project coordination', icon: 'Workflow' },
   { label: 'Agile fundamentals', icon: 'Repeat' },

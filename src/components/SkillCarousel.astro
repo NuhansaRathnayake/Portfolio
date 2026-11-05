@@ -1,48 +1,38 @@
 ---
-import { Globe, Palette, Braces, FileCode, Coffee, Hash, Cpu, Server, Database, Layers, Boxes, Puzzle, Smartphone, GitBranch, GitFork, Send, Terminal, FolderKanban, NotebookPen, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock, ChevronLeft, ChevronRight } from '@lucide/astro';
+// Auto-scrolling tape of skills. The list is rendered twice so the loop is seamless.
+import { Database, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock, Puzzle } from '@lucide/astro';
 import type { Skill } from '../data/skills';
 
-interface Props { skills: Skill[]; label: string }
-const { skills, label } = Astro.props;
-const icons: Record<string, any> = { Globe, Palette, Braces, FileCode, Coffee, Hash, Cpu, Server, Database, Layers, Boxes, Puzzle, Smartphone, GitBranch, GitFork, Send, Terminal, FolderKanban, NotebookPen, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock };
+interface Props { skills: Skill[]; label: string; reverse?: boolean }
+const { skills, label, reverse = false } = Astro.props;
+const icons: Record<string, any> = { Database, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock };
+
+// Near-black brand colours disappear on a dark page, so those glyphs are drawn in white
+const colour = (hex: string) => {
+  const n = parseInt(hex, 16);
+  const lum = (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255;
+  return lum < 0.28 ? '#f2f5f5' : `#${hex}`;
+};
 ---
 
-<div class="carousel" data-carousel role="region" aria-roledescription="carousel" aria-label={label}>
-  <div class="carousel-track" tabindex="0">
-    {skills.map((s) => {
-      const Icon = icons[s.icon] ?? Puzzle;
-      return (
-        <div class="skill-tile" role="group" aria-roledescription="slide">
-          <span class="skill-icon"><Icon class="h-6 w-6" aria-hidden="true" /></span>
-          <span class="skill-name">{s.label}</span>
-        </div>
-      );
-    })}
-  </div>
-  <div class="carousel-ctrl">
-    <button type="button" data-dir="-1" aria-label={`Previous ${label}`}><ChevronLeft class="h-5 w-5" aria-hidden="true" /></button>
-    <button type="button" data-dir="1" aria-label={`Next ${label}`}><ChevronRight class="h-5 w-5" aria-hidden="true" /></button>
-  </div>
+<div class:list={['tape', reverse && 'tape-reverse']} role="region" aria-label={label}>
+  {[0, 1].map((copy) => (
+    <ul class="tape-row" aria-hidden={copy === 1 ? 'true' : undefined}>
+      {skills.map((s) => {
+        const Icon = s.icon ? (icons[s.icon] ?? Puzzle) : null;
+        return (
+          <li class="skill-tile">
+            <span class="skill-icon">
+              {s.brand ? (
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill={colour(s.brand.hex)} aria-hidden="true"><path d={s.brand.path} /></svg>
+              ) : (
+                Icon && <Icon class="h-6 w-6" aria-hidden="true" />
+              )}
+            </span>
+            <span class="skill-name">{s.label}</span>
+          </li>
+        );
+      })}
+    </ul>
+  ))}
 </div>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
-    const track = root.querySelector<HTMLElement>('.carousel-track');
-    if (!track) return;
-    const step = () => (track.querySelector<HTMLElement>('.skill-tile')?.offsetWidth ?? 160) * 2 + 32;
-    const move = (dir: number) => {
-      const end = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-      if (dir > 0 && end) track.scrollTo({ left: 0, behavior: 'smooth' });
-      else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-      else track.scrollBy({ left: dir * step(), behavior: 'smooth' });
-    };
-    root.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((b) => b.addEventListener('click', () => { move(Number(b.dataset.dir)); stop(); }));
-    // Gentle auto-advance; stops once the visitor interacts, and respects reduced motion
-    let timer = 0;
-    const stop = () => { clearInterval(timer); timer = 0; };
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      timer = window.setInterval(() => move(1), 3800);
-      ['pointerenter', 'focusin', 'touchstart'].forEach((ev) => root.addEventListener(ev, stop, { passive: true }));
-    }
-  });
-</script>

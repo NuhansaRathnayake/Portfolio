@@ -1,0 +1,13 @@
+---
+interface Props { n: string; label: string; from?: string }
+const { n, label, from } = Astro.props;
+---
+<div class="wrap"><div class="sdiv" data-reveal aria-hidden="true">
+  <div class="sdiv-row">
+    {from && <span class="sdiv-prev">{from}</span>}
+    <span class="sdiv-line"></span>
+    <span class="sdiv-node"><span class="sdiv-num">{n}</span></span>
+    <span class="sdiv-label">{label}</span>
+    <span class="sdiv-line"></span>
+  </div>
+</div></div>
