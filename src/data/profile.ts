@@ -27,7 +27,7 @@ export const education: { degree: string; school: string; period: string; note: 
   {
     degree: 'BSc. Information Technology',
     school: 'Rajarata University of Sri Lanka',
-    period: 'Expected graduation 2027',
+    period: 'Currently studying',
     note: 'Focus on project management, information security and systems analysis.',
   },
 ];

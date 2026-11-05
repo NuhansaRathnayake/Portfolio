@@ -18,11 +18,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 <Base>
   <!-- ============ LANDING ============ -->
   <section id="top" class="landing" aria-label="Introduction">
-    <span class="hero-ghost" aria-hidden="true">NR</span>
-    <span class="diamond" style="left:5%;top:30%;--s:14px;--t:9s" aria-hidden="true"></span>
-    <span class="diamond" style="left:47%;top:16%;--s:10px;--t:11s" aria-hidden="true"></span>
-    <span class="diamond" style="left:40%;top:74%;--s:12px;--t:13s" aria-hidden="true"></span>
-    <span class="diamond" style="left:93%;top:22%;--s:9px;--t:10s" aria-hidden="true"></span>
+    <span class="hero-word" aria-hidden="true">{first}</span>
 
     <div class="landing-main">
       <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -41,28 +37,23 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 
           <div class="mt-9 flex flex-wrap items-center gap-3" data-reveal style="--d:850ms">
             {site.cvUrl ? (
-              <a href={site.cvUrl} class="btn btn-primary btn-shine" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
+              <a href={site.cvUrl} class="btn btn-primary" download><Download class="h-4 w-4" aria-hidden="true" />Download CV</a>
             ) : (
-              <span class="btn btn-primary btn-shine" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
+              <span class="btn btn-primary" role="link" aria-disabled="true" title="Add Nuhansa-Rathnayake-CV.pdf to the public folder"><Download class="h-4 w-4" aria-hidden="true" />Download CV</span>
             )}
             <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
           </div>
 
-          <div class="mt-9" data-reveal style="--d:980ms"><SocialLinks large /></div>
+          <div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3" data-reveal style="--d:980ms"><span class="follow-label">Follow me on</span><SocialLinks large /></div>
 
-          <div class="focus-row" data-reveal style="--d:1100ms">
-            <span>Project management</span><i></i><span>Risk &amp; compliance</span><i></i><span>Agile delivery</span>
-          </div>
 
         </div>
 
-        <div class="relative mx-auto w-full max-w-[min(27rem,80vw)]" id="hero-art" data-reveal="scale" style="--d:300ms">
-          <span class="dots" aria-hidden="true"></span>
-          <span class="orbit orbit-1" aria-hidden="true"></span>
-          <span class="orbit orbit-2" aria-hidden="true"></span>
+        <div class="relative mx-auto w-full max-w-[min(24rem,78vw)]" id="hero-art" data-reveal="scale" style="--d:300ms">
 
+          <span class="hero-tags" aria-hidden="true"><span>Project Management</span><span>GRC</span></span>
+          <span class="photo-glow" aria-hidden="true"></span>
           <div class="photo-simple">
-            <span class="photo-glow" aria-hidden="true"></span>
             <div class="photo-card">
               {site.photo ? (
                 <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" fetchpriority="high" />
@@ -70,22 +61,18 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
                 <span class="monogram shimmer" aria-hidden="true">{site.initials}</span>
               )}
             </div>
-            <span class="photo-ring" aria-hidden="true"></span>
           </div>
 
 
-          <div class="role-ring" aria-hidden="true">
-            <svg viewBox="0 0 200 200"><defs><path id="rr" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-              <text><textPath href="#rr" startOffset="0">IT PROJECT MANAGEMENT • GRC • RISK • COMPLIANCE •</textPath></text></svg>
-            <span class="role-ring-core">NR</span>
-          </div>
 
-          <span class="float-chip glass -left-3 top-[8%] hidden sm:inline-flex" style="--fd:0s"><span class="h-2 w-2 rounded-full bg-accent"></span>Risk management</span>
-          <span class="float-chip glass -right-4 top-[58%] hidden sm:inline-flex" style="--fd:1.5s"><span class="h-2 w-2 rounded-full bg-accent"></span>Project coordination</span>
-          <span class="float-chip glass -left-5 top-[36%] hidden sm:inline-flex" style="--fd:3s"><span class="h-2 w-2 rounded-full bg-accent"></span>Agile and Scrum</span>
         </div>
       </div>
     </div>
+
+    <div class="wrap" data-reveal style="--d:1200ms"><div class="hero-meta">
+      <div><span>Based in</span><strong>Sri Lanka</strong></div>
+      <div><span>Studying</span><strong>BSc. Information Technology</strong></div>
+    </div></div>
 
     <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
@@ -101,7 +88,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
       <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <div class="space-y-5" data-reveal>
           <p class="prose-body">
-            I'm {site.name}, studying for a {site.degree} at {site.university} ({site.graduation.toLowerCase()}). My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
+            I'm {site.name}, studying for a {site.degree} at {site.university}. My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
           </p>
           <p class="prose-body muted">
             My portfolio is built from self-initiated projects: a system rollout plan, a security gap analysis and an Agile sprint plan. Each one produces the documents a real project needs, with an honest account of what I would do differently.
@@ -117,7 +104,6 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
         <aside aria-label="At a glance" class="card spot h-fit p-6" data-reveal style="--d:150ms">
           <dl class="space-y-4 text-[0.9375rem]">
             <div class="flex gap-3"><GraduationCap class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Studying</dt><dd class="font-medium">{site.degree}</dd></div></div>
-            <div class="flex gap-3"><Calendar class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Graduation</dt><dd class="font-medium">{site.graduation.replace('Expected ', '')}</dd></div></div>
             <div class="flex gap-3"><MapPin class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Based in</dt><dd class="font-medium">{site.location}</dd></div></div>
             <div class="flex gap-3"><ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div></div>
           </dl>
@@ -296,19 +282,3 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
   </section>
 </Base>
 
-<script>
-  // Gentle tilt of the portrait that follows the pointer (desktop only)
-  const art = document.getElementById('hero-art');
-  const frame = art?.querySelector<HTMLElement>('.photo-simple');
-  if (art && frame && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
-    const land = document.getElementById('top');
-    land?.addEventListener('pointermove', (e) => {
-      const r = art.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
-      const y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
-      frame.style.setProperty('--ry', `${(x * 9).toFixed(2)}deg`);
-      frame.style.setProperty('--rx', `${(-y * 7).toFixed(2)}deg`);
-    });
-    land?.addEventListener('pointerleave', () => { frame.style.setProperty('--ry', '0deg'); frame.style.setProperty('--rx', '0deg'); });
-  }
-</script>

@@ -2,6 +2,7 @@
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
 @import '@fontsource/special-elite';
+@import '@fontsource/anton';
 
 /* ---------- Design tokens ----------
    Dark only. Palette: teal, white, grey and black.
@@ -619,4 +620,33 @@ main { flex: 1; }
   header, footer, .no-print, .aurora, #progress { display: none !important; }
   body, html { background: #fff; color: #000; }
 }
+}
+
+/* Minimal landing: quiet photo frame, no tilt */
+@layer components {
+  #hero-art .photo-simple { transform: none; }
+  .photo-card { border: 1px solid var(--line-strong); box-shadow: 0 30px 60px -34px rgb(0 0 0 / 0.9); }
+}
+
+@layer components {
+  /* Giant outlined surname behind the content, like a stage backdrop */
+  .hero-word {
+    position: absolute; left: 50%; top: 50%; bottom: auto; translate: -50% -50%; z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
+    font-family: 'Anton', 'Impact', sans-serif; font-size: 28.8vw; font-weight: 400; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase;
+    color: transparent; -webkit-text-stroke: 1.5px rgb(45 212 191 / 0.2);
+  }
+
+  @keyframes word-in { from { opacity: 0; scale: 0.96; } }
+  @keyframes word-drift { from { transform: translateX(-1.8%); } to { transform: translateX(1.8%); } }
+  .landing-main { position: relative; z-index: 2; }
+  #hero-art .photo-glow { inset: -10%; background: radial-gradient(circle at 50% 50%, rgb(45 212 191 / 0.3), transparent 66%); }
+  .hero-tags { position: absolute; right: 0; bottom: -2.2rem; display: flex; gap: 1.4rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .hero-tags span:first-child { color: var(--ink); }
+  .follow-label { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .hero-meta { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+  .hero-meta > div { display: flex; flex-direction: column; gap: 0.15rem; }
+  .hero-meta span { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .hero-meta strong { font-weight: 550; font-size: 0.95rem; }
+  .hero-meta > div:nth-child(2) { text-align: right; align-items: flex-end; }
+  @media (max-width: 640px) { .hero-meta { display: none; } .hero-tags { display: none; } .hero-word { display: none; } }
 }
