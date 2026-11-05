@@ -40,9 +40,9 @@ export const site = {
 export const nav = [
   { key: 'home', label: 'Home', href: '/#top' },
   { key: 'about', label: 'About', href: '/#about' },
-  { key: 'leadership', label: 'Leadership', href: '/#leadership' },
   { key: 'education', label: 'Education', href: '/#education' },
   { key: 'projects', label: 'Projects', href: '/#projects' },
+  { key: 'leadership', label: 'Leadership', href: '/#leadership' },
   { key: 'events', label: 'Events', href: '/#events' },
   { key: 'grc', label: 'GRC', href: '/grc/' },
   { key: 'contact', label: 'Contact', href: '/#contact' },
