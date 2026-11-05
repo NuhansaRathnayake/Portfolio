@@ -692,3 +692,20 @@ main { flex: 1; }
   .skill-name { font-size: 0.95rem; }
   .skill-icon img { width: 2.75rem; height: 2.75rem; object-fit: contain; }
 }
+
+@layer components {
+  /* About: photo pinned to the wall on the left, text on the right */
+  .about-grid { display: grid; gap: 3rem; align-items: center; }
+  @media (min-width: 900px) { .about-grid { grid-template-columns: minmax(16rem, 22rem) 1fr; gap: 5rem; } }
+  .about-text { font-size: clamp(1rem, 0.9rem + 0.35vw, 1.15rem); line-height: 1.85; font-weight: 400; color: #a9b3b3; max-width: 40rem; }
+
+  .pinned { position: relative; width: min(100%, 20rem); margin-inline: auto; padding-top: 0.6rem; rotate: -3deg; transform-origin: 50% 0.8rem; animation: pin-swing 7s ease-in-out 1.2s infinite; }
+  .pinned-card { padding: 0.75rem 0.75rem 2.6rem; border-radius: 6px; background: #f2f5f5; box-shadow: 0 2px 0 rgb(255 255 255 / 0.4) inset, 0 28px 44px -18px rgb(0 0 0 / 0.95), 0 8px 14px -6px rgb(0 0 0 / 0.6); }
+  .pinned-card img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 14%; border-radius: 2px; }
+  .pinned-card .monogram { display: grid; place-items: center; aspect-ratio: 4 / 5; background: #0b1212; color: var(--accent); font-size: 4rem; font-weight: 700; }
+  /* Push pin: glossy teal head, little shadow, and a needle going into the wall */
+  .pin { position: absolute; left: 50%; top: -0.9rem; z-index: 2; width: 1.9rem; height: 1.9rem; margin-left: -0.95rem; }
+  .pin i { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 32% 30%, #b8fff1 0 10%, #2dd4bf 38%, #0f766e 85%); box-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.7), inset -2px -3px 5px rgb(0 0 0 / 0.35); }
+  .pin::after { content: ''; position: absolute; left: 50%; top: 100%; width: 3px; height: 0.45rem; margin: -0.2rem 0 0 -1.5px; background: linear-gradient(#9aa5a5, #4a5555); border-radius: 0 0 2px 2px; z-index: -1; }
+  @keyframes pin-swing { 0%, 100% { rotate: -3deg; } 50% { rotate: -1.2deg; } }
+}
