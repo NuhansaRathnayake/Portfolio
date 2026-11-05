@@ -23,15 +23,16 @@ export const approach = [
   { title: 'Close with lessons learned', body: 'Every project ends with a short review of what worked and what to change, written down so the next team can use it.' },
 ];
 
-export const education: { degree: string; school: string; period: string; note?: string }[] = [
+export const education: { degree: string; school: string; period: string; tag: string; note?: string }[] = [
   {
     degree: 'BSc. Information Technology',
     school: 'Rajarata University of Sri Lanka',
-    period: 'Currently studying',
+    period: '2022 - Present',
+    tag: 'University',
     note: 'Focus on project management, information security and systems analysis.',
   },
-  { degree: 'G.C.E. Advanced Level', school: 'Pushpadana Girls\u2019 College, Kandy', period: '2021' },
-  { degree: 'G.C.E. Ordinary Level', school: 'Viharamahadevi Girls\u2019 College, Kandy', period: '2018' },
+  { degree: 'G.C.E. Advanced Level', school: 'Pushpadana Girls\u2019 College, Kandy', period: '2021', tag: 'Advanced Level' },
+  { degree: 'G.C.E. Ordinary Level', school: 'Viharamahadevi Girls\u2019 College, Kandy', period: '2018', tag: 'Ordinary Level' },
 ];
 
 export const coursework = ['Project management', 'Information security', 'Systems analysis and design', 'Database systems', 'Software engineering'];

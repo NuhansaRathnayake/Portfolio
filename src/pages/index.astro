@@ -151,13 +151,19 @@ const last = rest.join(' ');
       <div class="mt-12 grid gap-8 lg:grid-cols-2">
         <div>
           <h3 class="h3" data-reveal>Education</h3>
-          <ol class="timeline mt-6 space-y-6" data-draw>
-            {education.map((e) => (
-              <li class="timeline-item card spot p-6" data-reveal>
-                <p class="mono muted text-xs">{e.period}</p>
-                <p class="h3 mt-1">{e.degree}</p>
-                <p class="mt-1 text-accent">{e.school}</p>
-                {e.note && <p class="muted mt-3 text-[0.975rem]">{e.note}</p>}
+          <ol class="etl mt-8" data-draw>
+            {education.map((e, i) => (
+              <li class="etl-item" data-reveal style={`--d:${i * 120}ms`}>
+                <span class="etl-node" aria-hidden="true"></span>
+                <div class="etl-tags">
+                  <span class="etl-year">{e.period}</span>
+                  <span class="etl-tag">{e.tag}</span>
+                </div>
+                <div class="card spot etl-card">
+                  <p class="h3">{e.degree}</p>
+                  <p class="mt-1 text-accent">{e.school}</p>
+                  {e.note && <p class="muted mt-3 text-[0.975rem]">{e.note}</p>}
+                </div>
               </li>
             ))}
           </ol>
