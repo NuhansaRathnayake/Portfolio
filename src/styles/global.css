@@ -734,3 +734,29 @@ main { flex: 1; }
   .kcol .pinned-card { padding: 0.45rem 0.45rem 1.5rem; }
   @media (max-width: 640px) { .kcol-side { display: none; } .kboard-cols { grid-template-columns: 1fr; } .kcol .pinned { width: min(100%, 17rem); margin-inline: auto; } }
 }
+
+@layer components {
+  /* Tighter gap between a section title and the content below it */
+  .sband { padding-bottom: 0.25rem; }
+  .wrap:has(> .sband) + .section { padding-top: 1.25rem; }
+  .wrap:has(> .sband) + .section .section-head { margin-top: 0; }
+
+  /* Paper clip holding the photo */
+  .pin, .pin i { display: none; }
+  .clip { position: absolute; left: 62%; top: -1.7rem; z-index: 2; width: 1.7rem; rotate: 7deg; filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.55)); pointer-events: none; }
+  .clip svg { display: block; width: 100%; height: auto; }
+
+  /* Kanban board: cards settle in one by one, then drift very slightly; done bars fill; the status dot pulses */
+  .kcard { animation: kfloat 6s ease-in-out infinite; animation-delay: calc(var(--k, 0) * -1.4s); }
+  .kboard.is-in .kcard { animation: kin 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards, kfloat 6s ease-in-out infinite; animation-delay: calc(0.4s + var(--k, 0) * 0.14s), calc(var(--k, 0) * -1.4s); }
+  .kboard.is-in .kcard-done::after { animation: kbar 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.9s + var(--k, 0) * 0.15s) backwards; transform-origin: left; }
+  .kboard-bar span:first-child { animation: kpulse 2.4s ease-in-out infinite; }
+  @keyframes kin { from { opacity: 0; scale: 0.92; } }
+  @keyframes kfloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+  @keyframes kbar { from { transform: scaleX(0); } }
+  @keyframes kpulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(45 212 191 / 0.5); } 50% { box-shadow: 0 0 0 5px rgb(45 212 191 / 0); } }
+}
+@layer components {
+  @media (min-width: 900px) { .about-grid { align-items: start; margin-top: 0.75rem; } }
+  .wrap:has(> .sband) + .section { padding-top: 0.5rem; }
+}

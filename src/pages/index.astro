@@ -91,13 +91,13 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
           <div class="kboard-cols">
             <div class="kcol kcol-side" aria-hidden="true">
               <p class="kcol-head">To do <em>2</em></p>
-              <div class="kcard"><span class="ktag">Risk</span>Risk register</div>
-              <div class="kcard"><span class="ktag">People</span>Stakeholder map</div>
+              <div class="kcard" style="--k:0"><span class="ktag">Risk</span>Risk register</div>
+              <div class="kcard" style="--k:1"><span class="ktag">People</span>Stakeholder map</div>
             </div>
             <div class="kcol">
               <p class="kcol-head" aria-hidden="true">In progress <em>1</em></p>
               <figure class="pinned">
-                <span class="pin" aria-hidden="true"><i></i></span>
+                <span class="clip" aria-hidden="true"><svg viewBox="0 0 30 84" fill="none"><defs><linearGradient id="clipg" x1="0" x2="1"><stop offset="0" stop-color="#8d9898"/><stop offset=".45" stop-color="#f2f5f5"/><stop offset="1" stop-color="#7c8888"/></linearGradient></defs><path d="M9 52V14a7 7 0 0 1 14 0v52a10 10 0 0 1-20 0V22" stroke="url(#clipg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <div class="pinned-card">
                   {site.photo ? (
                     <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" loading="lazy" />
@@ -109,8 +109,8 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
             </div>
             <div class="kcol kcol-side" aria-hidden="true">
               <p class="kcol-head">Done <em>2</em></p>
-              <div class="kcard kcard-done"><span class="ktag">Plan</span>Project plan</div>
-              <div class="kcard kcard-done"><span class="ktag">Agile</span>Sprint review</div>
+              <div class="kcard kcard-done" style="--k:2"><span class="ktag">Plan</span>Project plan</div>
+              <div class="kcard kcard-done" style="--k:3"><span class="ktag">Agile</span>Sprint review</div>
             </div>
           </div>
         </div>
