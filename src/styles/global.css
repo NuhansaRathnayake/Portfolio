@@ -760,3 +760,8 @@ main { flex: 1; }
   @media (min-width: 900px) { .about-grid { align-items: start; margin-top: 0.75rem; } }
   .wrap:has(> .sband) + .section { padding-top: 0.5rem; }
 }
+@layer components {
+  /* Comfortable, consistent gap between each big section title and its content */
+  .wrap:has(> .sband) + .section { padding-top: 2.75rem; }
+  @media (min-width: 900px) { .about-grid { margin-top: 0.5rem; } }
+}
