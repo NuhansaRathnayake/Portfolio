@@ -13,6 +13,7 @@ const { certs } = Astro.props;
         <span class="cert-corner tl" aria-hidden="true"></span><span class="cert-corner tr" aria-hidden="true"></span>
         <span class="cert-corner bl" aria-hidden="true"></span><span class="cert-corner br" aria-hidden="true"></span>
         <span class="cert-shine" aria-hidden="true"></span>
+        <span class="cert-count mono" aria-hidden="true">{String(i + 1).padStart(2, '0')} / {String(certs.length).padStart(2, '0')}</span>
         <span class="cert-ring" aria-hidden="true">
           <span class="cert-logo">
             {c.logo ? <img src={`/skills/${c.logo}.svg`} alt="" width="40" height="40" /> : <Award class="h-8 w-8" aria-hidden="true" />}
@@ -20,8 +21,7 @@ const { certs } = Astro.props;
         </span>
         <h4 class="cert-name">{c.name}</h4>
         <p class="cert-issuer">{c.issuer}</p>
-        <span class="cert-rule" aria-hidden="true"></span>
-        <p class="cert-date">{c.date ?? `Certificate ${String(i + 1).padStart(2, '0')} of ${String(certs.length).padStart(2, '0')}`}</p>
+        {c.date && <><span class="cert-rule" aria-hidden="true"></span><p class="cert-date">{c.date}</p></>}
         {c.url ? (
           <a class="cert-btn" href={c.url} target="_blank" rel="noopener">View Credentials<ArrowUpRight class="h-4 w-4" aria-hidden="true" /></a>
         ) : (

@@ -148,7 +148,7 @@ const last = rest.join(' ');
         <h2 id="edu-h" class="h2">What I'm studying and what I'm working towards.</h2>
       </div>
 
-      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-24">
         <div>
           <h3 class="h3" data-reveal>Education</h3>
           <ol class="etl mt-8" data-draw>
@@ -173,10 +173,9 @@ const last = rest.join(' ');
           </ul>
         </div>
 
-        <div>
+        <div class="w-full max-w-[22rem] lg:justify-self-end">
           <h3 class="h3" data-reveal>Certifications</h3>
-          <p class="muted mt-2 text-[0.95rem]" data-reveal>Courses I have completed, with the credential for each.</p>
-          <div class="mt-6" data-reveal><CertCarousel certs={certifications} /></div>
+          <div class="mt-8" data-reveal><CertCarousel certs={certifications} /></div>
         </div>
       </div>
     </div>

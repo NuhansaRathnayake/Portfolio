@@ -862,3 +862,15 @@ main { flex: 1; }
   .cert-card[data-pos='2'] { transform: translateY(3rem) scale(0.9); }
   @media (max-width: 640px) { .certs-stage { height: 26.5rem; } .cert-card { height: 23rem; } .cert-btn { margin-top: 1rem; } }
 }
+
+@layer components {
+  /* Taller, narrower certificate cards with the card number in the top-right corner */
+  .certs-stage { height: 31rem; }
+  .cert-card { height: 28rem; padding-top: 2.6rem; }
+  .cert-ring { margin-top: 0.6rem; }
+  .cert-name { margin-top: 1.6rem; font-size: 1.25rem; }
+  .cert-issuer { margin-top: 0.8rem; }
+  .cert-count { position: absolute; top: 1.2rem; right: 2.2rem; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted); }
+  .cert-card[data-pos='1'] { transform: translateY(1.5rem) scale(0.95); }
+  @media (max-width: 640px) { .certs-stage { height: 31rem; } .cert-card { height: 28rem; } }
+}
