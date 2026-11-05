@@ -72,12 +72,12 @@ const last = rest.join(' ');
       </div>
     </div>
 
-    <div class="wrap" data-reveal style="--d:1200ms"><div class="hero-meta">
+    <div class="wrap"><div class="hero-meta">
       <div><span>Based in</span><strong>Sri Lanka</strong></div>
+      <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
       <div><span>Studying</span><strong>BSc. Information Technology</strong></div>
     </div></div>
 
-    <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
 <SectionDivider n="01" label="About me" from="Home" />
@@ -127,16 +127,6 @@ const last = rest.join(' ');
       <div class="divider divider-lg mt-16" data-reveal><span>Non-technical skills</span></div>
       <div class="mt-8" data-reveal><SkillCarousel skills={nonTechnicalSkills} label="non-technical skills" reverse /></div>
 
-      <div class="divider divider-lg mt-16" data-reveal><span>How I manage projects</span></div>
-      <ol class="mt-6 grid gap-5 md:grid-cols-2">
-        {approach.map((a, i) => (
-          <li class="card spot p-6" data-reveal style={`--d:${i * 90}ms`}>
-            <span class="mono text-accent">{String(i + 1).padStart(2, '0')}</span>
-            <p class="h3 mt-2">{a.title}</p>
-            <p class="muted mt-2 text-[0.975rem]">{a.body}</p>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 
@@ -145,7 +135,7 @@ const last = rest.join(' ');
   <section id="education" class="section" aria-labelledby="edu-h">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <h2 id="edu-h" class="h2">What I'm studying and what I'm working towards.</h2>
+        <h2 id="edu-h" class="h2">My Learning Journey</h2>
       </div>
 
       <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-24">
@@ -167,10 +157,6 @@ const last = rest.join(' ');
               </li>
             ))}
           </ol>
-          <h4 class="mt-10 font-semibold" data-reveal>Relevant coursework</h4>
-          <ul class="mt-4 flex flex-wrap gap-2" data-reveal>
-            {coursework.map((c) => <li class="tag">{c}</li>)}
-          </ul>
         </div>
 
         <div class="w-full max-w-[22rem] lg:justify-self-end">
