@@ -4,6 +4,7 @@ import { Download, ArrowRight, ArrowDown, GraduationCap, MapPin, Calendar, Users
 import Base from '../layouts/Base.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SkillCarousel from '../components/SkillCarousel.astro';
+import CertCarousel from '../components/CertCarousel.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -15,7 +16,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 const grcCount = (await getCollection('grc')).length;
 const [first, ...rest] = site.name.split(' ');
 const last = rest.join(' ');
-const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'chip-neutral' } as const;
 ---
 
 <Base>
@@ -157,7 +157,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
                 <p class="mono muted text-xs">{e.period}</p>
                 <p class="h3 mt-1">{e.degree}</p>
                 <p class="mt-1 text-accent">{e.school}</p>
-                <p class="muted mt-3 text-[0.975rem]">{e.note}</p>
+                {e.note && <p class="muted mt-3 text-[0.975rem]">{e.note}</p>}
               </li>
             ))}
           </ol>
@@ -169,15 +169,8 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 
         <div>
           <h3 class="h3" data-reveal>Certifications</h3>
-          <p class="muted mt-2 text-[0.95rem]" data-reveal>Each one is labelled with where it stands, so nothing is overstated.</p>
-          <ul class="mt-6 space-y-4">
-            {certifications.map((c, i) => (
-              <li class="card spot flex flex-wrap items-center justify-between gap-3 p-5" data-reveal style={`--d:${i * 90}ms`}>
-                <div><p class="font-semibold">{c.name}</p><p class="muted text-[0.9375rem]">{c.issuer}</p></div>
-                <span class={`chip ${certChip[c.status]}`}>{c.status}</span>
-              </li>
-            ))}
-          </ul>
+          <p class="muted mt-2 text-[0.95rem]" data-reveal>Courses I have completed, with the credential for each.</p>
+          <div class="mt-6" data-reveal><CertCarousel certs={certifications} /></div>
         </div>
       </div>
     </div>
