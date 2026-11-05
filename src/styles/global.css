@@ -2,6 +2,7 @@
 @import '@fontsource-variable/geist';
 @import '@fontsource-variable/geist-mono';
 @import '@fontsource/special-elite';
+@import '@fontsource/anton';
 
 /* ---------- Design tokens ----------
    Dark only. Palette: teal, white, grey and black.
@@ -630,11 +631,11 @@ main { flex: 1; }
 @layer components {
   /* Giant outlined surname behind the content, like a stage backdrop */
   .hero-word {
-    position: absolute; left: 50%; top: auto; bottom: -0.16em; translate: -50% 0; z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
-    font-size: clamp(5rem, 19vw, 22rem); font-weight: 800; line-height: 1; letter-spacing: -0.05em; text-transform: uppercase;
+    position: absolute; left: 50%; top: auto; bottom: -0.3em; translate: -50% 0; z-index: 0; pointer-events: none; user-select: none; white-space: nowrap;
+    font-family: 'Anton', 'Impact', sans-serif; font-size: 28.8vw; font-weight: 400; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase;
     color: transparent; -webkit-text-stroke: 1.5px rgb(45 212 191 / 0.2);
-    animation: word-in 1.6s ease 0.2s backwards, word-drift 16s ease-in-out 1.8s infinite alternate;
   }
+
   @keyframes word-in { from { opacity: 0; scale: 0.96; } }
   @keyframes word-drift { from { transform: translateX(-1.8%); } to { transform: translateX(1.8%); } }
   .landing-main { position: relative; z-index: 2; }
