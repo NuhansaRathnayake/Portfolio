@@ -89,24 +89,11 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
         <h2 id="about-h" class="h2 mt-3">I like the part of IT that is about people, deadlines and decisions.</h2>
       </div>
 
-      <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div class="mt-12 max-w-4xl">
         <div data-reveal>
           <p class="about-lead">I am a BSc in Information Technology undergraduate at <span class="hl">Rajarata University of Sri Lanka</span>, building a career in IT project management with a focus on <span class="hl">Governance, Risk, and Compliance (GRC)</span>. I believe technology projects succeed when they are planned with clarity, governed with discipline, and protected by risk thinking from day one. I turn complex requirements into structured plans and clear accountability, using Agile and Waterfall where each fits best, with risk and compliance built into delivery from the start.</p>
-          <dl class="mt-8 grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
-            <div><dt class="sr-only">Case studies</dt><dd><p class="stat-num" data-count={projects.length}>0</p><p class="muted mt-2 text-sm">Case studies</p></dd></div>
-            <div><dt class="sr-only">GRC samples</dt><dd><p class="stat-num" data-count={grcCount}>0</p><p class="muted mt-2 text-sm">GRC write-ups</p></dd></div>
-            <div><dt class="sr-only">Frameworks</dt><dd><p class="stat-num" data-count="2">0</p><p class="muted mt-2 text-sm">Frameworks mapped</p></dd></div>
-            <div><dt class="sr-only">Regulations</dt><dd><p class="stat-num" data-count="3">0</p><p class="muted mt-2 text-sm">Regulations summarised</p></dd></div>
-          </dl>
         </div>
 
-        <aside aria-label="At a glance" class="card spot h-fit p-6" data-reveal style="--d:150ms">
-          <dl class="space-y-4 text-[0.9375rem]">
-            <div class="flex gap-3"><GraduationCap class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Studying</dt><dd class="font-medium">{site.degree}</dd></div></div>
-            <div class="flex gap-3"><MapPin class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Based in</dt><dd class="font-medium">{site.location}</dd></div></div>
-            <div class="flex gap-3"><ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div></div>
-          </dl>
-        </aside>
       </div>
 
       <div class="divider divider-lg mt-20" data-reveal><span>Technical skills</span></div>

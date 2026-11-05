@@ -7,12 +7,6 @@ interface Props { skills: Skill[]; label: string; reverse?: boolean }
 const { skills, label, reverse = false } = Astro.props;
 const icons: Record<string, any> = { Database, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock };
 
-// Near-black brand colours disappear on a dark page, so those glyphs are drawn in white
-const colour = (hex: string) => {
-  const n = parseInt(hex, 16);
-  const lum = (0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255;
-  return lum < 0.28 ? '#f2f5f5' : `#${hex}`;
-};
 ---
 
 <div class:list={['tape', reverse && 'tape-reverse']} role="region" aria-label={label}>
@@ -22,11 +16,11 @@ const colour = (hex: string) => {
         const Icon = s.icon ? (icons[s.icon] ?? Puzzle) : null;
         return (
           <li class="skill-tile">
-            <span class="skill-icon">
-              {s.brand ? (
-                <svg viewBox="0 0 24 24" class="h-6 w-6" fill={colour(s.brand.hex)} aria-hidden="true"><path d={s.brand.path} /></svg>
+            <span class:list={['skill-icon', s.img && 'skill-icon-light']}>
+              {s.img ? (
+                <img src={`/skills/${s.img}.svg`} alt="" width="48" height="48" loading="lazy" />
               ) : (
-                Icon && <Icon class="h-6 w-6" aria-hidden="true" />
+                Icon && <Icon class="h-8 w-8" aria-hidden="true" />
               )}
             </span>
             <span class="skill-name">{s.label}</span>

@@ -1,35 +1,30 @@
 // Skills taken from the CV, plus MySQL, C, Android, Postman and PyCharm.
-// Technical skills use the official brand glyphs from the `simple-icons` package;
-// where no official glyph exists (SQL, Microsoft Office) a Lucide icon stands in.
-import {
-  siHtml5, siCss, siJavascript, siPython, siOpenjdk, siC, siCplusplus, siPhp, siMysql, siBootstrap, siDotnet,
-  siQt, siAndroid, siAndroidstudio, siGit, siGithub, siPostman, siPycharm, siTrello, siNotion,
-} from 'simple-icons';
-
-export interface Skill { label: string; brand?: { path: string; hex: string }; icon?: string }
+// Technical skills use the standard Devicon logos stored in /public/skills; where no standard logo
+// exists (SQL, Microsoft Office) a Lucide icon stands in.
+export interface Skill { label: string; img?: string; icon?: string }
 
 export const technicalSkills: Skill[] = [
-  { label: 'HTML', brand: siHtml5 },
-  { label: 'CSS', brand: siCss },
-  { label: 'JavaScript', brand: siJavascript },
-  { label: 'Python', brand: siPython },
-  { label: 'Java', brand: siOpenjdk },
-  { label: 'C', brand: siC },
-  { label: 'C++', brand: siCplusplus },
-  { label: 'PHP', brand: siPhp },
+  { label: 'HTML', img: 'html5' },
+  { label: 'CSS', img: 'css3' },
+  { label: 'JavaScript', img: 'javascript' },
+  { label: 'Python', img: 'python' },
+  { label: 'Java', img: 'java' },
+  { label: 'C', img: 'c' },
+  { label: 'C++', img: 'cplusplus' },
+  { label: 'PHP', img: 'php' },
   { label: 'SQL', icon: 'Database' },
-  { label: 'MySQL', brand: siMysql },
-  { label: 'Bootstrap', brand: siBootstrap },
-  { label: '.NET', brand: siDotnet },
-  { label: 'Qt', brand: siQt },
-  { label: 'Android', brand: siAndroid },
-  { label: 'Android Studio', brand: siAndroidstudio },
-  { label: 'Git', brand: siGit },
-  { label: 'GitHub', brand: siGithub },
-  { label: 'Postman', brand: siPostman },
-  { label: 'PyCharm', brand: siPycharm },
-  { label: 'Trello', brand: siTrello },
-  { label: 'Notion', brand: siNotion },
+  { label: 'MySQL', img: 'mysql' },
+  { label: 'Bootstrap', img: 'bootstrap' },
+  { label: '.NET', img: 'dotnet' },
+  { label: 'Qt', img: 'qt' },
+  { label: 'Android', img: 'android' },
+  { label: 'Android Studio', img: 'androidstudio' },
+  { label: 'Git', img: 'git' },
+  { label: 'GitHub', img: 'github' },
+  { label: 'Postman', img: 'postman' },
+  { label: 'PyCharm', img: 'pycharm' },
+  { label: 'Trello', img: 'trello' },
+  { label: 'Notion', img: 'notion' },
   { label: 'Microsoft Office', icon: 'Briefcase' },
 ];
 
