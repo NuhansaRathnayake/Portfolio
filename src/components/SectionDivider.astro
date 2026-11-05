@@ -1,0 +1,9 @@
+---
+// Divider between main sections: an oversized outlined title that fills with colour as it scrolls in
+interface Props { n: string; label: string; from?: string }
+const { n, label } = Astro.props;
+---
+<div class="wrap"><div class="sband" data-reveal aria-hidden="true">
+  <div class="sband-meta"><span>{n}</span><i class="sband-rule"></i></div>
+  <p class="sband-title">{label}</p>
+</div></div>

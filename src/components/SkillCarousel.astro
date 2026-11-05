@@ -1,0 +1,32 @@
+---
+// Auto-scrolling tape of skills. The list is rendered twice so the loop is seamless.
+import { Database, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock, Puzzle } from '@lucide/astro';
+import type { Skill } from '../data/skills';
+
+interface Props { skills: Skill[]; label: string; reverse?: boolean }
+const { skills, label, reverse = false } = Astro.props;
+const icons: Record<string, any> = { Database, Briefcase, Workflow, Repeat, RefreshCw, ListChecks, MessageSquare, Compass, Target, Users, Lightbulb, Zap, Rocket, Clock };
+
+---
+
+<div class:list={['tape', reverse && 'tape-reverse']} role="region" aria-label={label}>
+  {[0, 1].map((copy) => (
+    <ul class="tape-row" aria-hidden={copy === 1 ? 'true' : undefined}>
+      {skills.map((s) => {
+        const Icon = s.icon ? (icons[s.icon] ?? Puzzle) : null;
+        return (
+          <li class="skill-tile">
+            <span class:list={['skill-icon', s.img && 'skill-icon-light']}>
+              {s.img ? (
+                <img src={`/skills/${s.img}.svg`} alt="" width="48" height="48" loading="lazy" />
+              ) : (
+                Icon && <Icon class="h-8 w-8" aria-hidden="true" />
+              )}
+            </span>
+            <span class="skill-name">{s.label}</span>
+          </li>
+        );
+      })}
+    </ul>
+  ))}
+</div>

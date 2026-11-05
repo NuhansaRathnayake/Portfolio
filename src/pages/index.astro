@@ -3,6 +3,9 @@ import { getCollection } from 'astro:content';
 import { Download, ArrowRight, ArrowDown, GraduationCap, MapPin, Calendar, Users, ShieldCheck, ArrowUpRight } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import SkillCarousel from '../components/SkillCarousel.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { site } from '../config/site';
@@ -77,6 +80,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
+<SectionDivider n="01" label="About me" from="Home" />
   <!-- ============ ABOUT + SKILLS ============ -->
   <section id="about" class="section" aria-labelledby="about-h">
     <div class="wrap">
@@ -85,55 +89,20 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
         <h2 id="about-h" class="h2 mt-3">I like the part of IT that is about people, deadlines and decisions.</h2>
       </div>
 
-      <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-        <div class="space-y-5" data-reveal>
-          <p class="prose-body">
-            I'm {site.name}, studying for a {site.degree} at {site.university}. My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
-          </p>
-          <p class="prose-body muted">
-            My portfolio is built from self-initiated projects: a system rollout plan, a security gap analysis and an Agile sprint plan. Each one produces the documents a real project needs, with an honest account of what I would do differently.
-          </p>
-          <dl class="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-4">
-            <div><dt class="sr-only">Case studies</dt><dd><p class="stat-num" data-count={projects.length}>0</p><p class="muted mt-2 text-sm">Case studies</p></dd></div>
-            <div><dt class="sr-only">GRC samples</dt><dd><p class="stat-num" data-count={grcCount}>0</p><p class="muted mt-2 text-sm">GRC write-ups</p></dd></div>
-            <div><dt class="sr-only">Frameworks</dt><dd><p class="stat-num" data-count="2">0</p><p class="muted mt-2 text-sm">Frameworks mapped</p></dd></div>
-            <div><dt class="sr-only">Regulations</dt><dd><p class="stat-num" data-count="3">0</p><p class="muted mt-2 text-sm">Regulations summarised</p></dd></div>
-          </dl>
+      <div class="mt-12 max-w-4xl">
+        <div data-reveal>
+          <p class="about-lead">I am a BSc in Information Technology undergraduate at <span class="hl">Rajarata University of Sri Lanka</span>, building a career in IT project management with a focus on <span class="hl">Governance, Risk, and Compliance (GRC)</span>. I believe technology projects succeed when they are planned with clarity, governed with discipline, and protected by risk thinking from day one. I turn complex requirements into structured plans and clear accountability, using Agile and Waterfall where each fits best, with risk and compliance built into delivery from the start.</p>
         </div>
 
-        <aside aria-label="At a glance" class="card spot h-fit p-6" data-reveal style="--d:150ms">
-          <dl class="space-y-4 text-[0.9375rem]">
-            <div class="flex gap-3"><GraduationCap class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Studying</dt><dd class="font-medium">{site.degree}</dd></div></div>
-            <div class="flex gap-3"><MapPin class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Based in</dt><dd class="font-medium">{site.location}</dd></div></div>
-            <div class="flex gap-3"><ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div></div>
-          </dl>
-        </aside>
       </div>
 
-      <h3 class="h3 mt-20" data-reveal>Skills</h3>
-      <div class="mt-6 grid gap-5 md:grid-cols-3">
-        {skillGroups.map((g, i) => (
-          <div class="card spot p-6" data-reveal style={`--d:${i * 110}ms`}>
-            <h4 class="font-semibold">{g.group}</h4>
-            <ul class="mt-4 flex flex-wrap gap-2">
-              {g.items.map((item) => <li class="tag">{item}</li>)}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <div class="divider divider-lg mt-20" data-reveal><span>Technical skills</span></div>
+      <div class="mt-8" data-reveal><SkillCarousel skills={technicalSkills} label="technical skills" /></div>
 
-      <h3 class="h3 mt-16" data-reveal>Soft skills, with evidence</h3>
-      <ul class="mt-6 grid gap-5 sm:grid-cols-2">
-        {softSkills.map((s, i) => (
-          <li class="card spot p-6" data-reveal style={`--d:${i * 90}ms`}>
-            <p class="font-semibold text-accent">{s.skill}</p>
-            <p class="muted mt-2 text-[0.975rem]">{s.evidence}</p>
-            <a href={s.href} class="link mt-3 inline-block text-[0.9375rem]" aria-label={`${s.skill}: see the case study`}>See the case study</a>
-          </li>
-        ))}
-      </ul>
+      <div class="divider divider-lg mt-16" data-reveal><span>Non-technical skills</span></div>
+      <div class="mt-8" data-reveal><SkillCarousel skills={nonTechnicalSkills} label="non-technical skills" reverse /></div>
 
-      <h3 class="h3 mt-16" data-reveal>How I manage projects</h3>
+      <div class="divider divider-lg mt-16" data-reveal><span>How I manage projects</span></div>
       <ol class="mt-6 grid gap-5 md:grid-cols-2">
         {approach.map((a, i) => (
           <li class="card spot p-6" data-reveal style={`--d:${i * 90}ms`}>
@@ -146,6 +115,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="02" label="Leadership" from="About me" />
   <!-- ============ LEADERSHIP ============ -->
   {leadership.length > 0 && (
     <section id="leadership" class="section" aria-labelledby="lead-h">
@@ -172,6 +142,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </section>
   )}
 
+<SectionDivider n="03" label="Education" from="Leadership" />
   <!-- ============ EDUCATION + CERTIFICATIONS ============ -->
   <section id="education" class="section" aria-labelledby="edu-h">
     <div class="wrap">
@@ -215,6 +186,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="04" label="Projects" from="Education" />
   <!-- ============ PROJECTS ============ -->
   <section id="projects" class="section" aria-labelledby="proj-h">
     <div class="wrap">
@@ -238,6 +210,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
+<SectionDivider n="05" label="Events" from="Projects" />
   <!-- ============ EVENTS ============ -->
   {events.length > 0 && (
     <section id="events" class="section" aria-labelledby="events-h">
@@ -269,6 +242,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </section>
   )}
 
+<SectionDivider n="06" label="Contact" from="Events" />
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="section" aria-labelledby="contact-h">
     <div class="wrap">
