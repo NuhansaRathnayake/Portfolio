@@ -115,34 +115,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
-<SectionDivider n="02" label="Leadership" from="About me" />
-  <!-- ============ LEADERSHIP ============ -->
-  {leadership.length > 0 && (
-    <section id="leadership" class="section" aria-labelledby="lead-h">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">02 · Leadership experience</p>
-          <h2 id="lead-h" class="h2 mt-3">Roles where I was responsible for a team and a result.</h2>
-        </div>
-        <ol class="timeline mt-12 max-w-3xl space-y-8" data-draw>
-          {leadership.map((l, i) => (
-            <li class="timeline-item card spot p-6" data-reveal style={`--d:${i * 140}ms`}>
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <h3 class="h3">{l.role}</h3>
-                <span class="mono muted text-xs">{l.period}</span>
-              </div>
-              <p class="mt-1 flex flex-wrap items-center gap-2 text-accent">{l.org}{l.sample && <span class="chip chip-med">Sample</span>}</p>
-              <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
-                {l.points.map((p) => <li>{p}</li>)}
-              </ul>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  )}
-
-<SectionDivider n="03" label="Education" from="Leadership" />
+<SectionDivider n="02" label="Education" from="About me" />
   <!-- ============ EDUCATION + CERTIFICATIONS ============ -->
   <section id="education" class="section" aria-labelledby="edu-h">
     <div class="wrap">
@@ -186,7 +159,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
-<SectionDivider n="04" label="Projects" from="Education" />
+<SectionDivider n="03" label="Projects" from="Education" />
   <!-- ============ PROJECTS ============ -->
   <section id="projects" class="section" aria-labelledby="proj-h">
     <div class="wrap">
@@ -210,7 +183,34 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
     </div>
   </section>
 
-<SectionDivider n="05" label="Events" from="Projects" />
+<SectionDivider n="04" label="Leadership" from="Projects" />
+  <!-- ============ LEADERSHIP ============ -->
+  {leadership.length > 0 && (
+    <section id="leadership" class="section" aria-labelledby="lead-h">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">02 · Leadership experience</p>
+          <h2 id="lead-h" class="h2 mt-3">Roles where I was responsible for a team and a result.</h2>
+        </div>
+        <ol class="timeline mt-12 max-w-3xl space-y-8" data-draw>
+          {leadership.map((l, i) => (
+            <li class="timeline-item card spot p-6" data-reveal style={`--d:${i * 140}ms`}>
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="h3">{l.role}</h3>
+                <span class="mono muted text-xs">{l.period}</span>
+              </div>
+              <p class="mt-1 flex flex-wrap items-center gap-2 text-accent">{l.org}{l.sample && <span class="chip chip-med">Sample</span>}</p>
+              <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
+                {l.points.map((p) => <li>{p}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+<SectionDivider n="05" label="Events" from="Leadership" />
   <!-- ============ EVENTS ============ -->
   {events.length > 0 && (
     <section id="events" class="section" aria-labelledby="events-h">
