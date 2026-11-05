@@ -21,7 +21,6 @@ export const site = {
 
   degree: 'BSc. Information Technology',
   university: 'Rajarata University of Sri Lanka',
-  graduation: 'Expected 2027',
 
   lookingFor: 'Internship or graduate role in IT project coordination, PMO, or risk and compliance',
   location: 'Sri Lanka',

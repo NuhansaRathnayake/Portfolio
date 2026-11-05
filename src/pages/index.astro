@@ -18,6 +18,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
 <Base>
   <!-- ============ LANDING ============ -->
   <section id="top" class="landing" aria-label="Introduction">
+    <span class="hero-word" aria-hidden="true">{first}</span>
 
     <div class="landing-main">
       <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -43,13 +44,15 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
             <a href="/#projects" class="btn btn-ghost">View projects<ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
           </div>
 
-          <div class="mt-9" data-reveal style="--d:980ms"><SocialLinks large /></div>
+          <div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3" data-reveal style="--d:980ms"><span class="follow-label">Follow me on</span><SocialLinks large /></div>
 
 
         </div>
 
         <div class="relative mx-auto w-full max-w-[min(24rem,78vw)]" id="hero-art" data-reveal="scale" style="--d:300ms">
 
+          <span class="hero-tags" aria-hidden="true"><span>Project Management</span><span>GRC</span></span>
+          <span class="photo-glow" aria-hidden="true"></span>
           <div class="photo-simple">
             <div class="photo-card">
               {site.photo ? (
@@ -66,6 +69,11 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
       </div>
     </div>
 
+    <div class="wrap" data-reveal style="--d:1200ms"><div class="hero-meta">
+      <div><span>Based in</span><strong>Sri Lanka</strong></div>
+      <div><span>Studying</span><strong>BSc. Information Technology</strong></div>
+    </div></div>
+
     <a href="/#about" class="scroll-fab" aria-label="Scroll down to About me"><ArrowDown aria-hidden="true" /></a>
   </section>
 
@@ -80,7 +88,7 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
       <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
         <div class="space-y-5" data-reveal>
           <p class="prose-body">
-            I'm {site.name}, studying for a {site.degree} at {site.university} ({site.graduation.toLowerCase()}). My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
+            I'm {site.name}, studying for a {site.degree} at {site.university}. My goal is a career in IT project management, and my focus has grown towards governance, risk and compliance (GRC): the part that keeps decisions safe.
           </p>
           <p class="prose-body muted">
             My portfolio is built from self-initiated projects: a system rollout plan, a security gap analysis and an Agile sprint plan. Each one produces the documents a real project needs, with an honest account of what I would do differently.
@@ -96,7 +104,6 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
         <aside aria-label="At a glance" class="card spot h-fit p-6" data-reveal style="--d:150ms">
           <dl class="space-y-4 text-[0.9375rem]">
             <div class="flex gap-3"><GraduationCap class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Studying</dt><dd class="font-medium">{site.degree}</dd></div></div>
-            <div class="flex gap-3"><Calendar class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Graduation</dt><dd class="font-medium">{site.graduation.replace('Expected ', '')}</dd></div></div>
             <div class="flex gap-3"><MapPin class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Based in</dt><dd class="font-medium">{site.location}</dd></div></div>
             <div class="flex gap-3"><ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" /><div><dt class="muted text-sm">Looking for</dt><dd class="font-medium">{site.lookingFor}</dd></div></div>
           </dl>
