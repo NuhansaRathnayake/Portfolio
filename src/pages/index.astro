@@ -84,23 +84,39 @@ const certChip = { Completed: 'chip-low', 'In progress': 'chip-med', Planned: 'c
   <!-- ============ ABOUT + SKILLS ============ -->
   <section id="about" class="section" aria-labelledby="about-h">
     <div class="wrap">
-      <div class="section-head" data-reveal>
-        <h2 id="about-h" class="h2">I like the part of IT that is about people, deadlines and decisions.</h2>
-      </div>
 
-      <div class="about-grid mt-14">
-        <figure class="pinned" data-reveal="scale" aria-label={`Photo of ${site.name}`}>
-          <span class="pin" aria-hidden="true"><i></i></span>
-          <div class="pinned-card">
-            {site.photo ? (
-              <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" loading="lazy" />
-            ) : (
-              <span class="monogram" aria-hidden="true">{site.initials}</span>
-            )}
+      <div class="about-grid">
+        <div class="kboard" data-reveal="scale" aria-label={`Photo of ${site.name} pinned to a kanban board`}>
+          <div class="kboard-bar" aria-hidden="true"><span></span><span></span><span></span><b>Portfolio board</b></div>
+          <div class="kboard-cols">
+            <div class="kcol kcol-side" aria-hidden="true">
+              <p class="kcol-head">To do <em>2</em></p>
+              <div class="kcard"><span class="ktag">Risk</span>Risk register</div>
+              <div class="kcard"><span class="ktag">People</span>Stakeholder map</div>
+            </div>
+            <div class="kcol">
+              <p class="kcol-head" aria-hidden="true">In progress <em>1</em></p>
+              <figure class="pinned">
+                <span class="pin" aria-hidden="true"><i></i></span>
+                <div class="pinned-card">
+                  {site.photo ? (
+                    <img src={site.photo} alt={`Portrait of ${site.name}`} width="640" height="800" loading="lazy" />
+                  ) : (
+                    <span class="monogram" aria-hidden="true">{site.initials}</span>
+                  )}
+                </div>
+              </figure>
+            </div>
+            <div class="kcol kcol-side" aria-hidden="true">
+              <p class="kcol-head">Done <em>2</em></p>
+              <div class="kcard kcard-done"><span class="ktag">Plan</span>Project plan</div>
+              <div class="kcard kcard-done"><span class="ktag">Agile</span>Sprint review</div>
+            </div>
           </div>
-        </figure>
+        </div>
 
         <div data-reveal style="--d:150ms">
+          <h2 id="about-h" class="h2 about-title">I like the part of IT that is about people, deadlines and decisions.</h2>
           <p class="about-text">I am a BSc in Information Technology undergraduate at Rajarata University of Sri Lanka, building a career in IT project management with a focus on Governance, Risk, and Compliance (GRC). I believe technology projects succeed when they are planned with clarity, governed with discipline, and protected by risk thinking from day one. I turn complex requirements into structured plans and clear accountability, using Agile and Waterfall where each fits best, with risk and compliance built into delivery from the start.</p>
         </div>
       </div>
