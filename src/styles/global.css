@@ -874,3 +874,12 @@ main { flex: 1; }
   .cert-card[data-pos='1'] { transform: translateY(1.5rem) scale(0.95); }
   @media (max-width: 640px) { .certs-stage { height: 31rem; } .cert-card { height: 28rem; } }
 }
+@layer components {
+  /* Balance the space inside the tall card: logo and text sit in the middle, button at the bottom */
+  .cert-ring { margin-top: auto; }
+  .cert-issuer { margin-bottom: auto; }
+  .cert-card:has(.cert-date) .cert-issuer { margin-bottom: 0; }
+}
+@layer components {
+  .cert-card[data-pos='1'] .cert-btn, .cert-card[data-pos='2'] .cert-btn { visibility: hidden; }
+}
