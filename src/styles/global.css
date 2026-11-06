@@ -963,3 +963,15 @@ main { flex: 1; }
   .evts-dots i { width: 0.5rem; height: 0.5rem; border-radius: 99px; cursor: pointer; background: rgb(255 255 255 / 0.2); transition: width 0.4s, background-color 0.4s; }
   .evts-dots i.on { width: 1.8rem; background: var(--accent); }
 }
+
+@layer components {
+  .evt-more { position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.5rem; font-weight: 650; color: var(--ink); background: rgb(0 0 0 / 0.55); backdrop-filter: blur(2px); transition: background-color 0.3s; }
+  .evt-photo:hover .evt-more { background: rgb(0 0 0 / 0.35); }
+  .lightbox-nav { position: absolute; top: 50%; z-index: 1; translate: 0 -50%; width: 2.8rem; height: 2.8rem; border-radius: 50%; font-size: 2rem; line-height: 1; padding-bottom: 0.2rem; color: var(--ink); background: rgb(0 0 0 / 0.6); border: 1px solid var(--line-strong); transition: background-color 0.2s, color 0.2s; }
+  .lightbox-nav:hover { background: var(--accent); color: #03100e; }
+  .lightbox-nav.prev { left: 0.8rem; }
+  .lightbox-nav.next { right: 0.8rem; }
+  .lightbox.single .lightbox-nav { display: none; }
+  .lightbox-count { position: absolute; left: 50%; bottom: 0.8rem; translate: -50% 0; margin: 0; padding: 0.2rem 0.8rem; border-radius: 999px; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--ink); background: rgb(0 0 0 / 0.6); }
+}
+@layer components { .lightbox { margin: auto; } .lightbox[open] { animation: lb-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); } @keyframes lb-in { from { opacity: 0; scale: 0.96; } } }

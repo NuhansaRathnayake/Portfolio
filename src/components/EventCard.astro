@@ -4,7 +4,9 @@ import type { EventItem } from '../data/profile';
 
 interface Props { event: EventItem; index: number; total: number }
 const { event: ev, index, total } = Astro.props;
-const photos = (ev.photos ?? []).slice(0, 3);
+const all = ev.photos ?? [];
+const photos = all.slice(0, 3);
+const extra = all.length - 3;
 const slots = [0, 1, 2];
 ---
 
@@ -29,10 +31,11 @@ const slots = [0, 1, 2];
     </dl>
   </div>
 
-  <div class="evt-gallery" data-n={photos.length || 3}>
+  <div class="evt-gallery" data-n={photos.length || 3} data-photos={JSON.stringify(all)} data-title={ev.title}>
     {slots.map((s) => photos[s] ? (
-      <button type="button" class="evt-photo" data-lightbox={photos[s]} data-alt={`${ev.title}, photo ${s + 1}`} aria-label={`Open photo ${s + 1} of ${ev.title}`}>
+      <button type="button" class="evt-photo" data-open={s} aria-label={extra > 0 && s === 2 ? `View all ${all.length} photos of ${ev.title}` : `Open photo ${s + 1} of ${ev.title}`}>
         <img src={photos[s]} alt="" loading="lazy" />
+        {extra > 0 && s === 2 && <span class="evt-more">+{extra}</span>}
       </button>
     ) : (
       !photos.length && <span class="evt-photo evt-empty" aria-hidden="true"><Camera class="h-6 w-6" /></span>
