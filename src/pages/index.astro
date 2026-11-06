@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SkillCarousel from '../components/SkillCarousel.astro';
 import CertCarousel from '../components/CertCarousel.astro';
-import EventCard from '../components/EventCard.astro';
+import EventCarousel from '../components/EventCarousel.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -224,9 +224,7 @@ const last = rest.join(' ');
         <div class="section-head" data-reveal>
           <h2 id="events-h" class="h2">Hackathons, workshops and events I've been part of.</h2>
         </div>
-        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {events.map((ev, i) => <EventCard event={ev} index={i} />)}
-        </div>
+        <div class="mt-12"><EventCarousel events={events} /></div>
         <dialog id="lightbox" class="lightbox" aria-label="Event photo">
           <form method="dialog"><button class="lightbox-close" aria-label="Close photo">&times;</button></form>
           <img id="lightbox-img" alt="" />

@@ -1,0 +1,44 @@
+---
+import { ChevronLeft, ChevronRight } from '@lucide/astro';
+import EventCard from './EventCard.astro';
+import type { EventItem } from '../data/profile';
+
+interface Props { events: EventItem[] }
+const { events } = Astro.props;
+---
+
+<div class="evts" data-evts role="region" aria-roledescription="carousel" aria-label="Events" tabindex="0" data-reveal>
+  <div class="evts-viewport">
+    <div class="evts-track">
+      {events.map((ev, i) => <div class="evts-slide"><EventCard event={ev} index={i} total={events.length} /></div>)}
+    </div>
+  </div>
+  <div class="evts-ctrl">
+    <button type="button" data-dir="-1" aria-label="Previous event"><ChevronLeft class="h-5 w-5" aria-hidden="true" /></button>
+    <div class="evts-dots" aria-hidden="true">{events.map((_, i) => <i data-dot={i}></i>)}</div>
+    <button type="button" data-dir="1" aria-label="Next event"><ChevronRight class="h-5 w-5" aria-hidden="true" /></button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-evts]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.evts-track')!;
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('.evts-slide'));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
+    const n = slides.length;
+    let cur = 0;
+    const render = () => {
+      track.style.transform = `translateX(${-cur * 100}%)`;
+      slides.forEach((s, i) => { s.classList.toggle('is-current', i === cur); s.toggleAttribute('inert', i !== cur); });
+      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+    };
+    const go = (to: number) => { cur = Math.max(0, Math.min(n - 1, to)); render(); };
+    root.querySelectorAll<HTMLButtonElement>('[data-dir]').forEach((b) => b.addEventListener('click', () => go(cur + Number(b.dataset.dir))));
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    root.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
+    let x0 = 0;
+    root.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+    root.addEventListener('pointerup', (e) => { const dx = e.clientX - x0; if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1)); });
+    render();
+  });
+</script>
