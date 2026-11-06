@@ -1,0 +1,39 @@
+---
+import { Calendar, MapPin, Building2, User, Camera } from '@lucide/astro';
+import type { EventItem } from '../data/profile';
+
+interface Props { event: EventItem; index?: number }
+const { event: ev, index = 0 } = Astro.props;
+const photos = (ev.photos ?? []).slice(0, 3);
+const tiles: (string | null)[] = photos.length ? photos : [null, null, null];
+---
+
+<article class="evt spot" data-reveal style={`--d:${index * 120}ms`}>
+  <header class="evt-head">
+    <h3 class="evt-title">{ev.title}</h3>
+    <div class="evt-tags">
+      <span class="evt-type">{ev.type}</span>
+      {ev.sample && <span class="chip chip-med">Sample</span>}
+    </div>
+  </header>
+
+  <p class="evt-detail">{ev.detail}</p>
+
+  <dl class="evt-meta">
+    <div><dt><Calendar class="h-4 w-4" aria-hidden="true" /><span class="sr-only">Date</span></dt><dd>{ev.date}</dd></div>
+    <div><dt><MapPin class="h-4 w-4" aria-hidden="true" /><span class="sr-only">Venue</span></dt><dd>{ev.venue}</dd></div>
+    <div><dt><Building2 class="h-4 w-4" aria-hidden="true" /><span class="sr-only">Organised by</span></dt><dd><span class="evt-k">Organised by</span>{ev.organizer}</dd></div>
+    <div><dt><User class="h-4 w-4" aria-hidden="true" /><span class="sr-only">Role</span></dt><dd><span class="evt-k">Role</span>{ev.role}</dd></div>
+  </dl>
+
+  <div class="evt-photos" data-n={tiles.length}>
+    {tiles.map((src, s) => src ? (
+      <button type="button" class="evt-photo" data-lightbox={src} data-alt={`${ev.title}, photo ${s + 1}`} aria-label={`Open photo ${s + 1} of ${ev.title}`}>
+        <img src={src} alt="" loading="lazy" />
+      </button>
+    ) : (
+      <span class="evt-photo evt-empty" aria-hidden="true"><Camera class="h-5 w-5" /></span>
+    ))}
+  </div>
+  {!photos.length && <p class="evt-note">Event photos go here.</p>}
+</article>
