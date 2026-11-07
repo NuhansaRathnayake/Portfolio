@@ -21,6 +21,18 @@ const { events } = Astro.props;
 </div>
 
 <script>
+  // Portrait photos are shown whole rather than cropped into a landscape tile
+  document.querySelectorAll<HTMLImageElement>('.evt-photo img').forEach((img) => {
+    const mark = () => {
+      if (img.naturalHeight > img.naturalWidth) {
+        const b = img.parentElement as HTMLElement;
+        b.classList.add('is-portrait');
+        b.style.backgroundImage = `url(${img.currentSrc || img.src})`;
+      }
+    };
+    if (img.complete) mark(); else img.addEventListener('load', mark);
+  });
+
   document.querySelectorAll<HTMLElement>('[data-evts]').forEach((root) => {
     const track = root.querySelector<HTMLElement>('.evts-track')!;
     const slides = Array.from(root.querySelectorAll<HTMLElement>('.evts-slide'));

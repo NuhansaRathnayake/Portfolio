@@ -992,3 +992,15 @@ main { flex: 1; }
   @media (max-width: 640px) { .evt-gallery { height: 22rem; } }
 }
 @layer components { @media (min-width: 900px) { .evts-slide .evt-gallery { height: auto; min-height: 26rem; align-self: stretch; } } }
+@layer components {
+  /* Photos keep their natural landscape proportions: tiles are 3:2, so nothing is cropped */
+  .evts-slide .evt-gallery { height: auto; min-height: 0; align-self: center; align-content: start; grid-template-rows: auto auto; gap: 0.6rem; }
+  .evts-slide .evt-gallery .evt-photo { aspect-ratio: 3 / 2; min-height: 0; height: auto; }
+  .evts-slide .evt-gallery[data-n='1'] { grid-template-rows: auto; }
+  .evt-photo img { object-position: 50% 50%; }
+  /* Portrait photos are shown whole (not cropped) over a soft blurred copy of themselves */
+  .evt-photo.is-portrait { background-size: cover; background-position: center; }
+  .evt-photo.is-portrait::before { content: ''; position: absolute; inset: 0; background: inherit; filter: blur(14px) brightness(0.55); scale: 1.2; }
+  .evt-photo.is-portrait img { object-fit: contain; }
+  @media (max-width: 640px) { .evts-slide .evt-gallery { height: auto; } }
+}
