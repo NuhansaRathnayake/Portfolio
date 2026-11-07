@@ -86,9 +86,9 @@ export const events: EventItem[] = [
     organizer: 'IEEE Student Branch, Rajarata University of Sri Lanka',
     role: 'Event Moderator and Organizing Committee Member',
     photos: [
+      '/events/ieeextreme-stage.jpg',
       '/events/ieeextreme-team.jpg',
       '/events/ieeextreme-moderators.jpg',
-      '/events/ieeextreme-stage.jpg',
       '/events/ieeextreme-committee.jpg',
     ],
   },
@@ -101,9 +101,9 @@ export const events: EventItem[] = [
     organizer: 'GDG Sri Lanka, GDG Cloud Sri Lanka and Women Techmakers Sri Lanka',
     role: 'Participant',
     photos: [
+      '/events/buildwithai-poster.jpg',
       '/events/buildwithai-team.jpg',
       '/events/buildwithai-audience.jpg',
-      '/events/buildwithai-poster.jpg',
     ],
   },
 ];
