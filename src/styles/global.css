@@ -975,3 +975,20 @@ main { flex: 1; }
   .lightbox-count { position: absolute; left: 50%; bottom: 0.8rem; translate: -50% 0; margin: 0; padding: 0.2rem 0.8rem; border-radius: 999px; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--ink); background: rgb(0 0 0 / 0.6); }
 }
 @layer components { .lightbox { margin: auto; } .lightbox[open] { animation: lb-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); } @keyframes lb-in { from { opacity: 0; scale: 0.96; } } }
+@layer components {
+  /* Gallery: a wide lead photo on top, two smaller ones underneath (suits landscape event photos) */
+  .evt-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 1.6fr 1fr; min-height: 22rem; }
+  .evt-gallery > :first-child { grid-column: 1 / span 2; grid-row: auto; }
+  .evt-gallery[data-n='1'] { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+  .evt-gallery[data-n='1'] > :first-child { grid-column: auto; }
+  .evt-gallery[data-n='2'] { grid-template-columns: 1fr; grid-template-rows: 1.6fr 1fr; }
+  .evt-gallery[data-n='2'] > :first-child { grid-column: auto; }
+  .evt-photo img { object-position: 50% 30%; }
+}
+@layer components {
+  .evt-gallery { height: 26rem; min-height: 0; }
+  .evt-gallery .evt-photo { min-height: 0; }
+  .evt-photo img { position: absolute; inset: 0; }
+  @media (max-width: 640px) { .evt-gallery { height: 22rem; } }
+}
+@layer components { @media (min-width: 900px) { .evts-slide .evt-gallery { height: auto; min-height: 26rem; align-self: stretch; } } }

@@ -13,7 +13,7 @@ const { events } = Astro.props;
       {events.map((ev, i) => <div class="evts-slide"><EventCard event={ev} index={i} total={events.length} /></div>)}
     </div>
   </div>
-  <div class="evts-ctrl">
+  <div class:list={['evts-ctrl', events.length < 2 && 'hidden']}>
     <button type="button" data-dir="-1" aria-label="Previous event"><ChevronLeft class="h-5 w-5" aria-hidden="true" /></button>
     <div class="evts-dots" aria-hidden="true">{events.map((_, i) => <i data-dot={i}></i>)}</div>
     <button type="button" data-dir="1" aria-label="Next event"><ChevronRight class="h-5 w-5" aria-hidden="true" /></button>
