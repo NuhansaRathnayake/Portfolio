@@ -24,7 +24,7 @@ const { events } = Astro.props;
   // Portrait photos are shown whole rather than cropped into a landscape tile
   document.querySelectorAll<HTMLImageElement>('.evt-photo img').forEach((img) => {
     const mark = () => {
-      if (img.naturalHeight > img.naturalWidth) {
+      if (img.naturalWidth / img.naturalHeight < 1.45) {
         const b = img.parentElement as HTMLElement;
         b.classList.add('is-portrait');
         b.style.backgroundImage = `url(${img.currentSrc || img.src})`;
