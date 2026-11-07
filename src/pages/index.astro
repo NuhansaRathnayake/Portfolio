@@ -11,7 +11,7 @@ import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { site } from '../config/site';
-import { skillGroups, softSkills, approach, education, coursework, certifications, leadership, events } from '../data/profile';
+import { skillGroups, softSkills, approach, education, coursework, certifications, positions, eventLeaderships, events } from '../data/profile';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
@@ -192,29 +192,46 @@ const last = rest.join(' ');
 
 <SectionDivider n="04" label="Leadership" from="Projects" />
   <!-- ============ LEADERSHIP ============ -->
-  {leadership.length > 0 && (
-    <section id="leadership" class="section" aria-labelledby="lead-h">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <h2 id="lead-h" class="h2">Roles where I was responsible for a team and a result.</h2>
-        </div>
-        <ol class="timeline mt-12 max-w-3xl space-y-8" data-draw>
-          {leadership.map((l, i) => (
-            <li class="timeline-item card spot p-6" data-reveal style={`--d:${i * 140}ms`}>
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <h3 class="h3">{l.role}</h3>
+  <section id="leadership" class="section" aria-labelledby="lead-h">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2 id="lead-h" class="h2">Roles where I was responsible for a team and a result.</h2>
+      </div>
+
+      <div class="lgroup mt-12" data-reveal>
+        <h3 class="lgroup-title"><span class="mono lgroup-n">A</span>Positions</h3>
+        <div class="lgrid">
+          {positions.map((l, i) => (
+            <article class="lcard card spot" data-reveal style={`--d:${i * 100}ms`}>
+              <div class="lcard-top">
                 <span class="mono muted text-xs">{l.period}</span>
+                {l.current && <span class="chip chip-med">Current</span>}
               </div>
-              <p class="mt-1 flex flex-wrap items-center gap-2 text-accent">{l.org}{l.sample && <span class="chip chip-med">Sample</span>}</p>
+              <h4 class="h3 mt-3">{l.role}</h4>
+              <p class="mt-1 text-accent">{l.org}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="lgroup mt-16" data-reveal>
+        <h3 class="lgroup-title"><span class="mono lgroup-n">B</span>Event Leaderships</h3>
+        <div class="lgrid">
+          {eventLeaderships.map((l, i) => (
+            <article class="lcard card spot" data-reveal style={`--d:${i * 100}ms`}>
+              <div class="lcard-top"><span class="mono muted text-xs">{l.date}</span></div>
+              <h4 class="h3 mt-3">{l.event}</h4>
+              <p class="mt-1 text-accent">{l.role}</p>
+              <p class="muted mt-1 text-sm">{l.org}</p>
               <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
                 {l.points.map((p) => <li>{p}</li>)}
               </ul>
-            </li>
+            </article>
           ))}
-        </ol>
+        </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
 <SectionDivider n="05" label="Events" from="Leadership" />
   <!-- ============ EVENTS ============ -->

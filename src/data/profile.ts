@@ -47,27 +47,25 @@ export const certifications: { name: string; issuer: string; url?: string; logo?
   { name: 'GRC - Complete Practitioner Course', issuer: 'Red Team Leaders', url: '' },
 ];
 
-// Frame each entry around responsibility, teamwork and results.
-export const leadership: { role: string; org: string; period: string; points: string[]; sample?: boolean }[] = [
+// Positions held in societies and clubs (from the CV).
+export const positions: { role: string; org: string; period: string; current?: boolean }[] = [
+  { role: 'Program Team Lead', org: 'IEEE Student Branch, Rajarata University of Sri Lanka', period: 'Feb 2026 - Present', current: true },
+  { role: 'Executive Committee Member', org: 'Association of Rajarata ICT (ARICT)', period: '2024 - Present', current: true },
+  { role: 'Program Team Member', org: 'IEEE WIE, Rajarata University of Sri Lanka', period: '2025 - Present', current: true },
+  { role: 'Secretary', org: 'Microsoft Student Learning Club, Rajarata University of Sri Lanka', period: 'Jun 2025 - Oct 2025' },
+];
+
+// Events where I held a leadership role. Add more entries here.
+export const eventLeaderships: { role: string; event: string; org: string; date: string; points: string[] }[] = [
   {
-    role: 'Society or club role, for example Project Lead',
-    org: 'Your society or club',
-    period: '2025 to present',
+    role: 'Marketing Team Lead and Event Moderator',
+    event: 'Build with AI | RUSL Buildathon',
+    org: 'ARICT with GDG Sri Lanka, GDG Cloud Sri Lanka and Women Techmakers',
+    date: '1 August 2026',
     points: [
-      'Led a team of N members to deliver an event or project on schedule.',
-      'Planned the schedule, budget and task allocation, then report the result with a number.',
+      'Led the marketing effort for the event on behalf of ARICT.',
+      'Moderated the programme, guiding the flow of the day for students and academic staff.',
     ],
-    sample: true,
-  },
-  {
-    role: 'Group project lead',
-    org: 'Rajarata University of Sri Lanka',
-    period: '2026',
-    points: [
-      'Coordinated a team through sprints, tracking tasks on a Kanban board.',
-      'Handled a requirement change by re-prioritising the backlog and still delivering on time.',
-    ],
-    sample: true,
   },
 ];
 
