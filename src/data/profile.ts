@@ -106,4 +106,20 @@ export const events: EventItem[] = [
       '/events/buildwithai-audience.jpg',
     ],
   },
+  {
+    title: 'Build with AI | RUSL Buildathon',
+    type: 'AI buildathon for students',
+    detail: 'I took on two roles at the RUSL Buildathon: Marketing Team Lead for ARICT and Event Moderator. I led the promotion of the event and guided the flow of the day for students and academic staff. Speakers covered Google Cloud and Gemini Enterprise agent platforms, AI agents with the Agent Development Kit (ADK), and Agent-to-Agent (A2A) communication. It was a great lesson in teamwork and in bringing academic learning closer to industry-level AI.',
+    date: '1 August 2026',
+    venue: 'Rajarata University of Sri Lanka',
+    organizer: 'ARICT with GDG Sri Lanka, GDG Cloud Sri Lanka and Women Techmakers',
+    role: 'Event Moderator and Marketing Team Lead',
+    photos: [
+      '/events/buildathon-mic.jpg',
+      '/events/buildathon-solo.jpg',
+      '/events/buildathon-team.jpg',
+      '/events/buildathon-group.jpg',
+      '/events/buildathon-podium.jpg',
+    ],
+  },
 ];
