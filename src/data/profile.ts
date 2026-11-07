@@ -39,9 +39,11 @@ export const coursework = ['Project management', 'Information security', 'System
 
 // Certifications from the CV. Paste each credential link into `url`; the button stays inactive until a link is set.
 export const certifications: { name: string; issuer: string; url?: string; logo?: string; date?: string }[] = [
-  { name: 'Cybersecurity Foundations: GRC', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', url: '' },
-  { name: 'Foundations of Project Management', issuer: 'Google | Coursera', logo: 'issuer-google', url: '' },
-  { name: 'Leveraging AI for Governance, Risk & Compliance', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', url: '' },
+  { name: 'Cybersecurity Foundations: GRC', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', date: 'Sep 2026', url: '/certificates/cybersecurity-foundations-grc.pdf' },
+  { name: 'Foundations of Project Management', issuer: 'Google | Coursera', logo: 'issuer-google', date: 'Dec 2025', url: '/certificates/foundations-of-project-management-google.pdf' },
+  { name: 'Leveraging AI for Governance, Risk & Compliance', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', date: 'Sep 2026', url: '/certificates/leveraging-ai-grc.pdf' },
+  { name: 'Project Management Foundations', issuer: 'LinkedIn Learning', logo: 'issuer-linkedin', date: 'Nov 2026', url: '/certificates/project-management-foundations.pdf' },
+  { name: 'Build a Product Management Plan Framework in Trello', issuer: 'Coursera Project Network', date: 'Oct 2026', url: '/certificates/trello-product-management-plan.pdf' },
   { name: 'GRC - Complete Practitioner Course', issuer: 'Red Team Leaders', url: '' },
 ];
 
