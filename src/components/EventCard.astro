@@ -1,0 +1,45 @@
+---
+import { Calendar, MapPin, Building2, User, Camera } from '@lucide/astro';
+import type { EventItem } from '../data/profile';
+
+interface Props { event: EventItem; index: number; total: number }
+const { event: ev, index, total } = Astro.props;
+const all = ev.photos ?? [];
+const photos = all.slice(0, 3);
+const extra = all.length - 3;
+const slots = [0, 1, 2];
+---
+
+<article class="evt" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${total}`}>
+  <div class="evt-info">
+    <header>
+      <span class="evt-no mono">{String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+      <h3 class="evt-title">{ev.title}</h3>
+      <div class="evt-tags">
+        <span class="evt-type">{ev.type}</span>
+        {ev.sample && <span class="chip chip-med">Sample</span>}
+      </div>
+    </header>
+
+    <p class="evt-detail">{ev.detail}</p>
+
+    <dl class="evt-meta">
+      <div><dt><Calendar class="h-4 w-4" aria-hidden="true" /></dt><dd><span class="evt-k">Date</span>{ev.date}</dd></div>
+      <div><dt><MapPin class="h-4 w-4" aria-hidden="true" /></dt><dd><span class="evt-k">Venue</span>{ev.venue}</dd></div>
+      <div><dt><Building2 class="h-4 w-4" aria-hidden="true" /></dt><dd><span class="evt-k">Organised by</span>{ev.organizer}</dd></div>
+      <div><dt><User class="h-4 w-4" aria-hidden="true" /></dt><dd><span class="evt-k">Role</span>{ev.role}</dd></div>
+    </dl>
+  </div>
+
+  <div class="evt-gallery" data-n={photos.length || 3} data-photos={JSON.stringify(all)} data-title={ev.title}>
+    {slots.map((s) => photos[s] ? (
+      <button type="button" class="evt-photo" data-open={s} aria-label={extra > 0 && s === 2 ? `View all ${all.length} photos of ${ev.title}` : `Open photo ${s + 1} of ${ev.title}`}>
+        <img src={photos[s]} alt="" loading="lazy" />
+        {extra > 0 && s === 2 && <span class="evt-more">+{extra}</span>}
+      </button>
+    ) : (
+      !photos.length && <span class="evt-photo evt-empty" aria-hidden="true"><Camera class="h-6 w-6" /></span>
+    ))}
+    {!photos.length && <p class="evt-note">Event photos go here</p>}
+  </div>
+</article>

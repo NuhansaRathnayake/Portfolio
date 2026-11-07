@@ -69,29 +69,27 @@ export const leadership: { role: string; org: string; period: string; points: st
   },
 ];
 
-export const events: { title: string; type: string; date: string; role: string; detail: string; sample?: boolean }[] = [
+// Events. Put photos in /public/events/ and list them in `photos` (for example '/events/hackathon-1.jpg').
+// Entries marked `sample: true` are placeholders: replace them with your real events.
+export interface EventItem {
+  title: string; type: string; detail: string;
+  date: string; venue: string; organizer: string; role: string;
+  photos?: string[]; sample?: boolean;
+}
+export const events: EventItem[] = [
   {
-    title: 'Hackathon or competition name',
-    type: 'Competition',
-    date: 'Mar 2026',
-    role: 'Participant',
-    detail: 'What the challenge was, your part in the team and the result.',
-    sample: true,
-  },
-  {
-    title: 'Workshop or seminar name',
-    type: 'Workshop',
-    date: 'Jan 2026',
-    role: 'Attendee',
-    detail: 'Topic covered and one thing you took away, such as risk management or cybersecurity awareness.',
-    sample: true,
-  },
-  {
-    title: 'Event you organised',
-    type: 'Organised',
-    date: 'Nov 2025',
-    role: 'Organiser',
-    detail: 'Your responsibility in planning it and how many people attended.',
-    sample: true,
+    title: 'RUSLXtreme 2.0 | IEEEXtreme 19.0',
+    type: '24-hour coding competition',
+    detail: 'I served as one of three moderators for RUSLXtreme 2.0, the local chapter of IEEEXtreme 19.0, welcoming the audience and guiding the flow of the event on stage. I also worked behind the scenes as part of the organizing committee. It taught me a lot about confidence, teamwork and presence.',
+    date: '25 and 26 October 2025',
+    venue: 'Faculty of Applied Sciences premises, Rajarata University of Sri Lanka',
+    organizer: 'IEEE Student Branch, Rajarata University of Sri Lanka',
+    role: 'Event Moderator and Organizing Committee Member',
+    photos: [
+      '/events/ieeextreme-team.jpg',
+      '/events/ieeextreme-moderators.jpg',
+      '/events/ieeextreme-stage.jpg',
+      '/events/ieeextreme-committee.jpg',
+    ],
   },
 ];
