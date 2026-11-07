@@ -92,4 +92,18 @@ export const events: EventItem[] = [
       '/events/ieeextreme-committee.jpg',
     ],
   },
+  {
+    title: 'Build with AI 2026 Sri Lanka',
+    type: 'AI for Developers conference',
+    detail: 'I attended Build with AI 2026 Sri Lanka, a full day on AI for developers. Speakers from LSEG, WSO2, Veracity Group, Articom and PickMe shared practical insights and real applications of how AI is reshaping software development. It was also a great chance to connect with developers across the local tech community.',
+    date: '25 July 2026',
+    venue: 'Hatch Works, Colombo',
+    organizer: 'GDG Sri Lanka, GDG Cloud Sri Lanka and Women Techmakers Sri Lanka',
+    role: 'Participant',
+    photos: [
+      '/events/buildwithai-team.jpg',
+      '/events/buildwithai-audience.jpg',
+      '/events/buildwithai-poster.jpg',
+    ],
+  },
 ];
