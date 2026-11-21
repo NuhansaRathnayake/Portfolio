@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { Download, ArrowRight, ArrowDown, GraduationCap, MapPin, Calendar, Users, ShieldCheck, ArrowUpRight } from '@lucide/astro';
+import { Download, ArrowRight, ArrowDown, GraduationCap, MapPin, Calendar, Users, ShieldCheck, ArrowUpRight, Building2 } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import SkillCarousel from '../components/SkillCarousel.astro';
@@ -204,11 +204,13 @@ const last = rest.join(' ');
           {positions.map((l, i) => (
             <article class="lcard card spot" data-reveal style={`--d:${i * 100}ms`}>
               <div class="lcard-top">
-                <span class="mono muted text-xs">{l.period}</span>
+                <span class="lcard-date mono"><Calendar class="h-3.5 w-3.5" aria-hidden="true" />{l.period}</span>
                 {l.current && <span class="chip chip-med">Current</span>}
               </div>
-              <h4 class="h3 mt-3">{l.role}</h4>
-              <p class="mt-1 text-accent">{l.org}</p>
+              <h4 class="lcard-title">{l.role}</h4>
+              <p class="lcard-org"><Building2 class="h-4 w-4" aria-hidden="true" />{l.org}</p>
+              <p class="lcard-about">{l.about}</p>
+              <ul class="lcard-tags" aria-label="Skills">{l.tags.map((t) => <li>{t}</li>)}</ul>
             </article>
           ))}
         </div>
@@ -219,13 +221,15 @@ const last = rest.join(' ');
         <div class="lgrid">
           {eventLeaderships.map((l, i) => (
             <article class="lcard card spot" data-reveal style={`--d:${i * 100}ms`}>
-              <div class="lcard-top"><span class="mono muted text-xs">{l.date}</span></div>
-              <h4 class="h3 mt-3">{l.event}</h4>
-              <p class="mt-1 text-accent">{l.role}</p>
-              <p class="muted mt-1 text-sm">{l.org}</p>
-              {l.points && <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
-                {l.points.map((p) => <li>{p}</li>)}
-              </ul>}
+              <div class="lcard-top">
+                <span class="lcard-date mono"><Calendar class="h-3.5 w-3.5" aria-hidden="true" />{l.date}</span>
+              </div>
+              <h4 class="lcard-title">{l.event}</h4>
+              <p class="lcard-role">{l.role}</p>
+              <p class="lcard-org"><Building2 class="h-4 w-4" aria-hidden="true" />{l.org}</p>
+              <p class="lcard-about">{l.about}</p>
+              <ul class="lcard-points">{l.points.map((p) => <li>{p}</li>)}</ul>
+              <ul class="lcard-tags" aria-label="Skills">{l.tags.map((t) => <li>{t}</li>)}</ul>
             </article>
           ))}
         </div>

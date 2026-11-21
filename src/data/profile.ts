@@ -47,36 +47,68 @@ export const certifications: { name: string; issuer: string; url?: string; logo?
   { name: 'GRC - Complete Practitioner Course', issuer: 'Red Team Leaders', url: '' },
 ];
 
-// Positions held in societies and clubs (from the CV).
-export const positions: { role: string; org: string; period: string; current?: boolean }[] = [
-  { role: 'Program Team Lead', org: 'IEEE Student Branch, Rajarata University of Sri Lanka', period: 'Feb 2026 - Present', current: true },
-  { role: 'Executive Committee Member', org: 'Association of Rajarata ICT (ARICT)', period: '2024 - Present', current: true },
-  { role: 'Secretary', org: 'Microsoft Student Learning Club, Rajarata University of Sri Lanka', period: 'Jun 2025 - Oct 2025' },
+// Positions held in societies and clubs (from the CV). `about` and `tags` are drafted descriptions: edit freely.
+export const positions: { role: string; org: string; period: string; current?: boolean; about: string; tags: string[] }[] = [
+  {
+    role: 'Program Team Lead',
+    org: 'IEEE Student Branch, Rajarata University of Sri Lanka',
+    period: 'Feb 2026 - Present',
+    current: true,
+    about: "Lead the programme team that plans and runs the branch's events and activities, coordinating members, schedules and tasks.",
+    tags: ['Planning', 'Team leadership', 'Event delivery'],
+  },
+  {
+    role: 'Executive Committee Member',
+    org: 'Association of Rajarata ICT (ARICT)',
+    period: '2024 - Present',
+    current: true,
+    about: "Help steer the university's ICT association by contributing to committee decisions and organising its events and student activities.",
+    tags: ['Governance', 'Collaboration', 'Events'],
+  },
+  {
+    role: 'Secretary',
+    org: 'Microsoft Student Learning Club, Rajarata University of Sri Lanka',
+    period: 'Jun 2025 - Oct 2025',
+    about: 'Kept the club organised by handling records, communication and coordination between the committee and its members.',
+    tags: ['Documentation', 'Communication', 'Coordination'],
+  },
 ];
 
-// Events where I held a leadership role. Add more entries here.
-export const eventLeaderships: { role: string; event: string; org: string; date: string; points?: string[] }[] = [
+// Events where I held a leadership role. Add more entries here. `about`, `points` and `tags` are drafted: edit freely.
+export const eventLeaderships: { role: string; event: string; org: string; date: string; about: string; points: string[]; tags: string[] }[] = [
   {
     role: 'Marketing Team Lead and Event Moderator',
     event: 'Build with AI | RUSL Buildathon',
     org: 'ARICT with GDG Sri Lanka, GDG Cloud Sri Lanka and Women Techmakers',
     date: '1 August 2026',
+    about: 'A buildathon that brought industry-level AI innovation to the university community, with talks on Google Cloud, AI agents and the Agent Development Kit.',
     points: [
       'Led the marketing effort for the event on behalf of ARICT.',
       'Moderated the programme, guiding the flow of the day for students and academic staff.',
     ],
+    tags: ['Marketing', 'Moderation', 'Team leadership'],
   },
   {
     role: 'Project Chair',
     event: 'IT Industry Awareness Program',
     org: 'IEEE Student Branch, Rajarata University of Sri Lanka',
     date: 'July 2026',
+    about: 'A programme by the IEEE Student Branch that introduces students to the IT industry and the career paths open to them.',
+    points: [
+      'Chaired the project, owning planning, scheduling and team coordination from start to finish.',
+    ],
+    tags: ['Project management', 'Planning', 'Team leadership'],
   },
   {
     role: 'AI Stall Coordinator',
-    event: 'AIVOX',
-    org: 'FAS Explore faculty exhibition, Rajarata University of Sri Lanka',
-    date: '27, 28 and 29 June 2025',
+    event: 'AIVOX at FAS Explore',
+    org: 'Faculty of Applied Sciences, Rajarata University of Sri Lanka',
+    date: '27 to 29 June 2025',
+    about: 'An AI-themed stall at the FAS Explore faculty exhibition, presenting artificial intelligence to visitors over three days.',
+    points: [
+      'Coordinated the stall team and its day-to-day running across the exhibition.',
+    ],
+    tags: ['Coordination', 'AI', 'Public engagement'],
   },
 ];
 
