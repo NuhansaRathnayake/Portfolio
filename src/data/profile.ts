@@ -51,12 +51,11 @@ export const certifications: { name: string; issuer: string; url?: string; logo?
 export const positions: { role: string; org: string; period: string; current?: boolean }[] = [
   { role: 'Program Team Lead', org: 'IEEE Student Branch, Rajarata University of Sri Lanka', period: 'Feb 2026 - Present', current: true },
   { role: 'Executive Committee Member', org: 'Association of Rajarata ICT (ARICT)', period: '2024 - Present', current: true },
-  { role: 'Program Team Member', org: 'IEEE WIE, Rajarata University of Sri Lanka', period: '2025 - Present', current: true },
   { role: 'Secretary', org: 'Microsoft Student Learning Club, Rajarata University of Sri Lanka', period: 'Jun 2025 - Oct 2025' },
 ];
 
 // Events where I held a leadership role. Add more entries here.
-export const eventLeaderships: { role: string; event: string; org: string; date: string; points: string[] }[] = [
+export const eventLeaderships: { role: string; event: string; org: string; date: string; points?: string[] }[] = [
   {
     role: 'Marketing Team Lead and Event Moderator',
     event: 'Build with AI | RUSL Buildathon',
@@ -66,6 +65,18 @@ export const eventLeaderships: { role: string; event: string; org: string; date:
       'Led the marketing effort for the event on behalf of ARICT.',
       'Moderated the programme, guiding the flow of the day for students and academic staff.',
     ],
+  },
+  {
+    role: 'Project Chair',
+    event: 'IT Industry Awareness Program',
+    org: 'IEEE Student Branch, Rajarata University of Sri Lanka',
+    date: 'July 2026',
+  },
+  {
+    role: 'AI Stall Coordinator',
+    event: 'AIVOX',
+    org: 'FAS Explore faculty exhibition, Rajarata University of Sri Lanka',
+    date: '27, 28 and 29 June 2025',
   },
 ];
 

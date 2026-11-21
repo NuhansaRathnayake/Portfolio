@@ -223,9 +223,9 @@ const last = rest.join(' ');
               <h4 class="h3 mt-3">{l.event}</h4>
               <p class="mt-1 text-accent">{l.role}</p>
               <p class="muted mt-1 text-sm">{l.org}</p>
-              <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
+              {l.points && <ul class="muted mt-4 list-disc space-y-1.5 pl-5 marker:text-accent">
                 {l.points.map((p) => <li>{p}</li>)}
-              </ul>
+              </ul>}
             </article>
           ))}
         </div>
