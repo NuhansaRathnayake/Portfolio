@@ -63,7 +63,7 @@ export const positions: { role: string; org: string; period: string; current?: b
     period: '2024 - Present',
     current: true,
     about: "Help steer the university's ICT association by contributing to committee decisions and organising its events and student activities.",
-    tags: ['Governance', 'Collaboration', 'Events'],
+    tags: ['Collaboration', 'Events'],
   },
   {
     role: 'Secretary',
