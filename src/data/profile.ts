@@ -16,13 +16,6 @@ export const softSkills = [
   { skill: 'Leadership', evidence: 'Prioritised a gap-closing roadmap so a 12-person studio could act on it without a security team.', href: '/projects/studio-security-gap-analysis/' },
 ];
 
-export const approach = [
-  { title: 'Name the risks early', body: 'A risk register goes in the first week and gets reviewed at every status meeting. A risk written down can be owned; one left unspoken usually gets found by someone else.' },
-  { title: 'Make scope changes visible', body: 'Every change request records what it costs in time, money and risk before anyone agrees to it. Nothing is added quietly.' },
-  { title: 'Report status in plain words', body: 'Status reports say what is on track, what is not, why, and what decision is needed. A red or amber rating always comes with a reason.' },
-  { title: 'Close with lessons learned', body: 'Every project ends with a short review of what worked and what to change, written down so the next team can use it.' },
-];
-
 export const education: { degree: string; school: string; period: string; tag: string; note?: string }[] = [
   {
     degree: 'BSc. Information Technology',
@@ -34,8 +27,6 @@ export const education: { degree: string; school: string; period: string; tag: s
   { degree: 'G.C.E. Advanced Level', school: 'Pushpadana Girls\u2019 College, Kandy', period: '2021', tag: 'Advanced Level' },
   { degree: 'G.C.E. Ordinary Level', school: 'Viharamahadevi Girls\u2019 College, Kandy', period: '2018', tag: 'Ordinary Level' },
 ];
-
-export const coursework = ['Project management', 'Information security', 'Systems analysis and design', 'Database systems', 'Software engineering'];
 
 // Certifications from the CV. Paste each credential link into `url`; the button stays inactive until a link is set.
 export const certifications: { name: string; issuer: string; url?: string; logo?: string; date?: string }[] = [

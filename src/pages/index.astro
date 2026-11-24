@@ -11,7 +11,7 @@ import { technicalSkills, nonTechnicalSkills } from '../data/skills';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { site } from '../config/site';
-import { skillGroups, softSkills, approach, education, coursework, certifications, positions, eventLeaderships, events } from '../data/profile';
+import { skillGroups, softSkills, education, certifications, positions, eventLeaderships, events } from '../data/profile';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const grcCount = (await getCollection('grc')).length;
