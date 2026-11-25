@@ -1047,3 +1047,8 @@ main { flex: 1; }
   .proj-hero { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); max-width: 56rem; }
   .proj-hero img { width: 100%; height: auto; display: block; }
 }
+
+@layer components {
+  .proj-sub { margin-top: 0.3rem; font-style: italic; color: #9ca3af; font-size: 1rem; line-height: 1.4; }
+  .proj-sub-lg { font-size: 1.25rem; margin-top: 0.5rem; }
+}
