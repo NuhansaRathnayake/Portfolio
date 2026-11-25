@@ -4,11 +4,12 @@ import { ArrowLeft } from '@lucide/astro';
 import Base from '../../layouts/Base.astro';
 
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-  return projects.map((entry, i) => ({
-    params: { slug: entry.id },
-    props: { entry, next: projects[i + 1] ?? null },
-  }));
+  const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  const listed = all.filter((p) => !p.data.hidden);
+  return all.map((entry) => {
+    const i = listed.findIndex((p) => p.id === entry.id);
+    return { params: { slug: entry.id }, props: { entry, next: i >= 0 ? listed[i + 1] ?? null : null } };
+  });
 }
 
 const { entry, next } = Astro.props;
@@ -26,11 +27,18 @@ const d = entry.data;
       <p class="lede mt-5">{d.summary}</p>
     </header>
 
+    {d.image && (
+      <figure class="proj-hero mt-10">
+        <img src={d.image} alt={d.imageAlt ?? ''} width="1600" height="1000" decoding="async" />
+      </figure>
+    )}
+
     <dl class="mt-10 grid grid-cols-2 gap-x-8 gap-y-5 border-y border-line py-6 sm:grid-cols-4">
       <div><dt class="muted text-sm">Role</dt><dd class="mt-1 font-medium">{d.role}</dd></div>
       <div><dt class="muted text-sm">Method</dt><dd class="mt-1 font-medium">{d.method}</dd></div>
-      <div><dt class="muted text-sm">Duration</dt><dd class="mt-1 font-medium">{d.duration}</dd></div>
-      <div><dt class="muted text-sm">Team</dt><dd class="mt-1 font-medium">{d.team}</dd></div>
+      {d.duration && <div><dt class="muted text-sm">Duration</dt><dd class="mt-1 font-medium">{d.duration}</dd></div>}
+      {d.team && <div><dt class="muted text-sm">Team</dt><dd class="mt-1 font-medium">{d.team}</dd></div>}
+      {d.tags.length > 0 && <div><dt class="muted text-sm">Stack</dt><dd class="mt-1 font-medium">{d.tags.join(', ')}</dd></div>}
     </dl>
 
     <div class="md mt-10">

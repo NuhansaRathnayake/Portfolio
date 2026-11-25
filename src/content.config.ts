@@ -11,10 +11,14 @@ const projects = defineCollection({
     kind: z.enum(['Self-initiated', 'University', 'Team', 'Volunteer', 'Hackathon', 'Work']),
     role: z.string(),
     method: z.string(),
-    duration: z.string(),
-    team: z.string(),
+    duration: z.string().optional(),
+    team: z.string().optional(),
     outcome: z.string(), // one-line headline result shown on the project list
     tags: z.array(z.string()).default([]),
+    image: z.string().optional(), // thumbnail in /public/projects/
+    imageAlt: z.string().optional(),
+    repo: z.string().url().optional(), // GitHub link for the View project button
+    hidden: z.boolean().default(false), // kept as a page but not listed
     order: z.number().default(99),
   }),
 });
