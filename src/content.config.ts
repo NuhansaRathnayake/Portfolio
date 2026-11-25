@@ -17,6 +17,8 @@ const projects = defineCollection({
     tags: z.array(z.string()).default([]),
     image: z.string().optional(), // thumbnail in /public/projects/
     imageAlt: z.string().optional(),
+    repo: z.string().url().optional(), // GitHub link for the View project button
+    hidden: z.boolean().default(false), // kept as a page but not listed
     order: z.number().default(99),
   }),
 });
