@@ -7,7 +7,12 @@ const { project, index = 0 } = Astro.props;
 const d = project.data;
 ---
 
-<article class="card spot group flex h-full flex-col p-6 sm:p-7" data-reveal style={`--d:${index * 110}ms`}>
+<article class="card spot group flex h-full flex-col overflow-hidden p-6 sm:p-7" data-reveal style={`--d:${index * 110}ms`}>
+  {d.image && (
+    <div class="proj-thumb">
+      <img src={d.image} alt={d.imageAlt ?? ''} width="1600" height="1000" loading="lazy" decoding="async" />
+    </div>
+  )}
   <div><span class="chip chip-neutral">{d.kind}</span></div>
   <h3 class="h3 mt-5 text-[1.35rem] leading-snug">
     <a href={`/projects/${project.id}/`} class="after:absolute after:inset-0 after:z-10 after:content-['']">{d.title}</a>

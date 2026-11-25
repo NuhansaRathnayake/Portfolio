@@ -1038,3 +1038,12 @@ main { flex: 1; }
 @layer components {
   .lcard-top { min-height: 1.6rem; }
 }
+
+@layer components {
+  .proj-thumb { margin: -1.5rem -1.5rem 1.5rem; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--line); background: #0b0f0e; }
+  @media (min-width: 640px) { .proj-thumb { margin: -1.75rem -1.75rem 1.5rem; } }
+  .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .card:hover .proj-thumb img { scale: 1.04; }
+  .proj-hero { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); max-width: 56rem; }
+  .proj-hero img { width: 100%; height: auto; display: block; }
+}
