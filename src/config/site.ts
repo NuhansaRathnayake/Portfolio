@@ -44,6 +44,5 @@ export const nav = [
   { key: 'projects', label: 'Projects', href: '/#projects' },
   { key: 'leadership', label: 'Leadership', href: '/#leadership' },
   { key: 'events', label: 'Events', href: '/#events' },
-  { key: 'grc', label: 'GRC', href: '/grc/' },
   { key: 'contact', label: 'Contact', href: '/#contact' },
 ];
