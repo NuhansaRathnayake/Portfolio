@@ -24,6 +24,7 @@ const d = entry.data;
     <header class="mt-8 max-w-4xl">
       <p><span class="chip chip-neutral">{d.kind}</span></p>
       <h1 class="h1 mt-4">{d.title}</h1>
+      {d.subtitle && <p class="proj-sub proj-sub-lg">{d.subtitle}</p>}
       <p class="lede mt-5">{d.summary}</p>
     </header>
 

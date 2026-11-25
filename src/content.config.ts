@@ -7,6 +7,7 @@ const projects = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().optional(), // shown under the title in grey italics
     summary: z.string(),
     kind: z.enum(['Self-initiated', 'University', 'Team', 'Volunteer', 'Hackathon', 'Work']),
     role: z.string(),
